@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='view-filter'>
     <dl class="dl-group first-cat">
       <dt>选题模型：</dt>
       <b-nav pills>

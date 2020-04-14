@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrapper" v-title data-title="综合推荐">
+  <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
     <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
     <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
@@ -122,7 +122,7 @@ export default {
 </style>
 
 <style lang="sass" scoped>
-.page-wrapper
+.xuanti-page-wrapper
   overflow: inherit
   height: 100%
 .pagination
@@ -131,7 +131,7 @@ export default {
 @media (min-width: 100%)
   .container
     width: 100%
-.page-wrapper
+.xuanti-page-wrapper
   width: 100%
   margin: 0px auto 0
   overflow: auto

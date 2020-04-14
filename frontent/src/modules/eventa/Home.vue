@@ -2,68 +2,71 @@
   <div class="page-wrapper" v-title data-title="事件分析">
     <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
     <v-search-box :search-input.sync="searchInput"></v-search-box>
-      <table border="" cellspacing="" cellpadding="" style="width:1400px">
+    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 100%">
             <tr>
-                <td style="width:500px; height: 300px">
-                  <div id="left_up" ref="myCharts" style="width:500px; height: 300px"></div>
+                <td style="width:50%; height: 50%">
+                  <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
                 </td>
-                <td style="width:500px; height: 300px">
-                  <div id="right_up" ref="myCharts" style="width:500px; height: 300px"></div>
+                <td style="width:50%; height: 50%">
+                  <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
                 </td>
             </tr>
             <tr>
-                <td style="width:500px; height: 300px">
-                  <!-- <div id="left_down" ref="myCharts" style="width:500px; height: 300px"></div> -->
-                  <table border="" > 
-                    <tr>
-                      <td style="width:250px; height: 40px">专家观点聚类</td>
+                <td style="width:50%; height: 50%">
+                  <!-- <div id="left_down" ref="myCharts" style="width:100%; height: 100%"></div> -->
+                  <table border="" style="width:100%; height: 100%">
+                    <tr style="width:100%; height: 40px">
+                      <th colspan="2" style="width:100%; height: 40px; vertical-align: middle !important;text-align: center">
+                        专家观点
+                      </th>
                     </tr>
                     <tr>
-                      <td style="width:50px; height: 40px">同类观点数量</td>
-                      <td style="width:450px; height: 40px">中心观点</td>
+                      <td style="width:20%; height: 40px">观点数量</td>
+                      <td style="width:80%; height: 40px">中心观点</td>
                     </tr>
                     <tr>
-                      <td style="width:30px; height: 40px">22</td>
-                      <td style="width:470px; height: 40px">外交部：反对以航行自由名损害中国主权和安全</td>
+                      <td style="width:20%; height: 40px">22</td>
+                      <td style="width:80%; height: 40px">外交部：反对以航行自由名损害中国主权和安全</td>
                     </tr>
                     <tr>
-                      <td style="width:30px; height: 40px">12</td>
-                      <td style="width:470px; height: 40px">外交部：美方“横行自由才是南海局势紧张根源</td>
+                      <td style="width:20%; height: 40px">12</td>
+                      <td style="width:80%; height: 40px">外交部：美方“横行自由才是南海局势紧张根源</td>
                     </tr>
                     <tr>
-                      <td style="width:30px; height: 40px">17</td>
-                      <td style="width:470px; height: 40px">美军接连两天在南海动 解放军警告驱离</td>
+                      <td style="width:20%; height: 40px">17</td>
+                      <td style="width:80%; height: 40px">美军接连两天在南海动 解放军警告驱离</td>
                     </tr>
                     <tr>
-                      <td style="width:30px; height: 40px">26</td>
-                      <td style="width:470px; height: 40px">挑衅？美国派军舰连续两天闯中国南岛礁 ，被我军海空兵力警告驱离</td>
+                      <td style="width:20%; height: 40px">26</td>
+                      <td style="width:80%; height: 40px">挑衅？美国派军舰连续两天闯中国南岛礁 ，被我军海空兵力警告驱离</td>
                     </tr>
                   </table>
                 </td>
-                <td style="width:500px; height: 300px">
-                  <table border="" > 
-                    <tr>
-                      <td style="width:250px; height: 40px">专家参与度统计</td>
+                <td style="width:50%; height: 50%">
+                  <table border="" style="width:100%; height: 100%">
+
+                    <tr style="width:100%; height: 40px">
+                      <th colspan="3" style="width:100%; height: 40px vertical-align: middle !important;text-align: center" >热门专家</th>
                     </tr>
                     <tr>
-                      <td style="width:250px; height: 40px">专家</td>
-                      <td style="width:250px; height: 40px">热度</td>
-                      <td style="width:250px; height: 40px">职位</td>
+                      <td style="width:30%; height: 40px">专家</td>
+                      <td style="width:30%:; height: 40px">热度</td>
+                      <td style="width:40%; height: 40px">职位机构</td>
                     </tr>
                     <tr>
-                      <td style="width:250px; height: 40px">戴旭</td>
-                      <td style="width:250px; height: 40px">100</td>
-                      <td style="width:250px; height: 40px">新闻媒体</td>
+                      <td style="width:30%; height: 40px">戴旭</td>
+                      <td style="width:30%; height: 40px">100</td>
+                      <td style="width:40%; height: 40px">新闻媒体</td>
                     </tr>
                     <tr>
-                      <td style="width:250px; height: 40px">华春莹</td>
-                      <td style="width:250px; height: 40px">120</td>
-                      <td style="width:250px; height: 40px">外交部</td>
+                      <td style="width:30%; height: 40px">华春莹</td>
+                      <td style="width:30%; height: 40px">120</td>
+                      <td style="width:40%; height: 40px">外交部</td>
                     </tr>
                     <tr>
-                      <td style="width:250px; height: 40px">博尔顿</td>
-                      <td style="width:250px; height: 40px">80</td>
-                      <td style="width:250px; height: 40px">美国国家安全顾问</td>
+                      <td style="width:30%; height: 40px">博尔顿</td>
+                      <td style="width:30%; height: 40px">80</td>
+                      <td style="width:30%; height: 40px">美国国家安全顾问</td>
                     </tr>
                   </table>
                 </td>
@@ -72,7 +75,6 @@
   <v-footer></v-footer>
   </div>
 </template>
-
 <script type="text/ecmascript-6">
 
 import Colors from 'components/Colors'
@@ -523,56 +525,55 @@ export default {
 </style>
 
 <style type="text/css">
+table.event-table
 	table{
-		border-collapse:collapse;
-		table-layout:fixed;
-		border-radius:5px;
-		overflow:hidden;
-		margin: 0px auto;
-		border:0px solid #010811 ;
-		background-color: white;
-		color: #01060f;
-		}
-	 table td,th{
-		/* padding: 5px;
-		width: 33%; */
-		text-align: center;
-		border:1px solid #01070f ;
-		vertical-align:middle;
-		/* font-size: 15px; */
-		width: 120%;
-	}
-
-	 .table-color-green{
-	 	background-color: green;
-
-	 }
-
-	 .table-color-grey{
-
-	 	background-color:  #696969;
-	 }
-
-	  .table-color-black{
-
-	 	background-color: black;
-	 }
-
-	 .jt-up-color{
-	   color:red;
-	 }
-
-	 .parent-position{
-	 	position: relative;
-	 }
-
-	 .child-position{
-	 	    position: absolute;
-		    right: 0;
-		    bottom: 0;
-	 }
-
-	 .main-font{
-	 	    font-size: 23px;
-	 }
+		border: 2px solid #42b983;
+    border-radius: 3px;
+    background-color: #fff;
+  }
+table.event-table
+  th {
+    background-color: #42b983;
+    color: rgba(255, 255, 255, 0.66);
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+table.event-table
+  td {
+    background-color: #f9f9f9;
+    min-width: 120px;
+    padding: 1px 1px;
+  }
+table.event-table
+  th.active {
+    color: #fff;
+  }
+table.event-table
+  th.active .arrow {
+    opacity: 1;
+  }
+table.event-table
+  .arrow {
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    opacity: 0.66;
+  }
+table.event-table
+  .arrow.asc {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #fff;
+  }
+table.event-table
+  .arrow.dsc {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #fff;
+  }
 </style>

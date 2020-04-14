@@ -9,6 +9,7 @@ import Eventa from 'modules/eventa/Home.vue'
 Vue.use(Router)
 
 const router = new Router({
+  base: '/WuhanBoat',
   routes: [
     {
       // 首页路由

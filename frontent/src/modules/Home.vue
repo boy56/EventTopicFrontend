@@ -11,11 +11,11 @@
           <table border="" cellspacing="" cellpadding="" style="background-color: transparent">
             <tr v-bind:key=v v-for="v in left_up_list" @click="clicking(v.index)">
               <font size="3" color="white">
-                <td style="width:20%">{{v.topic}}</td>
-                <td style="width:50%">{{v.date}}</td>
+                <td style="width:30%">{{v.topic}}</td>
+                <td style="width:70%">{{v.date}}</td>
                 <a :href="v.link">
                     <font size="3" color="white">
-                    <td style="width:30%"> {{v.text | ellipsis}}</td>
+                    <td style="width:100%"> {{v.text | ellipsis}}</td>
                     </font>
                 </a>
               </font>
@@ -37,7 +37,7 @@
             <tr v-bind:key=tab v-for="tab in right_up_list">
               <a :href="tab.url">
                 <td style="width:20%"><font size="3" color="white">{{tab.user| ellipsisname}}</font></td>
-                <td style="width:80%"><font size="3" color="white">{{tab.point| ellipsis}}</font></td>
+                <td style="width:100%"><font size="3" color="white">{{tab.point| ellipsis}}</font></td>
               </a>
             </tr>
           </table>

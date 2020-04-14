@@ -1,8 +1,8 @@
 <template>
-  <div class="page-wrapper" v-title data-title="专家观点">
+  <div class="view-page-wrapper" v-title data-title="专家观点">
     <v-header></v-header>
     <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
-    <!-- <v-search-box :search-input.sync="searchInput"></v-search-box> -->
+    <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
@@ -20,7 +20,7 @@
 import Colors from 'components/Colors'
 import List from 'components/list/view_List'
 import SearchBox from 'components/search/SearchBox'
-import FilterTab from 'components/filtertab/FilterTab'
+import FilterTab from 'components/filtertab/view_FilterTab'
 import Data from "assets/data/view_data.json"
 import Header from 'components/header/view_Header.vue'
 import Footer from 'components/header/Footer.vue'
@@ -118,14 +118,14 @@ export default {
   flex-direction: column
   .r-header
     flex: 0 0 auto
-  .page-wrapper
+  .view-page-wrapper
     flex: 1 0 auto
   .r-footer
     flex: 0 0 auto
 </style>
 
 <style lang="sass" scoped>
-.page-wrapper
+.view-page-wrapper
   overflow: inherit
   height: auto
 .pagination
@@ -134,7 +134,7 @@ export default {
 @media (min-width: 100%)
   .container
     width: 100%
-.page-wrapper
+.view-page-wrapper
   width: 100%
   margin: 0px auto 0
   overflow: auto
@@ -143,11 +143,11 @@ export default {
   position: relative
   flex-direction: column
 @media (min-width: 100%)
-  .page-wrapper
+  .view-page-wrapper
     width: 100%
     min-height: 100%
 @media (max-width: 100%)
-  .page-wrapper
+  .view-page-wrapper
     margin-top: 0
 .roll-warning-list-move
   transition: transform 1s
