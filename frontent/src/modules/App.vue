@@ -1,8 +1,8 @@
 <template>
-  <div id="app" class="real-body">
-    <!--通过vue-router控制主内容区域变换-->
-    <router-view></router-view>
-  </div>
+  <!-- <div id="app" class="real-body"> -->
+    <!--通过vue-router控制主内容区域变换-->    
+  <router-view></router-view>
+  <!-- </div> -->
 </template>
 
 <script type="text/ecmascript-6">
