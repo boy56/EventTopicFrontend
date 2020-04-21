@@ -1,12 +1,12 @@
 <template>
   <div id="app" class="real-body">
     <div :href="'/' + jumpto" class="con-box l-t-box">
+    <router-link :to="'/xuanti'">
     <div class="box light-corner view-core toogle-tab-element">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
-              <router-link :to="'/xuanti'">
-              综合选题</router-link><span class="unqie-guang"></span></div>
+              综合选题<span class="unqie-guang"></span></div>
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
           </div>
         </div>
@@ -18,6 +18,7 @@
               </div>
         </div>
     </div>
+    </router-link>
       <!-- <ul>
           <table border="" cellspacing="" cellpadding="" style="background-color: transparent">
             <tr v-bind:key=v v-for="v in left_up_list" @click="clicking(v.index)">
@@ -36,12 +37,12 @@
     </div>
     <div class="con-box r-t-box" @click="goto">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
+      <router-link :to="'/view'">
       <div class="box light-corner view-core toogle-tab-element">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
-              <router-link :to="'/view'">
-              专家观点</router-link><span class="unqie-guang"></span></div>
+              专家观点<span class="unqie-guang"></span></div>
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
           </div>
         </div>
@@ -53,6 +54,7 @@
               </div>
         </div>
     </div>
+    </router-link>
     </div>
     <div class="con-box l-b-box" @click="goto">
       <center>
@@ -75,7 +77,8 @@
         <div class="module-wrapper opinion-emotion">
                     <div class="module-title"><span class="iconfont icon-yuqing"></span>舆论情绪</div>
                     <div id="discuss-emotion" class="box light-corner discuss-emotion"></div>
-                </div>
+        </div>
+        <Echarts theme="ring" :option="options.right1_down.option" className="chart" ></Echarts>
      </div>
       <div class="chart">
         <Echarts theme="ring" :option="options.right_down.option" className="chart" ></Echarts>
@@ -343,7 +346,7 @@
       this.left_up_list = Data.topics // ChartData['topics'];
       this.right_up_list = Data.exports[this.topic] // ChartData['exports'][this.topic];
       // this.options.right_down.option = ChartLib['南海气泡图'].option;
-      // this.options.right1_down.option = ChartLib['南海气泡图'].option;
+      this.options.right1_down.option = ChartLib['情绪分布图'].option;
       this.options.left_down.option = ChartLib['折线图南海'].option;
     },
     created () {
