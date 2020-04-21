@@ -1,6 +1,6 @@
 <template>
   <div class='view-filter'>
-    <dl class="dl-group first-cat">
+    <dl class="view-dl-group first-cat">
       <dt>选题模型：</dt>
       <b-nav pills>
         <b-nav-item :active="!selectedCats" @click="selectAllCats()">全部事件</b-nav-item>
@@ -30,7 +30,7 @@
         </b-nav-item> --> -->
       </b-nav>
     </dl>
-    <dl class="dl-group first-cat">
+    <dl class="view-dl-group first-cat">
       <dt>内容分类：</dt>
       <b-nav pills>
         <b-nav-item :active="!selectedCats" @click="selectAllLegacyTypes()">全部类别</b-nav-item>
@@ -51,7 +51,7 @@
         </b-nav-item>
       </b-nav>
     </dl>
-    <dl class="dl-group others">
+    <dl class="view-dl-group others">
       <dt>语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言：</dt>
       <ul class="list-ul">
         <li class="list-btn" v-for="(lang, idx) in languages"
@@ -62,7 +62,7 @@
         </li>
       </ul>
     </dl>
-    <dl class="dl-group others">
+    <dl class="view-dl-group others">
       <dt>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</dt>
       <ul class="list-ul">
         <li class="list-btn" v-for="(loc, idx) in locations"
