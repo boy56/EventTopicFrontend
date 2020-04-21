@@ -252,11 +252,11 @@ export default {
     var ru_data = this.genData(50);
     var right_up_option = {
         title: {
-          text: '今日新闻主题： 美军两架B-1B轰炸机与日空自联演后飞越南海上空 \n 后续预测分布： ',
+          text: '今日新闻主题：美军两架B-1B轰炸机与日空自联演后飞越南海上空\n未来预测分布：',
           subtext: '',
           x: 'center',
           "textStyle": {
-            "fontSize": 18
+            "fontSize": 32
            }
         },
         tooltip: {
@@ -267,7 +267,10 @@ export default {
           orient: 'vertical',
           left: '70%',
           y: 'center',
-          data: ["美军军舰入侵南海： 35% ", "处于和平状态： 50%", "美军挑起南海自由航行争端：15%"]
+          data: ["美军军舰入侵南海： 35% ", "处于和平状态： 50%", "美军挑起南海自由航行争端：15%"],
+          "textStyle": {
+            "fontSize": 32
+           }
         },
         color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
            ],
@@ -277,6 +280,9 @@ export default {
             type: 'pie',
             radius: '70%',
             center: ['35%', '50%'],
+            "textStyle": {
+            "fontSize": 32
+           },
             data: [
               {
                 name: "美军军舰入侵南海",
