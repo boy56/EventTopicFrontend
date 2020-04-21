@@ -1,8 +1,11 @@
 <template>
   <div class="page-wrapper" v-title data-title="事件分析">
-    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
-    <v-search-box :search-input.sync="searchInput"></v-search-box>
-    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 100%">
+    <div class='search' style="width:100%">
+      <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+      <v-search-box :search-input.sync="searchInput"></v-search-box>
+      <!-- 注释，单行或多行 -->
+    </div>
+    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 1200px">
             <tr>
                 <td style="width:50%; height: 50%">
                   <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
