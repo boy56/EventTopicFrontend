@@ -9,6 +9,10 @@ var fish_data = {}
 var dataBJ = Data.event1
 var dataSH = Data.event2
 var dataGZ = Data.event3
+var datelist = [];
+var neg = [];
+var pos = [];
+var influence = [];
 // var dataBJ = [
 //   // [1,Data.event.text,Data.event.emotion]
 //   [29,55,9,56,0.46,18,6,"ningyx"],
@@ -58,6 +62,10 @@ var itemStyle = {
   shadowOffsetX: 0,
   shadowOffsetY: 0,
   shadowColor: 'rgba(0, 0, 0, 0.5)'
+}
+
+function stripDate (datestr) {
+  return new Date(datestr).format('M-d');
 }
 
 function fishBone (data) {
@@ -2632,6 +2640,187 @@ const ChartLib = {
               type: 'scatter',
               itemStyle: itemStyle,
               data: dataGZ
+          }
+      ]
+    }
+  },
+  '情绪分布图': {
+    option: {
+        legend: {
+          icon: 'circle',
+          x: 'left',
+          itemWidth: 13,
+          itemHeight: 13,
+          padding: [10, 20, 10, 10],
+          left: '30%',
+          top: '5%',
+          textStyle: {
+              color: '#fff',
+              fontSize: 12
+          },
+          data: ['正面','负面','影响力指数']
+      },
+      tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+              type: 'cross',
+              label: {
+                  backgroundColor: '#0775e4'
+              },
+              crossStyle: {
+                  color: '#bbb'
+              }
+          },
+          confine: true,
+          extraCssText: 'max-width: 230px; background:rgba(17, 47, 117, 0.8); border:1px solid #0775e4',
+          formatter: '2017-{b}<br> \n' +
+              '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#1e98ff"> \n' +
+              '</span>{a0} : {c0}%<br> \n' +
+              '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FF5421"> \n' +
+              '</span>{a1} : {c1}%<br> \n' +
+              '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FFC11E"> \n' +
+              '</span>{a2} : {c2}</div>',
+      },
+      grid: {
+        left: '2%',
+        right: '5%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: datelist.map(stripDate),
+                axisLabel: {
+                  textStyle: {
+                      color: '#fff',
+                      fontSize: 12
+                  },
+                  interval: 1,
+                },
+                axisLine: {
+                  lineStyle: {
+                      color: '#2e63cf'
+                  }
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                      color: '#052f5d'
+                    },
+                    width: 1
+                }
+            }
+      ],
+      yAxis: [
+          {
+              type: 'value',
+              max: 100,
+              axisLabel: {
+                  textStyle: {
+                      color: '#fff',
+                      fontSize: 12
+                  }
+              },
+              axisLine: {
+                  lineStyle: {
+                      color: '#0775e4'
+                  }
+              },
+              splitLine: {
+                  show: true,
+                  lineStyle: {
+                    color: '#052f5d'
+                  },
+                  width: 1
+              }
+          },
+      ],
+      series: [
+          {
+              name: '负面',
+              type: 'line',
+              smooth: true,
+              // symbol: 'circle',
+              // showSymbol: false,
+              lineStyle: {
+                  normal: {
+                      width: 1
+                  }
+              },
+              areaStyle: {
+                  normal: {
+                      // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                      //     offset: 0,
+                      //     color: 'rgba(30, 152, 255, 0.9)'
+                      // }, {
+                      //     offset: 1,
+                      //     color: 'rgba(30, 152, 255, 0.3)'
+                      // }], false),
+                      // shadowColor: 'rgba(0, 0, 0, 0.1)',
+                      // shadowBlur: 10
+                  }
+              },
+              itemStyle: {
+                  normal: {
+                      color: '#1e98ff',
+                      borderColor: '#1e98ff',
+                      // borderWidth: 12
+
+                  }
+              },
+              data: neg
+          },
+          {
+              name: '正面',
+              type: 'line',
+              smooth: true,
+              // symbol: 'circle',
+              // showSymbol: false,
+              lineStyle: {
+                  normal: {
+                      width: 1
+                  }
+              },
+              areaStyle: {
+                  normal: {
+                      // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                      //     offset: 0,
+                      //     color: 'rgba(255, 84, 33, 0.9)'
+                      // }, {
+                      //     offset: 1,
+                      //     color: 'rgba(255, 84, 33, 0.3)'
+                      // }], false),
+                      // shadowColor: 'rgba(0, 0, 0, 0.1)',
+                      // shadowBlur: 10
+                  }
+              },
+              itemStyle: {
+                  normal: {
+                      color: '#FF5421',
+                      borderColor: '#FF941E',
+                  }
+              },
+              data: pos
+          },
+          {
+              name: '影响力指数',
+              type: 'line',
+              lineStyle: {
+                  normal: {
+                      color: '#FFC11E',
+                      width: 1
+                  }
+              },
+              itemStyle: {
+                  normal: {
+                      color: '#FFC11E',
+                      borderColor: '#FFC11E',
+                      borderWidth: 9
+                  }
+              },
+              data: influence
           }
       ]
     }
