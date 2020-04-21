@@ -1,7 +1,7 @@
 <template>
   <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
-    <v-filter-tab></v-filter-tab>
-    <!-- <v-search-box :search-input.sync="searchInput"></v-search-box> -->
+    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+    <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
