@@ -2497,10 +2497,14 @@ const ChartLib = {
           }
       },
       grid: {
-          left: '12%',
-          right: 100,
-          top: '18%',
-          bottom: '10%'
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 0,
+          left: '1%',
+          right: '1%',
+          top: '1%',
+          bottom: '1%'
       },
       tooltip: {
           padding: 10,
@@ -2537,7 +2541,7 @@ const ChartLib = {
           nameGap: 20,
           nameTextStyle: {
               color: '#fff',
-              fontSize: 16
+              fontSize: 8
           },
           max: 100,
           axisLine: {

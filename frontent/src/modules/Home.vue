@@ -1,13 +1,24 @@
 <template>
   <div id="app" class="real-body">
     <div :href="'/' + jumpto" class="con-box l-t-box">
-      <!-- <Echarts theme="ring" :option="options.left_up.option" className="chart" ></Echarts> -->
-      <center>
-        <router-link :to="'/xuanti'">
-          <font size="6" color="white">综合选题</font>
-        </router-link>
-      </center>
-      <ul>
+    <div class="box light-corner view-core toogle-tab-element">
+        <div class="view-table start_box box_align pack_center">
+              <div class="view-table start_box box_align pack_center">
+              <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
+              <router-link :to="'/xuanti'">
+              综合选题</router-link><span class="unqie-guang"></span></div>
+              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
+          </div>
+        </div>
+        <div class="view-list-wrapper">
+              <div class="view-list tianjin-view-div" id="inner-view-div" style="z-index: 100;">
+                  <ul class="list-item inner-view-list" id="inner-view-list" v-bind:key=v v-for="v in left_up_list">
+                        {{v.text}}
+                  </ul>
+              </div>
+        </div>
+    </div>
+      <!-- <ul>
           <table border="" cellspacing="" cellpadding="" style="background-color: transparent">
             <tr v-bind:key=v v-for="v in left_up_list" @click="clicking(v.index)">
               <font size="3" color="white">
@@ -21,28 +32,27 @@
               </font>
             </tr>
           </table> 
-        
-      </ul>
+      </ul> -->
     </div>
     <div class="con-box r-t-box" @click="goto">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
-      <center>
-        <router-link :to="'/view'">
-          <font size="6" color="white">专家观点</font>
-        </router-link>
-      </center>
-      <ul>
-        <font size="3" color="white">
-          <table border="" cellspacing="" cellpadding="" style="background-color: transparent">
-            <tr v-bind:key=tab v-for="tab in right_up_list">
-              <a :href="tab.url">
-                <td style="width:20%"><font size="3" color="white">{{tab.user| ellipsisname}}</font></td>
-                <td style="width:100%"><font size="3" color="white">{{tab.point| ellipsis}}</font></td>
-              </a>
-            </tr>
-          </table>
-        </font>
-      </ul>
+      <div class="box light-corner view-core toogle-tab-element">
+        <div class="view-table start_box box_align pack_center">
+              <div class="view-table start_box box_align pack_center">
+              <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
+              <router-link :to="'/view'">
+              专家观点</router-link><span class="unqie-guang"></span></div>
+              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
+          </div>
+        </div>
+        <div class="view-list-wrapper">
+              <div class="view-list tianjin-view-div" id="inner-view-div" style="z-index: 100;">
+                  <ul class="list-item inner-view-list" id="inner-view-list" v-bind:key=v v-for="v in right_up_list">
+                        {{v.text}}
+                  </ul>
+              </div>
+        </div>
+    </div>
     </div>
     <div class="con-box l-b-box" @click="goto">
       <center>
@@ -61,6 +71,15 @@
         <Echarts theme="ring" :option="options.right_down.option" className="chart" ></Echarts>
       </div>
     </div>
+     <div class="con-box r-b1-box" @click="goto">
+        <div class="module-wrapper opinion-emotion">
+                    <div class="module-title"><span class="iconfont icon-yuqing"></span>舆论情绪</div>
+                    <div id="discuss-emotion" class="box light-corner discuss-emotion"></div>
+                </div>
+     </div>
+      <div class="chart">
+        <Echarts theme="ring" :option="options.right_down.option" className="chart" ></Echarts>
+      </div>
     <div class="center-box">
       <!-- <div class="chart" id="echarts-globe"></div> -->
     </div>
@@ -146,6 +165,7 @@
           right_up: { option: {}, update: () => { return; } },
           left_down: { option: {}, update: () => { return; } },
           right_down: { option: {}, update: () => { return; } },
+          right1_down: { option: {}, update: () => { return; } },
         },
         globe_t_option: {
           backgroundColor: 'rgba(0, 0, 0, 0)',
@@ -322,7 +342,8 @@
       console.log(this.result);
       this.left_up_list = Data.topics // ChartData['topics'];
       this.right_up_list = Data.exports[this.topic] // ChartData['exports'][this.topic];
-      this.options.right_down.option = ChartLib['南海气泡图'].option;
+      // this.options.right_down.option = ChartLib['南海气泡图'].option;
+      // this.options.right1_down.option = ChartLib['南海气泡图'].option;
       this.options.left_down.option = ChartLib['折线图南海'].option;
     },
     created () {
@@ -604,11 +625,16 @@
   }
 </script>
 
+<style scoped>
+  @import "~assets/css/global.css";
+  @import "~assets/css/djyun_big_auto.css";
+  /* @import "~assets/font-icon/iconfont.css"; */
+</style>
 <style lang="sass">
   @import "~assets/sass/common"
   .con-box
     position: absolute
-    width: 37%
+    width: 47%
     height: 45%
     overflow: scroll
     padding: .7rem 1rem .8rem
@@ -617,16 +643,22 @@
     z-index: 1000
     cursor: pointer
     &.l-t-box
-      left: 1.5rem
+      left: 2%
       top: 1.2rem
     &.r-t-box
-      right: 1.5rem
+      right: 2%
       top: 1.2rem
     &.l-b-box
-      left: 1.5rem
+      left: 0%
+      width: 32%
       bottom: 1.2rem
     &.r-b-box
-      right: 1.5rem
+      left: 66%
+      width: 32%
+      bottom: 1.2rem
+    &.r-b1-box
+      left: 33%
+      width: 32%
       bottom: 1.2rem
       .chart
         bottom: 100rem
