@@ -1,8 +1,11 @@
 <template>
   <div class="page-wrapper" v-title data-title="事件分析">
-    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
-    <v-search-box :search-input.sync="searchInput"></v-search-box>
-    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 100%">
+    <div class='search' style="width:100%">
+      <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+      <v-search-box :search-input.sync="searchInput"></v-search-box>
+      <!-- 注释，单行或多行 -->
+    </div>
+    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 1200px">
             <tr>
                 <td style="width:50%; height: 50%">
                   <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
@@ -249,9 +252,12 @@ export default {
     var ru_data = this.genData(50);
     var right_up_option = {
         title: {
-          text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
+          text: '今日新闻主题： 美军两架B-1B轰炸机与日空自联演后飞越南海上空 \n 后续预测分布： ',
           subtext: '',
-          x: 'center'
+          x: 'center',
+          "textStyle": {
+            "fontSize": 18
+           }
         },
         tooltip: {
           trigger: 'item',
@@ -261,10 +267,10 @@ export default {
           orient: 'vertical',
           left: '70%',
           y: 'center',
-          data: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动"]
+          data: ["美军军舰入侵南海： 35% ", "处于和平状态： 50%", "美军挑起南海自由航行争端：15%"]
         },
         color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
-                'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
+           ],
         series: [
           {
             name: '',
@@ -273,28 +279,16 @@ export default {
             center: ['35%', '50%'],
             data: [
               {
-                name: "入侵行动",
-                value: '10'
+                name: "美军军舰入侵南海",
+                value: '35'
               },
               {
-                name: "国家立场",
-                value: '8'
+                name: "处于和平状态",
+                value: '50'
               },
               {
-                name: "防卫行动",
-                value: '9'
-              },
-              {
-                name: "军演行动",
-                value: '5'
-              },
-              {
-                name: "媒体评论",
-                value: '6'
-              },
-              {
-                name: "访问行动",
-                value: '4'
+                name: "美军挑起南海自由航行争端",
+                value: '15'
               }
             ]
           }
