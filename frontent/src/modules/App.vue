@@ -22,6 +22,5 @@ export default {
 </script>
 
 <style lang="sass">
-  @import "../assets/sass/base"
   @import "../assets/sass/common"
 </style>

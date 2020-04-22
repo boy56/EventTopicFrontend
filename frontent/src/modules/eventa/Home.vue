@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrapper" v-title data-title="事件分析">
+  <div class="event-page-wrapper" v-title data-title="事件分析">
     <div class='search' style="width:100%">
       <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
       <v-search-box :search-input.sync="searchInput"></v-search-box>
@@ -502,26 +502,25 @@ export default {
 .pagination
   margin-bottom: 0rem
   justify-content: center
-@media (min-width: 100%)
+@media (min-width: 1200px)
   .container
+    width: 1200px
+  .event-page-wrapper
     width: 100%
-.page-wrapper
-  width: 100%
-  margin: 0px auto 0
-  overflow: auto
-  background-color: #fff
-  padding: 0px 0px
-  // position: relative
-  flex-direction: column
-// @media (min-width: 1200px)
-//   .page-wrapper
-//     width: 1200px
-//     min-height: 525px
-// @media (max-width: 768px)
-//   .page-wrapper
-//     margin-top: 0
-// .roll-warning-list-move
-//   transition: transform 1s
+    margin: 20px auto 0
+    overflow: auto
+    background-color: #fff
+    padding: 20px 15px
+    position: relative
+    flex-direction: column
+  @media (min-width: 1200px)
+    .event-page-wrapper
+      width: 1200px
+      min-height: calc(100vh - 81px)
+  @media (max-width: 768px)
+    .event-page-wrapper
+      margin-top: 0
+      transition: transform 1s
 </style>
 
 <style type="text/css">
