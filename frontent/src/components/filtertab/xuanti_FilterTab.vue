@@ -46,8 +46,8 @@
             @click="selectLegacyType(typeid)">
                    {{type }}
             </Option>
-          </Select>
-          <i class="fa fa-times" v-show="_.includes(selectedLegacyTypes, typeid)"></i> -->
+          </Select>-->
+          <i class="fa fa-times" v-show="_.includes(selectedLegacyTypes, typeid)"></i>
         </b-nav-item>
       </b-nav>
     </dl>
@@ -60,7 +60,7 @@
                     </Option>
                 </Select>
             </FormItem>
-        
+
         </Form>
     </d1> -->
     <dl class="xuanti-dl-group others">
@@ -91,12 +91,23 @@
 <script type="text/ecmascript-6">
 
   import { ManyType, LegacyType, Topic } from 'components/Const'
-
+  import _ from 'lodash';
   export default {
     data () {
       return {
         categories: ManyType,
-        types: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动", "其他"],
+        types: {
+          0: '其他',
+          1: '自然灾害',
+          2: '安全事故',
+          3: '环境污染',
+          4: '公共卫生',
+          5: '其他',
+          6: '社会安全',
+          7: '政治新闻',
+          8: '国防军事',
+          9: '社会焦点',
+        },
         topics: Topic,
         languages: ['全部', '中文'],
         locations: ['全部', '国内', '海外'],
