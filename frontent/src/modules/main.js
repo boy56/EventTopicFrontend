@@ -16,8 +16,9 @@ import store from './store.js'
 import '../../libs/date.format.js'
 import '../../libs/bg.js'
 
+Vue.config.devtools = true
 Vue.use(BootstrapVue)
-Vue.config.productionTip = false
+Vue.config.productionTip = true
 
 /* eslint-disable no-new */
 new Vue({
