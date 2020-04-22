@@ -9,10 +9,10 @@ var fish_data = {}
 var dataBJ = Data.event1
 var dataSH = Data.event2
 var dataGZ = Data.event3
-var datelist = [];
-var neg = [];
-var pos = [];
-var influence = [];
+var datelist = ['2019-3-1','2019-3-2','2019-3-3','2019-3-4','2019-3-5'];
+var neg = [1,2,3,4,5];
+var pos = [1,2,3,4,5];
+var influence = [10,20,30,40,50];
 // var dataBJ = [
 //   // [1,Data.event.text,Data.event.emotion]
 //   [29,55,9,56,0.46,18,6,"ningyx"],
@@ -2505,14 +2505,10 @@ const ChartLib = {
           }
       },
       grid: {
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 0,
-          left: '1%',
-          right: '1%',
-          top: '1%',
-          bottom: '1%'
+        left: '12%',
+        right: 100,
+        top: '18%',
+        bottom: '10%'
       },
       tooltip: {
           padding: 10,
@@ -2691,7 +2687,7 @@ const ChartLib = {
             {
                 type: 'category',
                 boundaryGap: false,
-                data: datelist.map(stripDate),
+                data: datelist, // .map(stripDate),
                 axisLabel: {
                   textStyle: {
                       color: '#fff',

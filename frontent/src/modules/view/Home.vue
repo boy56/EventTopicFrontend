@@ -82,6 +82,7 @@ export default {
       //   this.totalRows = response.data.totalElements;
       // });
       this.dispDatas = Data;
+      console.log("view---------------")
       console.log(this.dispDatas);
       this.totalRows = 64;
       console.log(this.totalRows);

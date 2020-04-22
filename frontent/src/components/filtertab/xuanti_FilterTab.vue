@@ -188,6 +188,7 @@
           selectedSecu: this.selectedSecu,
           selectedWords: this.selectedWords,
         });
+        console.log("ningyxff");
       },
     },
   }

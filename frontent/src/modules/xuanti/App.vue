@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="real-body">
-    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
     <!--通过vue-router控制主内容区域变换-->
     <!-- <router-view></router-view> -->
     <v-home></v-home>
@@ -15,7 +14,6 @@ import Vue from 'vue'
 import Header from 'components\\header\\xuanti_Header.vue'
 import Footer from 'components/header/Footer.vue'
 import Home from 'modules/xuanti/Home.vue'
-import FilterTab from 'components/filtertab/xuanti_FilterTab'
 // Require custom echarts theme.
 import 'components/charts/theme/Ring.js'
 
@@ -28,7 +26,6 @@ export default {
     'v-header': Header,
     'v-home': Home,
     'v-footer': Footer,
-    'v-filter-tab': FilterTab,
   }
 }
 </script>

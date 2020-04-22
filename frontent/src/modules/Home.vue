@@ -6,16 +6,22 @@
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
-              综合选题<span class="unqie-guang"></span></div>
-              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
+              南海<span class="unqie-guang"></span></div>
+              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>朝核<span class="unqie-guang"></span></div>
+              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>台湾<span class="unqie-guang"></span></div>
           </div>
         </div>
-        <div class="view-list-wrapper">
-              <div class="view-list tianjin-view-div" id="inner-view-div" style="z-index: 100;">
-                  <ul class="list-item inner-view-list" id="inner-view-list" v-bind:key=v v-for="v in left_up_list">
-                        {{v.text}}
+        <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index">
+              <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
+                  <ul class="list-item inner-view-list" id="inner-view-list" >
+                      <div class='list-text'>{{v.text}}</div>
                   </ul>
               </div>
+              <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
+                            <ul class="list-item outer-view-list" id="outer-view-list">
+                               <div class="list-text">{{v.text}}</div>
+                            </ul>
+                        </div>
         </div>
     </div>
     </router-link>
@@ -46,10 +52,10 @@
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
           </div>
         </div>
-        <div class="view-list-wrapper">
-              <div class="view-list tianjin-view-div" id="inner-view-div" style="z-index: 100;">
-                  <ul class="list-item inner-view-list" id="inner-view-list" v-bind:key=v v-for="v in right_up_list">
-                        {{v.text}}
+        <div class="view-list-wrapper" v-bind:key=v v-for="v in right_up_list">
+              <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
+                  <ul class="list-item inner-view-list" id="inner-view-list">
+                        <div>{{v.user}} {{v.point}}</div>
                   </ul>
               </div>
         </div>
@@ -69,20 +75,18 @@
           <font size="6" color="white">事件分析</font>
         </router-link>
       </center>
-      <div class="chart">
-        <Echarts theme="ring" :option="options.right_down.option" className="chart" ></Echarts>
-      </div>
+        <Echarts theme="ring" :option="options.right_down.option" className="chart"></Echarts>
     </div>
      <div class="con-box r-b1-box" @click="goto">
-        <div class="module-wrapper opinion-emotion">
-                    <div class="module-title"><span class="iconfont icon-yuqing"></span>舆论情绪</div>
+        <!-- <div class="module-wrapper opinion-emotion">
+                    <div class="module-title"><span class="iconfont icon-yuqing"></span>情绪分布图</div>
                     <div id="discuss-emotion" class="box light-corner discuss-emotion"></div>
-        </div>
+        </div> -->
+        <center>
+           <font size="6" color="white">情绪分布图</font>
+        </center>
         <Echarts theme="ring" :option="options.right1_down.option" className="chart" ></Echarts>
      </div>
-      <div class="chart">
-        <Echarts theme="ring" :option="options.right_down.option" className="chart" ></Echarts>
-      </div>
     <div class="center-box">
       <!-- <div class="chart" id="echarts-globe"></div> -->
     </div>
@@ -342,10 +346,11 @@
       console.log(Data);
       this.result = Data;
       this.getGoodsList();
-      console.log(this.result);
+      console.log(this.right_up_list);
       this.left_up_list = Data.topics // ChartData['topics'];
       this.right_up_list = Data.exports[this.topic] // ChartData['exports'][this.topic];
-      // this.options.right_down.option = ChartLib['南海气泡图'].option;
+      console.log(this.right_up_list);
+      this.options.right_down.option = ChartLib['南海气泡图'].option;
       this.options.right1_down.option = ChartLib['情绪分布图'].option;
       this.options.left_down.option = ChartLib['折线图南海'].option;
     },
