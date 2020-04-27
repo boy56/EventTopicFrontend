@@ -72,7 +72,7 @@
   font-size: 1.6rem
   line-height: 1.5rem
 .search-row
-  margin-bottom: 20px
+  margin-bottom: 10px
   .search-wrapper
     position: relative
     .search-submit
@@ -80,7 +80,7 @@
   .search-ipt
     height: 100%
   .date-wrapper
-    font-size: 1.6rem
+    font-size: 1.0rem
     display: flex
     justify-content: space-around
     label
@@ -93,7 +93,7 @@
     justify-content: space-between
     button
       color: #fff
-      font-size: 1.6rem
+      font-size: 1.0rem
       margin-left: 10px
       background-color: #158bdc
       cursor: pointer
@@ -113,7 +113,7 @@
     .date-wrapper
       display: none
     .search-wrapper
-      height: 44px
+      height: 25px
       .search-submit
         display: block
         position: absolute

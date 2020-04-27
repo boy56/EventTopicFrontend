@@ -397,33 +397,35 @@ export default {
       padding: .75rem
       &.sorting
         text-align: left
-      &.td-index
-        width: 5%
+      // &.td-index
+        // width: 5%
       &.td-type
-        width: 10%
+        width: 12%
       &.td-title
         flex: 1
-        // width: 46.6%
+        width: 200.6%
         text-align: left
       &.td-date
-        width: 7%
+        width: 17%
         text-align: center
         &:before
-          right: 18%
-        &:after
-          right: 8%
+          left: 7%
+        // &:after
+          // right: 8%
       &.td-emotion
         width: 5%
       &.td-location
-        width: 7%
-      &.td-sensitive
-        width: 7%
-      &.td-recommend
-        width: 6%
+        width: 5%
+      &.td-hot
+        width: 5%
+      // &.td-sensitive
+        // width: 7%
+      // &.td-recommend
+        // width: 6%
       &.td-source
-        width: 10%
+        width: 20%
       &.td-feedback
-        width: 8%
+        width: 18%
 
 .chart
   width: 750px
@@ -454,8 +456,8 @@ export default {
         white-space: nowrap
         overflow: hidden
         display: inline-block
-        &.td-index
-          width: 5%
+        // &.td-index
+          // width: 5%
         &.td-type
           width: 10%
         &.td-title
@@ -486,10 +488,10 @@ export default {
           width: 5%
         &.td-location
           width: 7%
-        &.td-sensitive
-          width: 7%
-        &.td-recommend
-          width: 6%
+        // &.td-sensitive
+          // width: 7%
+        // &.td-recommend
+          // width: 6%
         &.td-country_l
           width: 6%
         &.td-content_l

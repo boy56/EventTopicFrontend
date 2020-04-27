@@ -2,7 +2,7 @@
   <div class="view-page-wrapper" v-title data-title="专家观点">
     <!-- <v-header></v-header> -->
     <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
-    <!-- <v-search-box :search-input.sync="searchInput"></v-search-box> -->
+    <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
 

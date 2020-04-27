@@ -6,9 +6,9 @@
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
-              南海<span class="unqie-guang"></span></div>
-              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>朝核<span class="unqie-guang"></span></div>
-              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>台湾<span class="unqie-guang"></span></div>
+              综合选题<span class="unqie-guang"></span></div>
+              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>朝核<span class="unqie-guang"></span></div> -->
+              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>综合选题<span class="unqie-guang"></span></div> -->
           </div>
         </div>
         <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index">
@@ -40,6 +40,19 @@
             </tr>
           </table> 
       </ul> -->
+    </div>
+      <div class="con-box button-box" @click="goto">  
+        <div class="view-table start_box box_align pack_center">
+        <font size="40" color="white">
+          <!-- <m-button size= large type="info" round>南海</m-button> -->
+          <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>南海<span class="unqie-guang"></span></div>
+          <!-- <m-button type="info" round>朝鲜</m-button>
+          <m-button type="info" round>台湾</m-button> -->
+          <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>朝核<span class="unqie-guang"></span></div>
+          <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>台湾<span class="unqie-guang"></span></div>
+        <!-- </m-button-group> -->
+        </font>
+        </div>
     </div>
     <div class="con-box r-t-box" @click="goto">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
@@ -652,14 +665,20 @@
     cursor: pointer
     &.l-t-box
       left: 2%
+      width: 40%
       top: 1.2rem
     &.r-t-box
       right: 2%
+      width: 40%
       top: 1.2rem
     &.l-b-box
       left: 0%
       width: 32%
       bottom: 1.2rem
+    &.button-box
+      left: 45%
+      width: 10%
+      top: 1.2rem
     &.r-b-box
       left: 66%
       width: 32%

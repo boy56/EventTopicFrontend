@@ -1,18 +1,18 @@
 <template>
   <div>
     <dl class="xuanti-dl-group first-cat">
-      <dt>选题模型：</dt>
-      <b-nav pills>
-        <b-nav-item :active="!selectedCats" @click="selectAllCats()">全部事件</b-nav-item>
+      <!-- <dt>选题模型：</dt> -->
+      <!-- <b-nav pills> -->
+        <!-- <b-nav-item :active="!selectedCats" @click="selectAllCats()">全部事件</b-nav-item> -->
         <!-- 普通类别 -->
-        <b-nav-item v-for="(types, cat, idx) in categories"
+        <!-- <b-nav-item v-for="(types, cat, idx) in categories"
                     v-if="cat !== '其他'"
                    :key="'cat_' + idx"
                    :active="_.includes(selectedCats, cat)"
                    @click="selectCat(cat)">
           {{ cat }}
           <i class="fa fa-times" v-show="_.includes(selectedCats, cat)"></i>
-        </b-nav-item>
+        </b-nav-item> -->
         <!-- <li class="nav-item line-break"></li> -->
         <!-- 突发敏感类 -->
         <!-- <b-nav-item :active="selectedSecu" -->
@@ -98,7 +98,7 @@
         categories: ManyType,
         types: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动", "其他"],
         topics: Topic,
-        languages: ['全部', '中文'],
+        languages: ['全部', '中文','英文'],
         locations: ['全部', '国内', '海外'],
         selectedCats: [],
         selectedLegacyTypes: [],

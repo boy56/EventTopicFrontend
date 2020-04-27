@@ -15,6 +15,7 @@ import router from './router.js'
 import store from './store.js'
 import '../../libs/date.format.js'
 import '../../libs/bg.js'
+import 'components/Common'
 
 Vue.config.devtools = true
 Vue.use(BootstrapVue)
