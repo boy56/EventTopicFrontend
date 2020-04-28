@@ -46,7 +46,7 @@
                   </table>
                 </td>
                 <td style="width:50%; height: 50%">
-                    <!-- <div class="row main-row" v-title data-title="Ring 事件概览">
+                    <div class="row main-row" v-title data-title="Ring 事件概览">
                         <div class="col-md-8">
                           <div class="r-panel hotnews-panel">
                             <div class="panel-title-wrapper">
@@ -69,31 +69,31 @@
                                   <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">美舰连续两天在南海非法活动</span>
                                 </li>
                                 <li>
-                                  <label for="">参与者：</label><span>{{ event.participant }}</span>
-                                  <label for="">关键词：</label><span>{{ event.corewords }}</span>
+                                  <label for="">参与者：</label><span>美国&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                  <label for="">关键词：</label><span>美国 南海 非法活动</span>
                                 </li>
                                 <li>
-                                  <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type | toLegacyType }}</span><br class="event-br">
-                                  <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2 | toManyType }}</span><br class="event-br">
-                                  <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion | toEmotion }}</span>
+                                  <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>外国入侵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                  <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>外交问题</span><br class="event-br">
+                                  <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>中性</span>
                                 </li>
                                 <li>
-                                  <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
-                                  <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
-                                  <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
+                                  <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>2020-04-20 18:20</span><br class="event-br">
+                                  <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>中国南海</span><br class="event-br">
+                                  <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>新华网</span>
                                 </li>
                               </ul>
                               <v-desc-view :event="event"></v-desc-view>
-                              <div class="event-panel event-panel-source">
+                              <!-- <div class="event-panel event-panel-source">
                                 <div id="source-timeline" class="event-chart"></div>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                         </div>
-                    </div> -->
-                    <template>
-                        <img src="~assets/image/eventa.png" alt="">
-                    </template>
+                    </div>
+                    <!-- <div class = 'picture'> -->
+                        <!-- <img src="static/image/eventa.png" style="width:100%; height: 100%"> -->
+                    <!-- </div> -->
                 </td>
             </tr>
       </table>
