@@ -1,35 +1,5 @@
 <template>
   <div class='view-filter'>
-    <!-- <dl class="view-dl-group first-cat"> -->
-      <!-- <dt>选题模型：</dt> -->
-      <!-- <b-nav pills> -->
-        <!-- <b-nav-item :active="!selectedCats" @click="selectAllCats()">全部事件</b-nav-item> -->
-        <!-- 普通类别 -->
-        <!-- <b-nav-item v-for="(types, cat, idx) in categories" -->
-                    <!-- v-if="cat !== '其他'" -->
-                   <!-- :key="'cat_' + idx" -->
-                   <!-- :active="_.includes(selectedCats, cat)" -->
-                   <!-- @click="selectCat(cat)"> -->
-          <!-- {{ cat }} -->
-          <!-- <i class="fa fa-times" v-show="_.includes(selectedCats, cat)"></i> -->
-        <!-- </b-nav-item> -->
-        <!-- <li class="nav-item line-break"></li>
-        <!-- 突发敏感类 -->
-        <!-- <b-nav-item :active="selectedSecu" -->
-                    <!-- @click="selectedSecu = !selectedSecu">
-          突发敏感
-          <i class="fa fa-times" v-show="selectedSecu"></i>
-        </b-nav-item> -->
-        <!-- 关键词类 -->
-        <!-- <b-nav-item v-for="(words, topic, idx) in topics"
-                   :key="'topic_' + idx"
-                   :active="_.includes(selectedTopics, topic)"
-                   @click="selectTopic(topic)">
-          {{ topic }}
-          <i class="fa fa-times" v-show="_.includes(selectedTopics, topic)"></i>
-        </b-nav-item> --> -->
-      <!-- </b-nav> -->
-    <!-- </dl> -->
     <dl class="view-dl-group first-cat">
       <dt>内容分类：</dt>
       <b-nav pills>

@@ -16,7 +16,9 @@ import store from './store.js'
 import '../../libs/date.format.js'
 import '../../libs/bg.js'
 import 'components/Common'
-
+import axios from 'axios'
+axios.defaults.baseURL = 'http://ring.act.buaa.edu.cn'
+Vue.prototype.axios = axios
 Vue.config.devtools = true
 Vue.use(BootstrapVue)
 Vue.config.productionTip = true

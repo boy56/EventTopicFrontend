@@ -127,28 +127,28 @@ export default {
 <style lang="sass" scoped>
 .xuanti-page-wrapper
   overflow: inherit
-  height: 100%
+  height: auto
 .pagination
   margin-bottom: 0rem
   justify-content: center
-@media (min-width: 1600px)
+@media (min-width: 100%)
   .container
-    width: 1200px
+    width: 100%
+.xuanti-page-wrapper
+  width: 100%
+  margin: 0px auto 0
+  overflow: auto
+  background-color: #fff
+  padding: 0px 0px
+  position: relative
+  flex-direction: column
+@media (min-width: 100%)
   .xuanti-page-wrapper
     width: 100%
-    margin: 20px auto 0
-    overflow: auto
-    background-color: #fff
-    padding: 20px 15px
-    position: relative
-    flex-direction: column
-@media (min-width: 1200px)
-  .xuanti-page-wrapper
-    width: 1200px
-    min-height: calc(100vh - 81px)
-@media (max-width: 768px)
+    min-height: 100%
+@media (max-width: 100%)
   .xuanti-page-wrapper
     margin-top: 0
-  .roll-warning-list-move
+.roll-warning-list-move
   transition: transform 1s
 </style>

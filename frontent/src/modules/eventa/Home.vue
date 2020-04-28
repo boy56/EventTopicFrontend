@@ -1,8 +1,8 @@
 <template>
   <div class="event-page-wrapper" v-title data-title="事件分析">
     <div class='search' style="width:100%">
-      <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
-      <!-- <v-search-box :search-input.sync="searchInput"></v-search-box> -->
+      <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+      <v-search-box :search-input.sync="searchInput"></v-search-box>
       <!-- 注释，单行或多行 -->
     </div>
     <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 800px">
@@ -46,7 +46,7 @@
                   </table>
                 </td>
                 <td style="width:50%; height: 50%">
-                    <div class="row main-row" v-title data-title="Ring 事件概览">
+                    <!-- <div class="row main-row" v-title data-title="Ring 事件概览">
                         <div class="col-md-8">
                           <div class="r-panel hotnews-panel">
                             <div class="panel-title-wrapper">
@@ -90,7 +90,10 @@
                             </div>
                           </div>
                         </div>
-                    </div>
+                    </div> -->
+                    <template>
+                        <img src="~assets/image/eventa.png" alt="">
+                    </template>
                 </td>
             </tr>
       </table>
@@ -105,6 +108,7 @@ import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
 import Data from "assets/data/eventa_data.json"
+import rdData from "assets/data/eventa_rddata.json"
 import Footer from 'components/header/Footer.vue'
 
 export default {
@@ -112,6 +116,7 @@ export default {
     return {
       unique_id: -1,
       sourceMap: {},
+      imgUrl: require("../../assets/image/eventa.png"),
       // for timeline
       timeline: {},
       event: {},
@@ -246,7 +251,7 @@ export default {
   mounted () {
     console.log("123456");
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
-    // require(['components/common/TimelineJS/timeline.js'], TL => this.makeTimeLine(TL.default));
+    require(['components/common/TimelineJS/timeline.js'], TL => this.makeTimeLine(TL.default));
     // console.log(this.TL);
     this.event.description = '美舰连续两天在南海非法活动';
     this.event.participant = '美国';
@@ -458,50 +463,86 @@ export default {
       console.log(this.totalRows);
     },
     fetchSimNewsById: function (id, callback) {
-      axios.get('/api/cache3/source/fetchSimNewsById', {params: {
-        id: id,
-      }}).then(response => {
-        callback(response.data);
-      });
+      // axios.get('/api/cache3/source/fetchSimNewsById', {params: {
+      //   id: id,
+      // }}).then(response => {
+      //   callback(response.data);
+      // });
     },
     updateFilter: function (filter) {
       this.filter = filter;
       this.findDatas(filter);
     },
     fetchEventSource () {
-      axios.get('/api/getEventSourceCount', {params: {
-        eventId: this.$route.params.eventId,
-      }}).then(response => {
-        let data = [
-          {name: '微信', value: response.data.wechat},
-          {name: '网页', value: response.data.news},
-          {name: '贴吧', value: response.data.tieba},
-        ];
-        if (response.data.weibo) {
-          data.push({name: '微博', value: response.data.weibo});
-        }
-        this.event_source_option.series[0].data = _.orderBy(data, 'value', 'desc');
-        this.loading.source = false;
-      });
+      // this.axios.get('/api/getEventSourceCount', {params: {
+      //   eventId: this.$route.params.eventId,
+      // }}).then(response => {
+      //   let data = [
+      //     {name: '微信', value: response.data.wechat},
+      //     {name: '网页', value: response.data.news},
+      //     {name: '贴吧', value: response.data.tieba},
+      //   ];
+      //   if (response.data.weibo) {
+      //     data.push({name: '微博', value: response.data.weibo});
+      //   }
+      let data = [
+          {name: '微信', value: 10},
+          {name: '网页', value: 10},
+          {name: '贴吧', value: 10},
+      ];
+      this.event_source_option.series[0].data = _.orderBy(data, 'value', 'desc');
+      this.loading.source = false;
+      // });
     },
     makeTimeLine (TL) {
+      console.log('makeTimeLine');
       this.TL = TL;
       console.log('eventa');
       console.log(TL);
       console.log(this.event);
-      axios.get('/api/getEventSourceById',{params: {
-        eventId: this.$route.params.eventId,
-        similarity: true,
-      }}).then(response => {
-        let sources = {
-          events: [],
-        };
-        response.data = _.orderBy(response.data, 'releaseDate');
-        let maxSim = 0.0;
-        let maxSimIndex = -1;
-        if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
-          let date = new Date(this.event.time);
-          sources.events = [{
+      // axios.get('/api/getEventSourceById',{params: {
+      //   eventId: this.$route.params.eventId,
+      //   similarity: true,
+      // }}).then(response => {
+      //   let sources = {
+      //     events: [],
+      //   };
+      let sources = {events: []};
+      var response = rdData;
+      console.log(response);
+      response.data = _.orderBy(response.data, 'releaseDate');
+      let maxSim = 0.0;
+      let maxSimIndex = -1;
+      if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
+        let date = new Date(this.event.time);
+        sources.events = [{
+          start_date: {
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            day: date.getDate(),
+            hour: date.getHours(),
+            minute: date.getMinutes(),
+            second: date.getSeconds(),
+            display_date: date.format('yyyy-MM-dd hh:mm:ss'),
+          },
+          text: {
+            headline: '<a href="/event/#/detail/' + this.event.eventId + '" target="_blank">' + this.event.description + '</a>',
+            text: '',
+          },
+          unique_id: this.event.eventId,
+        }];
+      } else {
+        sources.events = _.map(response.data, item => {
+          let date = new Date(item.releaseDate);
+          let text = item.content;
+          if (item.foreign && item.content) {
+            text = '<div class="text-content-wrapper">' +
+                    '<div class="text-content-inner text-content-left">' + item.origin_content + '</div>' +
+                    '<div class="text-content-sep"></div>' +
+                    '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
+                    '</div>';
+          }
+          let source = {
             start_date: {
               year: date.getFullYear(),
               month: date.getMonth() + 1,
@@ -512,104 +553,78 @@ export default {
               display_date: date.format('yyyy-MM-dd hh:mm:ss'),
             },
             text: {
-              headline: '<a href="/event/#/detail/' + this.event.eventId + '" target="_blank">' + this.event.description + '</a>',
-              text: '',
+              headline: '<a href="' + item.url + '" target="_blank">' + (item.origin_title || item.title) + '</a>',
+              text: text,
             },
-            unique_id: this.event.eventId,
-          }];
-        } else {
-          sources.events = _.map(response.data, item => {
-            let date = new Date(item.releaseDate);
-            let text = item.content;
-            if (item.foreign && item.content) {
-              text = '<div class="text-content-wrapper">' +
-                     '<div class="text-content-inner text-content-left">' + item.origin_content + '</div>' +
-                     '<div class="text-content-sep"></div>' +
-                     '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
-                     '</div>';
-            }
-            let source = {
-              start_date: {
-                year: date.getFullYear(),
-                month: date.getMonth() + 1,
-                day: date.getDate(),
-                hour: date.getHours(),
-                minute: date.getMinutes(),
-                second: date.getSeconds(),
-                display_date: date.format('yyyy-MM-dd hh:mm:ss'),
-              },
-              text: {
-                headline: '<a href="' + item.url + '" target="_blank">' + (item.origin_title || item.title) + '</a>',
-                text: text,
-              },
-              unique_id: item.id,
-            };
-            // TODO
-            // if (item.url) {
-            //   let media = {
-            //     caption: item.username,
-            //     url: item.url,
-            //   };
-            //   if (item.headPic) {
-            //     media.thumbnail = item.headPic;
-            //   }
-            //   source.media = media;
-            // }
-            return source;
-          });
-          this.unique_id = _.last(response.data).id;
-          // calculate max similarity index.
-          for (var i = 0; i < response.data.length; ++i) {
-            if (response.data[i].similarity > maxSim) {
-              maxSimIndex = i;
-              maxSim = response.data[i].similarity;
-            }
+            unique_id: item.id,
+          };
+          // TODO
+          // if (item.url) {
+          //   let media = {
+          //     caption: item.username,
+          //     url: item.url,
+          //   };
+          //   if (item.headPic) {
+          //     media.thumbnail = item.headPic;
+          //   }
+          //   source.media = media;
+          // }
+          return source;
+        });
+        this.unique_id = _.last(response.data).id;
+        // calculate max similarity index.
+        for (var i = 0; i < response.data.length; ++i) {
+          if (response.data[i].similarity > maxSim) {
+            maxSimIndex = i;
+            maxSim = response.data[i].similarity;
           }
         }
-        let options = { language: 'zh_CN', start_at_end: true };
-        this.timeline = new this.TL.Timeline('source-timeline', sources, options);
-        // event binding
-        this.timeline.on('change', value => {
-          this.unique_id = value.unique_id;
-        });
-        if (maxSimIndex >= 0) {
-          this.timeline.goTo(maxSimIndex);
-        }
-        // Store source data in map.
-        _.each(response.data, item => {
-          this.sourceMap[item.id] = item;
-        });
-        // 外文数据构成比例图
-        if (this.event.foreign) {
-          let foreignNews = 0;
-          let nonforeignNews = 0;
-          _.each(response.data, item => {
-            if (item.datatag === 'webnews') {
-              if (item.foreign) {
-                foreignNews += 1;
-              } else {
-                nonforeignNews += 1;
-              }
-            }
-          });
-          this.event_source_option.series[1].data = [
-            {name: '外文新闻', value: foreignNews, selected: true},
-            {name: '中文新闻', value: nonforeignNews},
-          ];
-        }
+      }
+      let options = { language: 'zh_CN', start_at_end: true };
+      this.timeline = new this.TL.Timeline('source-timeline', sources, options);
+      // event binding
+      this.timeline.on('change', value => {
+        this.unique_id = value.unique_id;
       });
+      if (maxSimIndex >= 0) {
+        this.timeline.goTo(maxSimIndex);
+      }
+      // Store source data in map.
+      _.each(response.data, item => {
+        this.sourceMap[item.id] = item;
+      });
+      // 外文数据构成比例图
+      if (this.event.foreign) {
+        let foreignNews = 0;
+        let nonforeignNews = 0;
+        _.each(response.data, item => {
+          if (item.datatag === 'webnews') {
+            if (item.foreign) {
+              foreignNews += 1;
+            } else {
+              nonforeignNews += 1;
+            }
+          }
+        });
+        this.event_source_option.series[1].data = [
+          {name: '外文新闻', value: foreignNews, selected: true},
+          {name: '中文新闻', value: nonforeignNews},
+        ];
+      }
+      // });
     },
     fetchWorldCloud () {
-      this.loading.words = true;
-      axios.get('/api/getCorewordsByEventId',{params: {
-        eventId: this.$route.params.eventId,
-      }}).then(response => {
-        let words = _.map(response.data.slice(0, 30), item => {
-          return {name: item.text, value: item.weight * 2};
-        });
-        this.word_cloud_option.series[0].data = words;
-        this.loading.words = false;
-      });
+      // this.loading.words = true;
+      // axios.get('/api/getCorewordsByEventId',{params: {
+      //   eventId: this.$route.params.eventId,
+      // }}).then(response => {
+      //   let words = _.map(response.data.slice(0, 30), item => {
+      //     return {name: item.text, value: item.weight * 2};
+      //   });
+      let words = {name: "456", value: 10};
+      this.word_cloud_option.series[0].data = words;
+      this.loading.words = false;
+      // });
     },
   },
   components: {
@@ -637,31 +652,32 @@ export default {
 </style>
 
 <style lang="sass" scoped>
-.page-wrapper
+.event-page-wrapper
   overflow: inherit
   height: auto
 .pagination
   margin-bottom: 0rem
   justify-content: center
-@media (min-width: 1200px)
+@media (min-width: 100%)
   .container
-    width: 1200px
+    width: 100%
+.event-page-wrapper
+  width: 100%
+  margin: 0px auto 0
+  overflow: auto
+  background-color: #fff
+  padding: 0px 0px
+  position: relative
+  flex-direction: column
+@media (min-width: 100%)
   .event-page-wrapper
     width: 100%
-    margin: 20px auto 0
-    overflow: auto
-    background-color: #fff
-    padding: 20px 15px
-    position: relative
-    flex-direction: column
-  @media (min-width: 1200px)
-    .event-page-wrapper
-      width: 1200px
-      min-height: calc(100vh - 81px)
-  @media (max-width: 768px)
-    .event-page-wrapper
-      margin-top: 0
-      transition: transform 1s
+    min-height: 100%
+@media (max-width: 100%)
+  .event-page-wrapper
+    margin-top: 0
+.roll-warning-list-move
+  transition: transform 1s
 </style>
 
 <style type="text/css">
