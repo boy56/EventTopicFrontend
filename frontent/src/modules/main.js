@@ -20,7 +20,7 @@ import 'components/Common'
 Vue.config.devtools = true
 Vue.use(BootstrapVue)
 Vue.config.productionTip = true
-
+Vue.prototype._ = _;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

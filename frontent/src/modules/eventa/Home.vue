@@ -1,11 +1,11 @@
 <template>
-  <div class="page-wrapper" v-title data-title="事件分析">
+  <div class="event-page-wrapper" v-title data-title="事件分析">
     <div class='search' style="width:100%">
-      <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+      <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
       <!-- <v-search-box :search-input.sync="searchInput"></v-search-box> -->
       <!-- 注释，单行或多行 -->
     </div>
-    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 1200px">
+    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 800px">
             <tr>
                 <td style="width:50%; height: 50%">
                   <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
@@ -18,60 +18,79 @@
                 <td style="width:50%; height: 50%">
                   <!-- <div id="left_down" ref="myCharts" style="width:100%; height: 100%"></div> -->
                   <table border="" style="width:100%; height: 100%">
-                    <tr style="width:100%; height: 40px">
-                      <th colspan="2" style="width:100%; height: 40px; vertical-align: middle !important;text-align: center">
+                    <tr style="width:100%; height: 20%">
+                      <th colspan="2" style="width:100%; height: 20%; vertical-align: middle !important;text-align: center">
                         专家观点
                       </th>
                     </tr>
                     <tr>
-                      <td style="width:20%; height: 40px">观点数量</td>
-                      <td style="width:80%; height: 40px">中心观点</td>
+                      <td style="width:20%; height: 20%">观点数量</td>
+                      <td style="width:80%; height: 20%">中心观点</td>
                     </tr>
                     <tr>
-                      <td style="width:20%; height: 40px">22</td>
-                      <td style="width:80%; height: 40px">外交部：反对以航行自由名损害中国主权和安全</td>
+                      <td style="width:20%; height: 20%">22</td>
+                      <td style="width:80%; height: 20%">外交部：反对以航行自由名损害中国主权和安全</td>
                     </tr>
                     <tr>
-                      <td style="width:20%; height: 40px">12</td>
-                      <td style="width:80%; height: 40px">外交部：美方“横行自由才是南海局势紧张根源</td>
+                      <td style="width:20%; height: 20%">12</td>
+                      <td style="width:80%; height: 20%">外交部：美方“横行自由才是南海局势紧张根源</td>
                     </tr>
                     <tr>
-                      <td style="width:20%; height: 40px">17</td>
-                      <td style="width:80%; height: 40px">美军接连两天在南海动 解放军警告驱离</td>
+                      <td style="width:20%; height: 20%">17</td>
+                      <td style="width:80%; height: 20%">美军接连两天在南海动 解放军警告驱离</td>
                     </tr>
                     <tr>
-                      <td style="width:20%; height: 40px">26</td>
-                      <td style="width:80%; height: 40px">挑衅？美国派军舰连续两天闯中国南岛礁 ，被我军海空兵力警告驱离</td>
+                      <td style="width:20%; height: 20%">26</td>
+                      <td style="width:80%; height: 20%">挑衅？美国派军舰连续两天闯中国南岛礁 ，被我军海空兵力警告驱离</td>
                     </tr>
                   </table>
                 </td>
                 <td style="width:50%; height: 50%">
-                  <table border="" style="width:100%; height: 100%">
-
-                    <tr style="width:100%; height: 40px">
-                      <th colspan="3" style="width:100%; height: 40px vertical-align: middle !important;text-align: center" >热门专家</th>
-                    </tr>
-                    <tr>
-                      <td style="width:30%; height: 40px">专家</td>
-                      <td style="width:30%:; height: 40px">热度</td>
-                      <td style="width:40%; height: 40px">职位机构</td>
-                    </tr>
-                    <tr>
-                      <td style="width:30%; height: 40px">戴旭</td>
-                      <td style="width:30%; height: 40px">100</td>
-                      <td style="width:40%; height: 40px">新闻媒体</td>
-                    </tr>
-                    <tr>
-                      <td style="width:30%; height: 40px">华春莹</td>
-                      <td style="width:30%; height: 40px">120</td>
-                      <td style="width:40%; height: 40px">外交部</td>
-                    </tr>
-                    <tr>
-                      <td style="width:30%; height: 40px">博尔顿</td>
-                      <td style="width:30%; height: 40px">80</td>
-                      <td style="width:30%; height: 40px">美国国家安全顾问</td>
-                    </tr>
-                  </table>
+                    <div class="row main-row" v-title data-title="Ring 事件概览">
+                        <div class="col-md-8">
+                          <div class="r-panel hotnews-panel">
+                            <div class="panel-title-wrapper">
+                              <div class="panel-title">
+                                <span>事件概览</span>
+                                <div class="switch">
+                                  <span class="fa"
+                                    :class="{
+                                      'fa-toggle-on': translated,
+                                      'fa-toggle-off': !translated
+                                    }"
+                                    @click="translated = !translated"></span>
+                                  <label class="toggle-label">翻译</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="events-wrapper">
+                              <ul class="event-panel-detail">
+                                <li >
+                                  <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">美舰连续两天在南海非法活动</span>
+                                </li>
+                                <li>
+                                  <label for="">参与者：</label><span>{{ event.participant }}</span>
+                                  <label for="">关键词：</label><span>{{ event.corewords }}</span>
+                                </li>
+                                <li>
+                                  <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type | toLegacyType }}</span><br class="event-br">
+                                  <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2 | toManyType }}</span><br class="event-br">
+                                  <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion | toEmotion }}</span>
+                                </li>
+                                <li>
+                                  <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
+                                  <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
+                                  <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
+                                </li>
+                              </ul>
+                              <v-desc-view :event="event"></v-desc-view>
+                              <div class="event-panel event-panel-source">
+                                <div id="source-timeline" class="event-chart"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
                 </td>
             </tr>
       </table>
@@ -91,6 +110,64 @@ import Footer from 'components/header/Footer.vue'
 export default {
   data () {
     return {
+      unique_id: -1,
+      sourceMap: {},
+      // for timeline
+      timeline: {},
+      event: {},
+      loading: {
+        timeline: true,
+        source: true,
+        words: true,
+      },
+      translated: false,
+      event_source_option: {
+        title: {
+          name: '数据来源'
+        },
+        tooltip: {
+          trigger: 'item',
+        },
+        legend: {
+          orient: 'vertical',
+          left: 'left',
+          data: ['微博', '微信', '网页', '贴吧'],
+        },
+        series: [{
+          type: 'pie',
+          radius: ['50%', '75%'],
+          data: [
+            {name: '微信', value: 0},
+            {name: '网页', value: 0},
+            {name: '贴吧', value: 0},
+            {name: '微博', value: 0},
+          ],
+        }, {
+          type: 'pie',
+          radius: [0, '30%'],
+          data: [],
+          label: {
+            normal: {
+              color: ['#250303', '#255025'],
+              fontWeight: 'bold',
+            },
+          },
+        }],
+      },
+      word_cloud_option: {
+        title: {
+          name: '关键词云'
+        },
+        series: [{
+          type: 'wordCloud',
+          shape: 'circle',
+          width: '150%',
+          height: '150%',
+          sizeRange: [16, 36],
+          gridSize: 8,
+          data: [],
+        }],
+      },
       Colors: Colors,
       dispDatas: [],
       totalRows: 64,
@@ -127,14 +204,63 @@ export default {
     pageno: function (pageno) {
       this.findDatas(this.filter);
     },
+    '$route': function (to, from) {
+      this.fetchEventSource();
+      this.fetchWorldCloud();
+      this.makeTimeLine(this.TL);
+    },
+    translated: function (nendtrans) {
+      // 首先判断该Id的源数据存在且可以翻译。
+      if (this.sourceMap[this.unique_id] && this.sourceMap[this.unique_id].origin_title) {
+        let title = '';
+        let content = '';
+        if (nendtrans) {
+          title = this.sourceMap[this.unique_id].title;
+          content = this.sourceMap[this.unique_id].content;
+        } else {
+          title = this.sourceMap[this.unique_id].origin_title;
+          content = this.sourceMap[this.unique_id].origin_content;
+          this.translated = false;
+        }
+        const dom = _.find(this.$el.getElementsByClassName('tl-slide-text-only'), x => x.id === this.unique_id);
+        const titleWrapper = dom.getElementsByClassName('tl-headline');
+        if (titleWrapper.length > 0) {
+          titleWrapper[0].getElementsByTagName('a')[0].innerText = title;
+        }
+        const contentWrapper = dom.getElementsByClassName('tl-text-content');
+        if (contentWrapper.length > 0) {
+          contentWrapper[0].getElementsByTagName('p')[0].innerText = content;
+        }
+      }
+    },
+    unique_id: id => {
+      console.log(id);
+    },
   },
   created () {
     this.findDatas();
     // var echarts = require('echarts');
+    this.fetchEventSource();
+    this.fetchWorldCloud();
   },
   mounted () {
     console.log("123456");
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
+    // require(['components/common/TimelineJS/timeline.js'], TL => this.makeTimeLine(TL.default));
+    // console.log(this.TL);
+    this.event.description = '美舰连续两天在南海非法活动';
+    this.event.participant = '美国';
+    this.event.corewords = '美国 南海 非法活动';
+    this.event.e_type = '外国入侵';
+    this.event.toLegacyType = '外国入侵';
+    this.event.eventType2 = '外交问题';
+    this.event.toManyType = '外交问题';
+    this.event.emotion = '中性';
+    this.event.toEmotion = '中性';
+    this.event.eventSpanDataString = '2020-04-20 18:20';
+    this.event.eventLoc = '中国南海';
+    this.event.eventFrom = '新华网';
+    console.log(this.event);
     var myChart = echarts.init(document.getElementById('left_up'));
     var left_up_option = {
       title: {
@@ -208,56 +334,12 @@ export default {
     myChart.setOption(left_up_option);
     // console.log(myChart);
     myChart = echarts.init(document.getElementById('right_up'));
-    // var right_up_option = {
-    //     title: {
-    //         text: '各项指数分析',
-    //         subtext: '数据来自网络'
-    //     },
-    //     tooltip: {
-    //         trigger: 'axis',
-    //         axisPointer: {
-    //             type: 'shadow'
-    //         }
-    //     },
-    //     legend: {
-    //         data: ['2011年', '2012年']
-    //     },
-    //     grid: {
-    //         left: '3%',
-    //         right: '4%',
-    //         bottom: '3%',
-    //         containLabel: true
-    //     },
-    //     xAxis: {
-    //         type: 'value',
-    //         boundaryGap: [0, 0.01]
-    //     },
-    //     yAxis: {
-    //         type: 'category',
-    //         data: ['0.2-0.4', '0-0.2', '1.5以上', '0.8-1.5', '0.4-0.8', '活跃度']
-    //     },
-    //     series: [
-    //         {
-    //             name: '2011年',
-    //             type: 'bar',
-    //             data: [18203, 23489, 29034, 104970, 131744, 630230]
-    //         },
-    //         {
-    //             name: '2012年',
-    //             type: 'bar',
-    //             data: [19325, 23438, 31000, 121594, 134141, 681807]
-    //         }
-    //     ]
-    // };
     var ru_data = this.genData(50);
     var right_up_option = {
         title: {
-          text: '今日新闻主题：美军两架B-1B轰炸机与日空自联演后飞越南海上空\n未来预测分布：',
+          text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
           subtext: '',
-          x: 'center',
-          "textStyle": {
-            "fontSize": 32
-           }
+          x: 'center'
         },
         tooltip: {
           trigger: 'item',
@@ -267,130 +349,46 @@ export default {
           orient: 'vertical',
           left: '70%',
           y: 'center',
-          data: ["美军军舰入侵南海： 35% ", "处于和平状态： 50%", "美军挑起南海自由航行争端：15%"],
-          "textStyle": {
-            "fontSize": 32
-           }
+          data: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动"]
         },
         color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
-           ],
+                'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
         series: [
           {
             name: '',
             type: 'pie',
             radius: '70%',
             center: ['35%', '50%'],
-            "textStyle": {
-            "fontSize": 32
-           },
             data: [
               {
-                name: "美军军舰入侵南海",
-                value: '35'
+                name: "入侵行动",
+                value: '10'
               },
               {
-                name: "处于和平状态",
-                value: '50'
+                name: "国家立场",
+                value: '8'
               },
               {
-                name: "美军挑起南海自由航行争端",
-                value: '15'
+                name: "防卫行动",
+                value: '9'
+              },
+              {
+                name: "军演行动",
+                value: '5'
+              },
+              {
+                name: "媒体评论",
+                value: '6'
+              },
+              {
+                name: "访问行动",
+                value: '4'
               }
             ]
           }
         ]
       };
       myChart.setOption(right_up_option);
-
-    myChart = echarts.init(document.getElementById('left_down'));
-    var left_down_option = {
-        title: {
-            text: '媒体观点'
-        },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-            },
-            formatter: function (params) {
-                var tar = params[0];
-                return tar.seriesName;
-            }
-        },
-        legend: {
-            data: ['媒体观点']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'value',
-            label: {
-              normal: {
-                show: false,
-                position: "inside",
-              }
-            }
-        },
-        yAxis: {
-            type: 'category',
-            data: ["", "", "", "", ""],
-            show: false,
-            position: 'top'
-            // label: {
-            //   normal: {
-            //     show: false,
-            //     position: "inside",
-            //   }
-            // }
-        },
-        series: [
-            {
-                name: '日本最大军舰跟着美航母“巡航”南海',
-                type: 'bar',
-                stack: '总量',
-                label: {
-                    show: true,
-                    position: 'inside'
-                },
-                data: [500,400,300,200,100]
-            }
-            // {
-            //     name: '日本最大军舰跟着美航母“巡航”南海',
-            //     type: 'bar',
-            //     // stack: '总量',
-            //     // label: {
-            //     //     show: true,
-            //     //     position: 'insideRight'
-            //     // },
-            //     data: [200]
-            // },
-            // {
-            //     name: '美航母无事生非搅动南海借“航行自由”吓唬中国',
-            //     type: 'bar',
-            //     // stack: '总量',
-            //     // label: {
-            //     //     show: true,
-            //     //     position: 'insideRight'
-            //     // },
-            //     data: [150]
-            // },
-            // {
-            //     name: '东盟十国军方高层齐声：希望南海和平',
-            //     type: 'bar',
-            //     stack: '总量',
-            //     label: {
-            //         show: true,
-            //         position: 'insideRight'
-            //     },
-            //     data: [100]
-            // }
-        ]
-    };
-    myChart.setOption(left_down_option);
   },
   beforeDestroy () {
   },
@@ -470,6 +468,149 @@ export default {
       this.filter = filter;
       this.findDatas(filter);
     },
+    fetchEventSource () {
+      axios.get('/api/getEventSourceCount', {params: {
+        eventId: this.$route.params.eventId,
+      }}).then(response => {
+        let data = [
+          {name: '微信', value: response.data.wechat},
+          {name: '网页', value: response.data.news},
+          {name: '贴吧', value: response.data.tieba},
+        ];
+        if (response.data.weibo) {
+          data.push({name: '微博', value: response.data.weibo});
+        }
+        this.event_source_option.series[0].data = _.orderBy(data, 'value', 'desc');
+        this.loading.source = false;
+      });
+    },
+    makeTimeLine (TL) {
+      this.TL = TL;
+      console.log('eventa');
+      console.log(TL);
+      console.log(this.event);
+      axios.get('/api/getEventSourceById',{params: {
+        eventId: this.$route.params.eventId,
+        similarity: true,
+      }}).then(response => {
+        let sources = {
+          events: [],
+        };
+        response.data = _.orderBy(response.data, 'releaseDate');
+        let maxSim = 0.0;
+        let maxSimIndex = -1;
+        if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
+          let date = new Date(this.event.time);
+          sources.events = [{
+            start_date: {
+              year: date.getFullYear(),
+              month: date.getMonth() + 1,
+              day: date.getDate(),
+              hour: date.getHours(),
+              minute: date.getMinutes(),
+              second: date.getSeconds(),
+              display_date: date.format('yyyy-MM-dd hh:mm:ss'),
+            },
+            text: {
+              headline: '<a href="/event/#/detail/' + this.event.eventId + '" target="_blank">' + this.event.description + '</a>',
+              text: '',
+            },
+            unique_id: this.event.eventId,
+          }];
+        } else {
+          sources.events = _.map(response.data, item => {
+            let date = new Date(item.releaseDate);
+            let text = item.content;
+            if (item.foreign && item.content) {
+              text = '<div class="text-content-wrapper">' +
+                     '<div class="text-content-inner text-content-left">' + item.origin_content + '</div>' +
+                     '<div class="text-content-sep"></div>' +
+                     '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
+                     '</div>';
+            }
+            let source = {
+              start_date: {
+                year: date.getFullYear(),
+                month: date.getMonth() + 1,
+                day: date.getDate(),
+                hour: date.getHours(),
+                minute: date.getMinutes(),
+                second: date.getSeconds(),
+                display_date: date.format('yyyy-MM-dd hh:mm:ss'),
+              },
+              text: {
+                headline: '<a href="' + item.url + '" target="_blank">' + (item.origin_title || item.title) + '</a>',
+                text: text,
+              },
+              unique_id: item.id,
+            };
+            // TODO
+            // if (item.url) {
+            //   let media = {
+            //     caption: item.username,
+            //     url: item.url,
+            //   };
+            //   if (item.headPic) {
+            //     media.thumbnail = item.headPic;
+            //   }
+            //   source.media = media;
+            // }
+            return source;
+          });
+          this.unique_id = _.last(response.data).id;
+          // calculate max similarity index.
+          for (var i = 0; i < response.data.length; ++i) {
+            if (response.data[i].similarity > maxSim) {
+              maxSimIndex = i;
+              maxSim = response.data[i].similarity;
+            }
+          }
+        }
+        let options = { language: 'zh_CN', start_at_end: true };
+        this.timeline = new this.TL.Timeline('source-timeline', sources, options);
+        // event binding
+        this.timeline.on('change', value => {
+          this.unique_id = value.unique_id;
+        });
+        if (maxSimIndex >= 0) {
+          this.timeline.goTo(maxSimIndex);
+        }
+        // Store source data in map.
+        _.each(response.data, item => {
+          this.sourceMap[item.id] = item;
+        });
+        // 外文数据构成比例图
+        if (this.event.foreign) {
+          let foreignNews = 0;
+          let nonforeignNews = 0;
+          _.each(response.data, item => {
+            if (item.datatag === 'webnews') {
+              if (item.foreign) {
+                foreignNews += 1;
+              } else {
+                nonforeignNews += 1;
+              }
+            }
+          });
+          this.event_source_option.series[1].data = [
+            {name: '外文新闻', value: foreignNews, selected: true},
+            {name: '中文新闻', value: nonforeignNews},
+          ];
+        }
+      });
+    },
+    fetchWorldCloud () {
+      this.loading.words = true;
+      axios.get('/api/getCorewordsByEventId',{params: {
+        eventId: this.$route.params.eventId,
+      }}).then(response => {
+        let words = _.map(response.data.slice(0, 30), item => {
+          return {name: item.text, value: item.weight * 2};
+        });
+        this.word_cloud_option.series[0].data = words;
+        this.loading.words = false;
+      });
+    },
   },
   components: {
     // 'v-list': List,
@@ -502,26 +643,25 @@ export default {
 .pagination
   margin-bottom: 0rem
   justify-content: center
-@media (min-width: 100%)
+@media (min-width: 1200px)
   .container
+    width: 1200px
+  .event-page-wrapper
     width: 100%
-.page-wrapper
-  width: 100%
-  margin: 0px auto 0
-  overflow: auto
-  background-color: #fff
-  padding: 0px 0px
-  // position: relative
-  flex-direction: column
-// @media (min-width: 1200px)
-//   .page-wrapper
-//     width: 1200px
-//     min-height: 525px
-// @media (max-width: 768px)
-//   .page-wrapper
-//     margin-top: 0
-// .roll-warning-list-move
-//   transition: transform 1s
+    margin: 20px auto 0
+    overflow: auto
+    background-color: #fff
+    padding: 20px 15px
+    position: relative
+    flex-direction: column
+  @media (min-width: 1200px)
+    .event-page-wrapper
+      width: 1200px
+      min-height: calc(100vh - 81px)
+  @media (max-width: 768px)
+    .event-page-wrapper
+      margin-top: 0
+      transition: transform 1s
 </style>
 
 <style type="text/css">
@@ -576,4 +716,87 @@ table.event-table
     border-right: 4px solid transparent;
     border-top: 4px solid #fff;
   }
+</style>
+
+<style lang="sass" scoped>
+@import "~assets/sass/mixin"
+.r-panel
+  height: 100%
+.events-wrapper
+  display: flex
+  flex-direction: column
+  flex: 1
+.event-panel
+  display: flex
+  flex: 1 1 auto
+  overflow-y: auto
+.event-panel.event-panel-source
+  flex: 1 1 0
+  height: auto
+  overflow-y: hidden
+  padding: 0 1.5rem 1rem
+  .event-chart
+    height: inherit
+    display: flex
+    flex: 1 1 0
+.r-panel
+  .event-chart
+    display: flex
+    flex: 1 1 0
+</style>
+
+<style lang="sass">
+/*css for timeline.*/
+.tl-storyslider
+    /*padding: 25px 0 35px*/
+.tl-slide
+  overflow-y: hidden!important
+  .tl-slide-content-container
+    .tl-slide-content
+      .tl-text
+        overflow: hidden
+        .tl-headline-date
+          font-size: 14px
+          margin-bottom: 4px
+          color: #999
+        h2.tl-headline
+          font-size: 24px
+          line-height: 28px
+          max-height: 56px
+          overflow: hidden
+          font-weight: bold
+          margin-bottom: 8px
+          a
+            /*color: #414b54*/
+            transition: .3s
+            &:focus, &:hover
+              color: #256bcc
+        .tl-text-content
+          max-height: 140px
+          overflow: hidden
+          p
+            font-size: 14px
+            line-height: 20px
+            margin-top: 0
+            color: #454545
+.tl-storyslider
+  .tl-slidenav-title
+    display: none!important
+  .tl-slidenav-description
+    display: none!important
+.tl-slidenav-icon
+  color: #999!important
+  transition: .3s
+  &:hover
+    color: #454545!important
+.text-content-wrapper
+  display: flex
+  justify-content: space-between
+  .text-content-inner
+    width: 46%
+    display: inline-block
+  .text-content-sep
+    width: 1px
+    border-left: 2px solid
+    display: inline-block
 </style>

@@ -35,9 +35,9 @@ module.exports = {
       '^/static/data',
     ],
     localHost: 'http://localhost:8080',
-    remoteHost: 'http://10.1.1.16:8080',
+    // remoteHost: 'http://10.1.1.16:8080',
     // remoteHost: 'http://10.254.20.199:8080',
-    // remoteHost: 'http://ring.act.buaa.edu.cn',
+    remoteHost: 'http://ring.act.buaa.edu.cn',
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README
     // (https://github.com/webpack/css-loader#sourcemaps)

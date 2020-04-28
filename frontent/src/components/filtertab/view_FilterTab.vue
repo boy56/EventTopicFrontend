@@ -1,6 +1,6 @@
 <template>
   <div class='view-filter'>
-    <dl class="view-dl-group first-cat">
+    <!-- <dl class="view-dl-group first-cat"> -->
       <!-- <dt>选题模型：</dt> -->
       <!-- <b-nav pills> -->
         <!-- <b-nav-item :active="!selectedCats" @click="selectAllCats()">全部事件</b-nav-item> -->
@@ -27,9 +27,9 @@
                    @click="selectTopic(topic)">
           {{ topic }}
           <i class="fa fa-times" v-show="_.includes(selectedTopics, topic)"></i>
-        </b-nav-item> --> -->
-      </b-nav>
-    </dl>
+        </b-nav-item> -->
+      <!-- </b-nav> -->
+    <!-- </dl> -->
     <dl class="view-dl-group first-cat">
       <dt>内容分类：</dt>
       <b-nav pills>

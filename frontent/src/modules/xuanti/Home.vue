@@ -1,7 +1,7 @@
 <template>
   <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
-    <filtere @update:filter="updateFilter"></filtere>
-    <v-search-box :search-input.sync="searchInput"></v-search-box>
+    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+     <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
@@ -20,8 +20,8 @@
 import Colors from 'components/Colors'
 import List from 'components/list/xuanti_List'
 import SearchBox from 'components/search/SearchBox'
-import FilterTab from '../../components/filtertab/xuanti_FilterTab'
-import Data from "assets/data/xuanti_data.json"
+import FilterTab from 'components/filtertab/xuanti_FilterTab'
+import Data from 'assets/data/xuanti_data.json'
 import Footer from 'components/header/Footer.vue'
 // import Header from 'components\\header\\xuanti_Header.vue'
 
@@ -102,7 +102,7 @@ export default {
   components: {
     'v-list': List,
     'v-search-box': SearchBox,
-    'filtere': FilterTab,
+    'v-filter-tab': FilterTab,
     'v-footer': Footer,
   }
 };
@@ -131,24 +131,24 @@ export default {
 .pagination
   margin-bottom: 0rem
   justify-content: center
-@media (min-width: 100%)
+@media (min-width: 1600px)
   .container
+    width: 1200px
+  .xuanti-page-wrapper
     width: 100%
-.xuanti-page-wrapper
-  width: 100%
-  margin: 0px auto 0
-  overflow: auto
-  background-color: #fff
-  padding: 0px 0px
-  position: relative
-  flex-direction: column
-@media (min-width: 100%)
-  .page-wrapper
-    width: 100%
-    min-height: 100%
-@media (max-width: 100%)
-  .page-wrapper
+    margin: 20px auto 0
+    overflow: auto
+    background-color: #fff
+    padding: 20px 15px
+    position: relative
+    flex-direction: column
+@media (min-width: 1200px)
+  .xuanti-page-wrapper
+    width: 1200px
+    min-height: calc(100vh - 81px)
+@media (max-width: 768px)
+  .xuanti-page-wrapper
     margin-top: 0
-.roll-warning-list-move
+  .roll-warning-list-move
   transition: transform 1s
 </style>

@@ -1,36 +1,36 @@
 <template>
-  <div>
-    <dl class="xuanti-dl-group first-cat">
+  <div class='view-filter'>
+    <!-- <dl class="view-dl-group first-cat"> -->
       <!-- <dt>选题模型：</dt> -->
       <!-- <b-nav pills> -->
         <!-- <b-nav-item :active="!selectedCats" @click="selectAllCats()">全部事件</b-nav-item> -->
         <!-- 普通类别 -->
-        <!-- <b-nav-item v-for="(types, cat, idx) in categories"
-                    v-if="cat !== '其他'"
-                   :key="'cat_' + idx"
-                   :active="_.includes(selectedCats, cat)"
-                   @click="selectCat(cat)">
-          {{ cat }}
-          <i class="fa fa-times" v-show="_.includes(selectedCats, cat)"></i>
-        </b-nav-item> -->
-        <!-- <li class="nav-item line-break"></li> -->
+        <!-- <b-nav-item v-for="(types, cat, idx) in categories" -->
+                    <!-- v-if="cat !== '其他'" -->
+                   <!-- :key="'cat_' + idx" -->
+                   <!-- :active="_.includes(selectedCats, cat)" -->
+                   <!-- @click="selectCat(cat)"> -->
+          <!-- {{ cat }} -->
+          <!-- <i class="fa fa-times" v-show="_.includes(selectedCats, cat)"></i> -->
+        <!-- </b-nav-item> -->
+        <!-- <li class="nav-item line-break"></li>
         <!-- 突发敏感类 -->
         <!-- <b-nav-item :active="selectedSecu" -->
-                    <!-- @click="selectedSecu = !selectedSecu"> -->
-          <!-- 突发敏感 -->
-          <!-- <i class="fa fa-times" v-show="selectedSecu"></i> -->
-        <!-- </b-nav-item> -->
+                    <!-- @click="selectedSecu = !selectedSecu">
+          突发敏感
+          <i class="fa fa-times" v-show="selectedSecu"></i>
+        </b-nav-item> -->
         <!-- 关键词类 -->
-        <!-- <b-nav-item v-for="(words, topic, idx) in topics" -->
-                   <!-- :key="'topic_' + idx" -->
-                   <!-- :active="_.includes(selectedTopics, topic)" -->
-                   <!-- @click="selectTopic(topic)"> -->
-          <!-- {{ topic }} -->
-          <!-- <i class="fa fa-times" v-show="_.includes(selectedTopics, topic)"></i> -->
-        <!-- </b-nav-item> -->
-      </b-nav>
-    </dl>
-    <dl class="xuanti-dl-group first-cat">
+        <!-- <b-nav-item v-for="(words, topic, idx) in topics"
+                   :key="'topic_' + idx"
+                   :active="_.includes(selectedTopics, topic)"
+                   @click="selectTopic(topic)">
+          {{ topic }}
+          <i class="fa fa-times" v-show="_.includes(selectedTopics, topic)"></i>
+        </b-nav-item> --> -->
+      <!-- </b-nav> -->
+    <!-- </dl> -->
+    <dl class="view-dl-group first-cat">
       <dt>内容分类：</dt>
       <b-nav pills>
         <b-nav-item :active="!selectedCats" @click="selectAllLegacyTypes()">全部类别</b-nav-item>
@@ -51,19 +51,7 @@
         </b-nav-item>
       </b-nav>
     </dl>
-    <!-- <d1>
-        <Form :model="formItem" ref="formItem" :rules="ruleInline" :label-width="80">
-            <FormItem label="完成状态 : " prop="sendValue">
-                <Select style="width:200px" v-model="formItem.sendValue">
-                    <Option v-for="item in formItem.stateList" :value="item.value" :key="item.value" name="sendValue">{{
-                        item.label }}
-                    </Option>
-                </Select>
-            </FormItem>
-        
-        </Form>
-    </d1> -->
-    <dl class="xuanti-dl-group others">
+    <dl class="view-dl-group others">
       <dt>语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言：</dt>
       <ul class="list-ul">
         <li class="list-btn" v-for="(lang, idx) in languages"
@@ -74,7 +62,7 @@
         </li>
       </ul>
     </dl>
-    <dl class="xuanti-dl-group others">
+    <dl class="view-dl-group others">
       <dt>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</dt>
       <ul class="list-ul">
         <li class="list-btn" v-for="(loc, idx) in locations"
@@ -188,7 +176,7 @@
           selectedSecu: this.selectedSecu,
           selectedWords: this.selectedWords,
         });
-        console.log("ningyxff");
+        console.log("ningyxa")
       },
     },
   }

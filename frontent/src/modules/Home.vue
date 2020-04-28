@@ -45,7 +45,7 @@
         <div class="view-table start_box box_align pack_center">
         <font size="40" color="white">
           <!-- <m-button size= large type="info" round>南海</m-button> -->
-          <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>南海<span class="unqie-guang"></span></div>
+          <div ><span class="iconfont icon-yuqing"></span>南海<span class="unqie-guang"></span></div>
           <!-- <m-button type="info" round>朝鲜</m-button>
           <m-button type="info" round>台湾</m-button> -->
           <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>朝核<span class="unqie-guang"></span></div>

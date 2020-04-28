@@ -1,6 +1,6 @@
 <template>
   <!-- <div id="app" class="real-body"> -->
-    <!--通过vue-router控制主内容区域变换-->    
+    <!--通过vue-router控制主内容区域变换-->
   <router-view></router-view>
   <!-- </div> -->
 </template>
@@ -22,6 +22,5 @@ export default {
 </script>
 
 <style lang="sass">
-  @import "../assets/sass/base"
   @import "../assets/sass/common"
 </style>
