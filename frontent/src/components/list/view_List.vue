@@ -12,22 +12,22 @@
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
         <div class="table-th td-country_l" v-if='!isevent'>所属国家</div>
-        <div class="table-th td-content_l" v-if='!isevent'>内容类别</div>
+        <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
         <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
       </div class="table-tr">
     </div>
     <div class="table table-striped list-table-body" >
-        <div class="table-tr" v-for="(item, idx) in dispValues" :key="item.id">
+        <div class="table-tr" v-for="(item) in dispValues" :key="item.viewid">
           <!-- 正常列表 -->
           <div class="table-tr-row">
             <!-- <div class="table-td td-index">{{ idx + 1 }}</div> -->
-            <div class="table-td td-type">{{ item.type }}</div>
-            <div class="table-td td-location">{{ item.user }}</div>
+            <div class="table-td td-type">{{ item.newsinfo.theme }}</div>
+            <div class="table-td td-location">{{ item.personname }}</div>
             <!-- <div class="table-td td-type">{{ item.type1 | toMinorType }}</div> -->
             <div class="table-td td-title" v-if='isevent'>
               <router-link class="title-link" :to="{name:'Event/Detail/Overall', params: {index: item.esIndex, eventId: item.id}}" target="_blank">
-                {{ item.title }}
+                {{ item.viewpoint }}
               </router-link>
             </div>
             <div class="table-td td-title" v-else>
@@ -41,18 +41,18 @@
                     @mouseenter="enter(item)" 
    		              @mouseleave="leave" 
    		              @mousemove="updateXY">
-                {{ item.title}}
+                {{ item.viewpoint}}
               </li>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
-            <div class="table-td td-emotion">{{ item.emotion | toEmotion }}</div>
+            <div class="table-td td-emotion">{{ item.sentiment | toEmotion }}</div>
             <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
             <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
-            <div class="table-td td-country_l">{{ item.country_l | ellipsis}}</div>
-            <div class="table-td td-content_l">{{ item.content_l | ellipsisname}}</div>
+            <div class="table-td td-country_l">{{ item.orgname}}</div>
+            <!-- <div class="table-td td-content_l">{{ item.content_l | ellipsisname}}</div> -->
             <div class="table-td td-source" v-if="!isevent">
               <a :href="item.url">
-                {{item.customer}}
+                {{item.newsinfo.source}}
               </a>
             </div>
             <!-- <div class="table-td td-source" v-if="!isevent">
@@ -85,13 +85,13 @@
           </div>
         </div>
     </div>
-    <b-modal id="modaltrend" size="lg" :title="viewtitle">
+    <!-- <b-modal id="modaltrend" size="lg" :title="viewtitle">
       <div class="chart" style="overflow: scroll"> 
-        <!-- <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts> -->
-        {{viewtext}}
+        <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts>
+        {{item.newsinfo.source}}
       </div>
       <footer slot="modal-footer"></footer>
-    </b-modal>
+    </b-modal> -->
   </div>
 </template>
 
@@ -176,7 +176,7 @@ export default {
   },
   watch: {
     dispDatas: function (datas) {
-      let xs = _.map(_.uniqBy(datas, 'id'), item => {
+      let xs = _.map(_.uniqBy(datas, 'viewid'), item => {
         // fix the time.
         let s = '' + new Date(item.time).getTime();
         if (_.startsWith(s, '2017')) {
@@ -189,28 +189,28 @@ export default {
           }
         }
 
-        if (item.eventLoc) {
-          item.location = item.eventLoc;
-        }
-        if (item.eventId) {
-          item.id = item.eventId;
-        }
-        if (item.risk > 0 && item.risk < 1) {
-          item.risk = Math.round(item.risk * 100);
-        }
+        // if (item.eventLoc) {
+        //   item.location = item.eventLoc;
+        // }
+        // if (item.eventId) {
+        //   item.id = item.eventId;
+        // }
+        // if (item.risk > 0 && item.risk < 1) {
+        //   item.risk = Math.round(item.risk * 100);
+        // }
 
-        // fix the trend
-        item.trend = item.type0 - 5; // TODO
-        // fix the event's link and source
-        if (item.datatag === 'event') {
-          item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-        }
-        // Location去掉”中国“前缀
-        if (_.startsWith(item.location, '中国')) {
-          item.location = item.location.substring(2);
-        }
-        // 相关/不相关标注
-        item.related = true;
+        // // fix the trend
+        // item.trend = item.type0 - 5; // TODO
+        // // fix the event's link and source
+        // if (item.datatag === 'event') {
+        //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
+        // }
+        // // Location去掉”中国“前缀
+        // if (_.startsWith(item.location, '中国')) {
+        //   item.location = item.location.substring(2);
+        // }
+        // // 相关/不相关标注
+        // item.related = true;
         return item;
       });
       if (this.sorting) {
@@ -334,7 +334,7 @@ export default {
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
-    let xs = _.map(_.uniqBy(this.dispDatas, 'id'), item => {
+    let xs = _.map(_.uniqBy(this.dispDatas, 'viewid'), item => {
       console.log(this.dispDatas)
       // fix the time.
       let s = '' + new Date(item.time).getTime();
@@ -348,28 +348,28 @@ export default {
         }
       }
 
-      if (item.eventLoc) {
-        item.location = item.eventLoc;
-      }
-      if (item.eventId) {
-        item.id = item.eventId;
-      }
-      if (item.risk > 0 && item.risk < 1) {
-        item.risk = Math.round(item.risk * 100);
-      }
+      // if (item.eventLoc) {
+      //   item.location = item.eventLoc;
+      // }
+      // if (item.eventId) {
+      //   item.id = item.eventId;
+      // }
+      // if (item.risk > 0 && item.risk < 1) {
+      //   item.risk = Math.round(item.risk * 100);
+      // }
 
-      // fix the trend
-      item.trend = item.type0 - 5; // TODO
-      // fix the event's link and source
-      if (item.datatag === 'event') {
-        item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-      }
-      // Location去掉”中国“前缀
-      if (_.startsWith(item.location, '中国')) {
-        item.location = item.location.substring(2);
-      }
-      // 相关/不相关标注
-      item.related = true;
+      // // fix the trend
+      // item.trend = item.type0 - 5; // TODO
+      // // fix the event's link and source
+      // if (item.datatag === 'event') {
+      //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
+      // }
+      // // Location去掉”中国“前缀
+      // if (_.startsWith(item.location, '中国')) {
+      //   item.location = item.location.substring(2);
+      // }
+      // // 相关/不相关标注
+      // item.related = true;
       return item;
     });
     if (this.sorting) {

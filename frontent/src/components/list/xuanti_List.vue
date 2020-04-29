@@ -21,11 +21,11 @@
       </div class="table-tr">
     </div>
     <div class="table table-striped list-table-body" >
-        <div class="table-tr" v-for="(item, idx) in dispValues" :key="item.id">
+        <div class="table-tr" v-for="(item) in dispValues" :key="item.newsid">
           <!-- 正常列表 -->
           <div class="table-tr-row">
             <!-- <div class="table-td td-index">{{ idx + 1 }}</div> -->
-            <div class="table-td td-type">{{ item.type }}</div>
+            <div class="table-td td-type">{{ item.theme_label }}</div>
             <!-- <div class="table-td td-type">{{ item.type1 | toMinorType }}</div> -->
             <div class="table-td td-title" v-if='isevent'>
               <router-link class="title-link" :to="{name:'Event/Detail/Overall', params: {index: item.esIndex, eventId: item.id}}" target="_blank">
@@ -44,9 +44,9 @@
             <div class="table-td td-date">{{ item.timestr }}</div>
             <div class="table-td td-location">{{ item.location }}</div>
             <div class="table-td td-emotion">{{ item.emotion | toEmotion }}</div>
-            <div class="table-td td-hot">{{ item.hot }}</div>
-            <div class="table-td td-country_l">{{ item.country_l }}</div>
-            <div class="table-td td-content_l">{{ item.content_l }}</div>
+            <div class="table-td td-hot">{{ item.userview }}</div>
+            <div class="table-td td-country_l">{{ item.country_label }}</div>
+            <div class="table-td td-content_l">{{ item.content_label }}</div>
             <!-- <div class="table-td td-userview">{{ item.userview }}</div> -->
             <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
             <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
@@ -125,6 +125,10 @@ export default {
       default () {
         return false;
       }
+    },
+    'pageno': { // 通过v-model传过来的参数
+      type: Number,
+      default: 1
     }
   },
   data () {
@@ -170,7 +174,10 @@ export default {
   },
   watch: {
     dispDatas: function (datas) {
-      let xs = _.map(_.uniqBy(datas, 'id'), item => {
+      console.log('list');
+      datas = datas.slice((this.pageno - 1) * 20, this.pageno * 20);
+      console.log(datas);
+      let xs = _.map(_.uniqBy(datas, 'newsid'), item => {
         // fix the time.
         let s = '' + new Date(item.time).getTime();
         if (_.startsWith(s, '2017')) {
@@ -183,28 +190,28 @@ export default {
           }
         }
 
-        if (item.eventLoc) {
-          item.location = item.eventLoc;
-        }
-        if (item.eventId) {
-          item.id = item.eventId;
-        }
-        if (item.risk > 0 && item.risk < 1) {
-          item.risk = Math.round(item.risk * 100);
-        }
+        // if (item.eventLoc) {
+        //   item.location = item.eventLoc;
+        // }
+        // if (item.eventId) {
+        //   item.id = item.eventId;
+        // }
+        // if (item.risk > 0 && item.risk < 1) {
+        //   item.risk = Math.round(item.risk * 100);
+        // }
 
         // fix the trend
-        item.trend = item.type0 - 5; // TODO
+        // item.trend = item.type0 - 5; // TODO
         // fix the event's link and source
-        if (item.datatag === 'event') {
-          item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-        }
+        // if (item.datatag === 'event') {
+        //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
+        // }
         // Location去掉”中国“前缀
-        if (_.startsWith(item.location, '中国')) {
-          item.location = item.location.substring(2);
-        }
+        // if (_.startsWith(item.location, '中国')) {
+        //   item.location = item.location.substring(2);
+        // }
         // 相关/不相关标注
-        item.related = true;
+        // item.related = true;
         return item;
       });
       if (this.sorting) {
@@ -299,7 +306,9 @@ export default {
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
-    let xs = _.map(_.uniqBy(this.dispDatas, 'id'), item => {
+    let xs = _.map(_.uniqBy(this.dispDatas, 'newsid'), item => {
+      console.log(this.pageno);
+      this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 20, this.pageno * 20);
       console.log(this.dispDatas)
       // fix the time.
       let s = '' + new Date(item.time).getTime();
@@ -313,38 +322,35 @@ export default {
         }
       }
 
-      if (item.eventLoc) {
-        item.location = item.eventLoc;
-      }
-      if (item.eventId) {
-        item.id = item.eventId;
-      }
-      if (item.risk > 0 && item.risk < 1) {
-        item.risk = Math.round(item.risk * 100);
-      }
+      // if (item.eventLoc) {
+      //   item.location = item.eventLoc;
+      // }
+      // if (item.eventId) {
+      //   item.id = item.eventId;
+      // }
+      // if (item.risk > 0 && item.risk < 1) {
+      //   item.risk = Math.round(item.risk * 100);
+      // }
 
-      // fix the trend
-      item.trend = item.type0 - 5; // TODO
+      // // fix the trend
+      // item.trend = item.type0 - 5; // TODO
       // fix the event's link and source
-      if (item.datatag === 'event') {
-        item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-      }
+      // if (item.datatag === 'event') {
+      //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
+      // }
       // Location去掉”中国“前缀
-      if (_.startsWith(item.location, '中国')) {
-        item.location = item.location.substring(2);
-      }
-      // 相关/不相关标注
-      item.related = true;
+      // if (_.startsWith(item.location, '中国')) {
+      //   item.location = item.location.substring(2);
+      // }
+      // // 相关/不相关标注
+      // item.related = true;
       return item;
     });
     if (this.sorting) {
-      console.log("ningyx");
       this.dispValues = _.orderBy(xs, this.sorting, this.sortingMap[this.sorting]);
     } else {
       this.dispValues = xs;
     }
-    console.log("ningyx");
-    console.log(xs);
     console.log(this.dispValues)
   },
   destroyed () {

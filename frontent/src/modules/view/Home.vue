@@ -7,7 +7,7 @@
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
     <b-pagination align="center" size="md" :limit="8"
-                 :per-page="64"
+                 :per-page="50"
                  :total-rows="totalRows"
                  v-model="pageno">
     </b-pagination>
@@ -22,6 +22,7 @@ import List from 'components/list/view_List'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/view_FilterTab'
 import Data from "assets/data/view_data.json"
+import Demo from 'assets/data/view_demo.json'
 import Header from 'components/header/view_Header.vue'
 import Footer from 'components/header/Footer.vue'
 
@@ -64,28 +65,31 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
-      // axios.get('/api/cncert/source/findDatas', {params: {
-      //   from: this.searchInput.dateStart.format('yyyy-MM-dd'),
-      //   to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
-      //   kws: this.searchInput.kws,
-      //   kws_kinds: _.join(filter.selectedWords, ' '),
-      //   include_text: this.searchInput.includeText,
-      //   size: 64,
-      //   pageno: this.pageno,
-      //   sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
-      //   types0: _.join(filter.selectedLegacyTypes, ' '),
-      //   types2: _.join(filter.selectedTypes, ' '),
-      //   language: filter.selectedLanguge,
-      //   location: filter.selectedLocation,
-      // }}).then(response => {
-      //   this.dispDatas = response.data.content;
-      //   this.totalRows = response.data.totalElements;
-      // });
-      this.dispDatas = Data;
-      console.log("view---------------")
-      console.log(this.dispDatas);
-      this.totalRows = 64;
-      console.log(this.totalRows);
+      axios.get('/api/search_view', {params: {
+        date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
+        date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
+        kws: this.searchInput.kws,
+        kws_kinds: _.join(filter.selectedWords, ' '),
+        include_text: this.searchInput.includeText,
+        size: 64,
+        pageno: this.pageno,
+        // sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
+        // types0: _.join(filter.selectedLegacyTypes, ' '),
+        // types2: _.join(filter.selectedTypes, ' '),
+        language: filter.selectedLanguge,
+        location: filter.selectedLocation,
+        theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
+      }}).then(response => {
+        this.dispDatas = response.data.viewsList;
+        this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+        this.totalRows = response.data.totalElements;
+      });
+      // this.dispDatas = Demo.viewsList;
+      // console.log(this.dispDatas);
+      // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 20, this.pageno * 20);
+      // this.totalRows = Demo.totalElements;
+      // console.log(this.totalRows);
+      // console.log(this.pageno);
     },
     fetchSimNewsById: function (id, callback) {
       axios.get('/api/cache3/source/fetchSimNewsById', {params: {

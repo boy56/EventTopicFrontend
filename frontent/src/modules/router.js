@@ -36,7 +36,7 @@ const router = new Router({
       component: Eventa
     },
   ],
-  mode: "history"
+  // mode: "history"
 });
 
 export default router;

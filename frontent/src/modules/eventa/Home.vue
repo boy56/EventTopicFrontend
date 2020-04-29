@@ -1,11 +1,8 @@
 <template>
-  <div class="event-page-wrapper" v-title data-title="事件分析">
-    <div class='search' style="width:100%">
-      <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
-      <v-search-box :search-input.sync="searchInput"></v-search-box>
-      <!-- 注释，单行或多行 -->
-    </div>
-    <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 800px">
+  <div class="page-wrapper" v-title data-title="事件分析">
+    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+    <v-search-box :search-input.sync="searchInput"></v-search-box>
+      <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 800px">
             <tr>
                 <td style="width:50%; height: 50%">
                   <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
@@ -63,7 +60,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="events-wrapper">
+                            <!-- <div class="events-wrapper">
                               <ul class="event-panel-detail">
                                 <li >
                                   <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">美舰连续两天在南海非法活动</span>
@@ -82,12 +79,12 @@
                                   <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
                                   <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
                                 </li>
-                              </ul>
-                              <v-desc-view :event="event"></v-desc-view>
+                              </ul> -->
+                              <!-- <v-desc-view :event="event"></v-desc-view>
                               <div class="event-panel event-panel-source">
                                 <div id="source-timeline" class="event-chart"></div>
-                              </div>
-                            </div>
+                              </div> -->
+                            <!-- </div> -->
                           </div>
                         </div>
                     </div>
@@ -97,13 +94,19 @@
                 </td>
             </tr>
       </table>
-  <v-footer></v-footer>
+      <v-footer></v-footer>
+    <!-- </iframe> -->
+    <!-- <b-pagination align="center" size="md" :limit="8"
+                 :per-page="64"
+                 :total-rows="totalRows"
+                 v-model="pageno"> -->
+    <!-- </b-pagination> -->
   </div>
 </template>
+
 <script type="text/ecmascript-6">
 
 import Colors from 'components/Colors'
-// import List from 'components/list/List'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
@@ -111,6 +114,7 @@ import Data from "assets/data/eventa_data.json"
 import rdData from "assets/data/eventa_rddata.json"
 import Footer from 'components/header/Footer.vue'
 import TL from 'components/common/TimelineJS/timeline.js'
+
 export default {
   props: {
     event: {
@@ -121,11 +125,12 @@ export default {
     return {
       unique_id: -1,
       sourceMap: {},
+      topic: null,
       imgUrl: require("../../assets/image/eventa.png"),
       // for timeline
       timeline: {},
       // event: {},
-      events: [],
+      // events: [],
       loading: {
         timeline: true,
         source: true,
@@ -204,16 +209,14 @@ export default {
   created () {
     this.findDatas();
     // var echarts = require('echarts');
-    // this.fetchEventSource();
-    // this.fetchWorldCloud();
   },
   mounted () {
     console.log("123456");
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
-    console.log(TL);
-    // this.makeTimeLine(tl.default);
-    console.log("123456");
-    console.log(document.getElementById('left_up'));
+    this.newmakeTimeLine(TL);
+    console.log(this.timeline);
+    console.log(event);
+    // console.log(sources);
     var myChart = echarts.init(document.getElementById('left_up'));
     var left_up_option = {
       title: {
@@ -283,7 +286,7 @@ export default {
               ]
           },
       ]
-  };
+  }
     myChart.setOption(left_up_option);
     // console.log(myChart);
     myChart = echarts.init(document.getElementById('right_up'));
@@ -340,10 +343,8 @@ export default {
             ]
           }
         ]
-  };
-    myChart.setOption(right_up_option);
-    this.newmakeTimeLine(TL);
-    console.log(this.timeline);
+      };
+      myChart.setOption(right_up_option);
   },
   beforeDestroy () {
   },
@@ -413,11 +414,11 @@ export default {
       console.log(this.totalRows);
     },
     fetchSimNewsById: function (id, callback) {
-      // axios.get('/api/cache3/source/fetchSimNewsById', {params: {
-      //   id: id,
-      // }}).then(response => {
-      //   callback(response.data);
-      // });
+      axios.get('/api/cache3/source/fetchSimNewsById', {params: {
+        id: id,
+      }}).then(response => {
+        callback(response.data);
+      });
     },
     updateFilter: function (filter) {
       this.filter = filter;
@@ -523,128 +524,8 @@ export default {
         ];
       }
     },
-    makeTimeLine (TL) {
-      console.log('makeTimeLine');
-      this.TL = TL;
-      console.log('eventa');
-      console.log(TL);
-      console.log(this.event);
-      // axios.get('/api/getEventSourceById',{params: {
-      //   eventId: this.$route.params.eventId,
-      //   similarity: true,
-      // }}).then(response => {
-      //   let sources = {
-      //     events: [],
-      //   };
-      var sources = {events: []};
-      var response = rdData;
-      console.log(response);
-      response.data = _.orderBy(response.data, 'releaseDate');
-      let maxSim = 0.0;
-      let maxSimIndex = -1;
-      if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
-        let date = new Date(this.event.time);
-        sources.events = [{
-          start_date: {
-            year: date.getFullYear(),
-            month: date.getMonth() + 1,
-            day: date.getDate(),
-            hour: date.getHours(),
-            minute: date.getMinutes(),
-            second: date.getSeconds(),
-            display_date: date.format('yyyy-MM-dd hh:mm:ss'),
-          },
-          text: {
-            headline: '<a href="/event/#/detail/' + this.event.eventId + '" target="_blank">' + this.event.description + '</a>',
-            text: '',
-          },
-          unique_id: this.event.eventId,
-        }];
-      } else {
-        sources.events = _.map(response.data, item => {
-          let date = new Date(item.releaseDate);
-          let text = item.content;
-          if (item.foreign && item.content) {
-            text = '<div class="text-content-wrapper">' +
-                    '<div class="text-content-inner text-content-left">' + item.origin_content + '</div>' +
-                    '<div class="text-content-sep"></div>' +
-                    '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
-                    '</div>';
-          }
-          let source = {
-            start_date: {
-              year: date.getFullYear(),
-              month: date.getMonth() + 1,
-              day: date.getDate(),
-              hour: date.getHours(),
-              minute: date.getMinutes(),
-              second: date.getSeconds(),
-              display_date: date.format('yyyy-MM-dd hh:mm:ss'),
-            },
-            text: {
-              headline: '<a href="' + item.url + '" target="_blank">' + (item.origin_title || item.title) + '</a>',
-              text: text,
-            },
-            unique_id: item.id,
-          };
-          // TODO
-          // if (item.url) {
-          //   let media = {
-          //     caption: item.username,
-          //     url: item.url,
-          //   };
-          //   if (item.headPic) {
-          //     media.thumbnail = item.headPic;
-          //   }
-          //   source.media = media;
-          // }
-          return source;
-        });
-        this.unique_id = _.last(response.data).id;
-        // calculate max similarity index.
-        for (var i = 0; i < response.data.length; ++i) {
-          if (response.data[i].similarity > maxSim) {
-            maxSimIndex = i;
-            maxSim = response.data[i].similarity;
-          }
-        }
-      }
-      let options = { language: 'zh_CN', start_at_end: true };
-      this.timeline = new this.TL.Timeline('source-timeline', sources, options);
-      // event binding
-      this.timeline.on('change', value => {
-        this.unique_id = value.unique_id;
-      });
-      if (maxSimIndex >= 0) {
-        this.timeline.goTo(maxSimIndex);
-      }
-      // Store source data in map.
-      _.each(response.data, item => {
-        this.sourceMap[item.id] = item;
-      });
-      // 外文数据构成比例图
-      if (this.event.foreign) {
-        let foreignNews = 0;
-        let nonforeignNews = 0;
-        _.each(response.data, item => {
-          if (item.datatag === 'webnews') {
-            if (item.foreign) {
-              foreignNews += 1;
-            } else {
-              nonforeignNews += 1;
-            }
-          }
-        });
-        this.event_source_option.series[1].data = [
-          {name: '外文新闻', value: foreignNews, selected: true},
-          {name: '中文新闻', value: nonforeignNews},
-        ];
-      }
-      // });
-    },
   },
   components: {
-    // 'v-list': List,
     'v-search-box': SearchBox,
     'v-filter-tab': FilterTab,
     'v-footer': Footer,
@@ -654,6 +535,32 @@ export default {
 
 <style lang="sass" >
 @import "~assets/sass/mixin"
+.con-box
+  position: absolute
+  width: 37%
+  height: 45%
+  overflow: scroll
+  padding: .7rem 1rem .8rem
+  // background-image: url("~assets/images/box-bg.png")
+  background-size: 100% 100%
+  z-index: 1000
+  cursor: pointer
+  &.l-t-box
+    left: 1.5rem
+    top: 1.2rem
+  &.r-t-box
+    right: 1.5rem
+    top: 1.2rem
+  &.l-b-box
+    left: 1.5rem
+    bottom: 1.2rem
+  &.r-b-box
+    right: 1.5rem
+    bottom: 1.2rem
+    .chart
+      bottom: 100rem
+      width: 100%
+      height: 80%
 .real-body
   min-height: 100%
   height: 100%
@@ -668,167 +575,87 @@ export default {
 </style>
 
 <style lang="sass" scoped>
-.event-page-wrapper
+.page-wrapper
   overflow: inherit
   height: auto
 .pagination
-  margin-bottom: 0rem
+  margin-bottom: 1.5rem
   justify-content: center
-@media (min-width: 100%)
+@media (min-width: 1200px)
   .container
-    width: 100%
-.event-page-wrapper
+    width: 1200px
+.page-wrapper
   width: 100%
-  margin: 0px auto 0
+  margin: 20px auto 0
   overflow: auto
   background-color: #fff
-  padding: 0px 0px
-  position: relative
+  padding: 20px 15px
+  // position: relative
   flex-direction: column
-@media (min-width: 100%)
-  .event-page-wrapper
-    width: 100%
-    min-height: 100%
-@media (max-width: 100%)
-  .event-page-wrapper
-    margin-top: 0
-.roll-warning-list-move
-  transition: transform 1s
+// @media (min-width: 1200px)
+//   .page-wrapper
+//     width: 1200px
+//     min-height: 525px
+// @media (max-width: 768px)
+//   .page-wrapper
+//     margin-top: 0
+// .roll-warning-list-move
+//   transition: transform 1s
 </style>
 
 <style type="text/css">
-table.event-table
-	table{
-		border: 2px solid #42b983;
-    border-radius: 3px;
-    background-color: #fff;
-  }
-table.event-table
-  th {
-    background-color: #42b983;
-    color: rgba(255, 255, 255, 0.66);
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-table.event-table
-  td {
-    background-color: #f9f9f9;
-    min-width: 120px;
-    padding: 1px 1px;
-  }
-table.event-table
-  th.active {
-    color: #fff;
-  }
-table.event-table
-  th.active .arrow {
-    opacity: 1;
-  }
-table.event-table
-  .arrow {
-    display: inline-block;
-    vertical-align: middle;
-    width: 0;
-    height: 0;
-    margin-left: 5px;
-    opacity: 0.66;
-  }
-table.event-table
-  .arrow.asc {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-bottom: 4px solid #fff;
-  }
-table.event-table
-  .arrow.dsc {
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 4px solid #fff;
-  }
-</style>
+	table2 {
+  border: 2px solid #42b983;
+  border-radius: 3px;
+  background-color: #fff;
+}
 
-<style lang="sass" scoped>
-@import "~assets/sass/mixin"
-.r-panel
-  height: 100%
-.events-wrapper
-  display: flex
-  flex-direction: column
-  flex: 1
-.event-panel
-  display: flex
-  flex: 1 1 auto
-  overflow-y: auto
-.event-panel.event-panel-source
-  flex: 1 1 0
-  height: auto
-  overflow-y: hidden
-  padding: 0 1.5rem 1rem
-  .event-chart
-    height: inherit
-    display: flex
-    flex: 1 1 0
-.r-panel
-  .event-chart
-    display: flex
-    flex: 1 1 0
-</style>
+th {
+  background-color: #42b983;
+  color: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
-<style lang="sass">
-/*css for timeline.*/
-.tl-storyslider
-    /*padding: 25px 0 35px*/
-.tl-slide
-  overflow-y: hidden!important
-  .tl-slide-content-container
-    .tl-slide-content
-      .tl-text
-        overflow: hidden
-        .tl-headline-date
-          font-size: 14px
-          margin-bottom: 4px
-          color: #999
-        h2.tl-headline
-          font-size: 24px
-          line-height: 28px
-          max-height: 56px
-          overflow: hidden
-          font-weight: bold
-          margin-bottom: 8px
-          a
-            /*color: #414b54*/
-            transition: .3s
-            &:focus, &:hover
-              color: #256bcc
-        .tl-text-content
-          max-height: 140px
-          overflow: hidden
-          p
-            font-size: 14px
-            line-height: 20px
-            margin-top: 0
-            color: #454545
-.tl-storyslider
-  .tl-slidenav-title
-    display: none!important
-  .tl-slidenav-description
-    display: none!important
-.tl-slidenav-icon
-  color: #999!important
-  transition: .3s
-  &:hover
-    color: #454545!important
-.text-content-wrapper
-  display: flex
-  justify-content: space-between
-  .text-content-inner
-    width: 46%
-    display: inline-block
-  .text-content-sep
-    width: 1px
-    border-left: 2px solid
-    display: inline-block
+td {
+  background-color: #f9f9f9;
+}
+
+th,
+td {
+  min-width: 120px;
+  padding: 1px 1px;
+}
+
+th.active {
+  color: #fff;
+}
+
+th.active .arrow {
+  opacity: 1;
+}
+
+.arrow {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  opacity: 0.66;
+}
+
+.arrow.asc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #fff;
+}
+
+.arrow.dsc {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+}
 </style>

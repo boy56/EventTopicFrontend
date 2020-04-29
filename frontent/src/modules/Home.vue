@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="real-body">
     <div :href="'/' + jumpto" class="con-box l-t-box">
-    <router-link :to="'/xuanti'">
+    <router-link :to="{ name: 'xuanti', params: { topic: topic}}">
     <div class="box light-corner view-core toogle-tab-element">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
@@ -173,7 +173,7 @@
       return {
         Common: Common,
         jumpto: "",
-        topic: 1,
+        topic: '南海',
         topics: [1,2,3],
         topic_index: 0,
         intervalID: null,
@@ -366,7 +366,7 @@
       this.getGoodsList();
       console.log(this.right_up_list);
       this.left_up_list = Data.topics // ChartData['topics'];
-      this.right_up_list = Data.exports[this.topic] // ChartData['exports'][this.topic];
+      this.right_up_list = Data.exports[1] // ChartData['exports'][this.topic];
       console.log(this.right_up_list);
       this.options.right_down.option = ChartLib['南海气泡图'].option;
       this.options.right1_down.option = ChartLib['情绪分布图'].option;
