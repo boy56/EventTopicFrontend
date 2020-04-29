@@ -13189,8 +13189,8 @@ TL.Timeline = TL.Class.extend({
 
 		this.options = {
 			script_path: 				"",
-			height: 					this._el.container.offsetHeight,
-			width: 						this._el.container.offsetWidth,
+			height: 					50, // this._el.container.offsetHeight,
+			width: 						50, // this._el.container.offsetWidth,
 			debug: 						false,
 			is_embed: 					false,
 			is_full_embed: 				false,
@@ -13258,15 +13258,16 @@ TL.Timeline = TL.Class.extend({
 		TL.debug = this.options.debug;
 
 		// Apply base class to container
-		TL.DomUtil.addClass(this._el.container, 'tl-timeline');
+		// this._el.container.className = 'tl-menubar tl-menubar-inverted';
+		// TL.DomUtil.addClass(this._el.container, 'tl-timeline');
 
-		if (this.options.is_embed) {
-			TL.DomUtil.addClass(this._el.container, 'tl-timeline-embed');
-		}
+		// if (this.options.is_embed) {
+		// 	TL.DomUtil.addClass(this._el.container, 'tl-timeline-embed');
+		// }
 
-		if (this.options.is_full_embed) {
-			TL.DomUtil.addClass(this._el.container, 'tl-timeline-full-embed');
-		}
+		// if (this.options.is_full_embed) {
+		// 	TL.DomUtil.addClass(this._el.container, 'tl-timeline-full-embed');
+		// }
 
 		document.addEventListener("keydown", function(event) {
 			var keyName = event.key;
@@ -13333,8 +13334,8 @@ TL.Timeline = TL.Class.extend({
 	goToId: function(id) {
 		if (this.current_id != id) {
 			this.current_id = id;
-			this._timenav.goToId(this.current_id);
-			this._storyslider.goToId(this.current_id, false, true);
+			// this._timenav.goToId(this.current_id);
+			// this._storyslider.goToId(this.current_id, false, true);
 			this.fire("change", {unique_id: this.current_id}, this);
 		}
 	},

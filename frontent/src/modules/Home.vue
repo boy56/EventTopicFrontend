@@ -73,7 +73,7 @@
         <div class="view-list-wrapper" v-bind:key=v v-for="v in right_up_list">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list">
-                        <div>{{v.user}} {{v.point}}</div>
+                        <div>{{v.user}} {{v.point|ellipsis}}</div>
                   </ul>
               </div>
         </div>
