@@ -43,51 +43,32 @@
                   </table>
                 </td>
                 <td style="width:50%; height: 50%">
-                    <div class="row main-row" v-title data-title="Ring 事件概览">
-                        <div class="col-md-8" style="flex-basis: 100%; max-width: 100%;">
-                          <div class="r-panel hotnews-panel">
-                            <div class="panel-title-wrapper">
-                              <div class="panel-title">
-                                <span>事件概览</span>
-                                <!-- <div class="switch">
-                                  <span class="fa"
-                                    :class="{
-                                      'fa-toggle-on': translated,
-                                      'fa-toggle-off': !translated
-                                    }"
-                                    @click="translated = !translated"></span>
-                                  <label class="toggle-label">翻译</label>
-                                </div> -->
-                              </div>
-                            </div>
-                            <div class="events-wrapper">
-                              <ul class="event-panel-detail">
-                                <li >
-                                  <div class = 'descripition'>描&nbsp;&nbsp;&nbsp;述：</div><span class="title">{{event.description}}</span>
-                                </li>
-                                <li>
-                                  <label for="">参与者：</label><span>{{ event.participant }}</span>
-                                  <label for="">关键词：</label><span>{{ event.corewords }}</span>
-                                </li>
-                                <li>
-                                  <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type | toLegacyType }}</span><br class="event-br">
-                                  <!-- <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2 | toManyType }}</span><br class="event-br"> -->
-                                  <!-- <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion | toEmotion }}</span> -->
-                                </li>
-                                <li>
-                                  <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
-                                  <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
-                                  <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event.eventFrom }}</span>
-                                </li>
-                              </ul>
-                              <v-desc-view :event="event"></v-desc-view>
-                              <div class="event-panel event-panel-source">
-                                <div id="source-timeline" class="event-chart"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                  <div class="r-panel">
+                    <div class="events-wrapper">
+                      <ul class="event-panel-detail">
+                        <li >
+                          <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">{{ event.description && event.description.trim() }}</span>
+                        </li>
+                        <li>
+                          <label for="">参与者：</label><span>{{ event.participant }}</span><br class="event-br">
+                          <label for="">关键词：</label><span>{{ event.corewords }}</span>
+                        </li>
+                        <li>
+                          <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type}}</span><br class="event-br">
+                          <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2}}</span><br class="event-br">
+                          <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion}}</span>
+                        </li>
+                        <li>
+                          <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
+                          <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
+                          <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
+                        </li>
+                      </ul>
+                      <div class="event-panel event-panel-source">
+                        <div id="source-timeline" class="event-chart"></div>
+                      </div>
                     </div>
+                  </div>
                 </td>
             </tr>
       </table>
@@ -107,10 +88,10 @@ import Colors from 'components/Colors'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
-import Data from "assets/data/eventa_data.json"
-import rdData from "assets/data/eventa_rddata.json"
+import Data from 'assets/data/eventa_data.json'
+import rdData from 'assets/data/eventa_rddata.json'
 import Footer from 'components/header/Footer.vue'
-import TL from 'components/common/TimelineJS/timeline.js'
+// import TL from 'components/common/TimelineJS/timeline.js'
 
 require('components/common/TimelineJS/timeline.css')
 export default {
@@ -124,7 +105,7 @@ export default {
       unique_id: -1,
       sourceMap: {},
       topic: null,
-      imgUrl: require("../../assets/image/eventa.png"),
+      imgUrl: require('../../assets/image/eventa.png'),
       // for timeline
       timeline: {},
       event: [],
@@ -141,16 +122,16 @@ export default {
       pageno: 1,
       options: {
         left_up: { option: {xAxis: {
-              type: 'category',
-              data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            },
-            yAxis: {
-              type: 'value'
-            },
-            series: [{
-              data: [820, 932, 901, 934, 1290, 1330, 1320],
-              type: 'line'
-            }]}},
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+          yAxis: {
+            type: 'value'
+          },
+          series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line'
+          }]}},
         right_up: { option: {}, update: () => { return; } },
         left_down: { option: {}, update: () => { return; } },
         right_down: { option: {}, update: () => { return; } },
@@ -174,7 +155,7 @@ export default {
     '$route': function (to, from) {
       this.fetchEventSource();
       this.fetchWorldCloud();
-      this.makeTimeLine(this.TL);
+      this.newmakeTimeLine(this.TL);
     },
     translated: function (nendtrans) {
       // 首先判断该Id的源数据存在且可以翻译。
@@ -209,53 +190,53 @@ export default {
     // var echarts = require('echarts');
   },
   mounted () {
-    console.log("123456");
+    require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
+    console.log('123456');
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
     this.event = rdData.data[0];
-    this.newmakeTimeLine(TL);
     console.log(this.timeline);
     console.log(this.event);
     // console.log(sources);
     var myChart = echarts.init(document.getElementById('left_up'));
     var left_up_option = {
       title: {
-          text: ''
+        text: ''
       },
       tooltip: {
-          trigger: 'item',
-          formatter: function (param) {
-                return param.data.name + ":" + param.data.value;
-          }
+        trigger: 'item',
+        formatter: function (param) {
+          return param.data.name + ':' + param.data.value;
+        }
       },
       legend: {
-          data: ['朝鲜','南海','台湾']
+        data: ['朝鲜','南海','台湾']
       },
       grid: {
-          left: '1%',
-          right: '1%',
-          bottom: '2%',
-          containLabel: true
+        left: '1%',
+        right: '1%',
+        bottom: '2%',
+        containLabel: true
       },
       toolbox: {
-          feature: {
-              saveAsImage: {}
-          }
+        feature: {
+          saveAsImage: {}
+        }
       },
       xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['19.12.1','19.12.2','19.12.3','19.12.4','19.12.5','19.12.6','19.12.7','19.12.8',
+        type: 'category',
+        boundaryGap: false,
+        data: ['19.12.1','19.12.2','19.12.3','19.12.4','19.12.5','19.12.6','19.12.7','19.12.8',
           '19.12.9','19.12.10','19.12.11','19.12.12']
       },
       yAxis: {
-          type: 'value'
+        type: 'value'
       },
       series: [
-          {
-              name: '南海',
-              type: 'line',
-              stack: '总量',
-              areaStyle: {normal: {}},
+        {
+          name: '南海',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
               // label: {
               //       normal: {
               //         show: true,
@@ -269,7 +250,7 @@ export default {
               //       }
               //     }
               // },
-              data: [
+          data: [
                 {value: 3755, name: '美方在南海开展“航行自由行动”？'},
                 {value: 3511, name: '外交部丨所谓南海航行与飞越自由就是一个伪命题'},
                 {value: 3605, name: '英军舰驶近西沙群岛 遭中方护卫舰和直升机驱离'},
@@ -282,106 +263,106 @@ export default {
                 {value: 6547, name: '美批准南海"航行自由"计划 印度窃喜:中国会忙翻'},
                 {value: 7774, name: '中国驻英大使投书英媒：中国不容美国在南海“秀肌肉”'},
                 {value: 3720, name: '美军巡洋舰在西沙群岛附近“航行自由”'}
-              ]
-          },
+          ]
+        },
       ]
-  }
+    }
     myChart.setOption(left_up_option);
     // console.log(myChart);
     myChart = echarts.init(document.getElementById('right_up'));
-    var ru_data = this.genData(50);
+    // var ru_data = this.genData(50);
     var right_up_option = {
-        title: {
-          text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
-          subtext: '',
-          x: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: "{a} <br/>{b}({d}%)"
-        },
-        legend: {
-          orient: 'vertical',
-          left: '70%',
-          y: 'center',
-          data: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动"]
-        },
-        color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
-                'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
-        series: [
-          {
-            name: '',
-            type: 'pie',
-            radius: '70%',
-            center: ['35%', '50%'],
-            data: [
-              {
-                name: "入侵行动",
-                value: '10'
-              },
-              {
-                name: "国家立场",
-                value: '8'
-              },
-              {
-                name: "防卫行动",
-                value: '9'
-              },
-              {
-                name: "军演行动",
-                value: '5'
-              },
-              {
-                name: "媒体评论",
-                value: '6'
-              },
-              {
-                name: "访问行动",
-                value: '4'
-              }
-            ]
-          }
-        ]
-      };
-      myChart.setOption(right_up_option);
+      title: {
+        text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
+        subtext: '',
+        x: 'center'
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b}({d}%)'
+      },
+      legend: {
+        orient: 'vertical',
+        left: '70%',
+        y: 'center',
+        data: ['入侵行动', '国家立场', '防卫行动', '军演行动', '媒体评论', '访问行动']
+      },
+      color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
+        'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
+      series: [
+        {
+          name: '',
+          type: 'pie',
+          radius: '70%',
+          center: ['35%', '50%'],
+          data: [
+            {
+              name: '入侵行动',
+              value: '10'
+            },
+            {
+              name: '国家立场',
+              value: '8'
+            },
+            {
+              name: '防卫行动',
+              value: '9'
+            },
+            {
+              name: '军演行动',
+              value: '5'
+            },
+            {
+              name: '媒体评论',
+              value: '6'
+            },
+            {
+              name: '访问行动',
+              value: '4'
+            }
+          ]
+        }
+      ]
+    };
+    myChart.setOption(right_up_option);
   },
   beforeDestroy () {
   },
   methods: {
     genData (count) {
-        var nameList = [
-            '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
-        ];
-        var legendData = [];
-        var seriesData = [];
-        var selected = {};
-        var tmpname = null;
-        for (var i = 0; i < count; i++) {
-            tmpname = Math.random() > 0.65
+      var nameList = [
+        '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
+      ];
+      var legendData = [];
+      var seriesData = [];
+      var selected = {};
+      var tmpname = null;
+      for (var i = 0; i < count; i++) {
+        tmpname = Math.random() > 0.65
                 ? makeWord(4, 1) + '·' + makeWord(3, 0)
                 : makeWord(2, 1);
-            legendData.push(tmpname);
-            seriesData.push({
-                name: tmpname,
-                value: Math.round(Math.random() * 100000)
-            });
-            selected[tmpname] = i < 6;
-        }
+        legendData.push(tmpname);
+        seriesData.push({
+          name: tmpname,
+          value: Math.round(Math.random() * 100000)
+        });
+        selected[tmpname] = i < 6;
+      }
 
-        return {
-            legendData: legendData,
-            seriesData: seriesData,
-            selected: selected
-        };
+      return {
+        legendData: legendData,
+        seriesData: seriesData,
+        selected: selected
+      };
 
-        function makeWord (max, min) {
-            var nameLen = Math.ceil(Math.random() * max + min);
-            var name = [];
-            for (var i = 0; i < nameLen; i++) {
-                name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
-            }
-            return name.join('');
+      function makeWord (max, min) {
+        var nameLen = Math.ceil(Math.random() * max + min);
+        var name = [];
+        for (var i = 0; i < nameLen; i++) {
+          name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
         }
+        return name.join('');
+      }
     },
     findDatas: function (filter = {
       selectedTypes: [],
@@ -604,6 +585,37 @@ export default {
 //   transition: transform 1s
 </style>
 
+<style lang="sass" scoped>
+.r-panel
+  height: 100%
+
+.events-wrapper
+  display: flex
+  flex-direction: column
+  flex: 1
+
+.event-panel
+  display: flex
+  flex: 1 1 auto
+  overflow-y: auto
+
+.event-panel.event-panel-source
+  flex: 1 1 auto
+  height: auto
+  overflow-y: auto
+  padding: 0 1.5rem 1rem
+  .event-chart
+    height: inherit
+    display: flex
+    flex: 1 1 0
+
+.r-panel
+  .event-chart
+    display: flex
+    flex: 1 1 0
+
+</style>
+
 <style type="text/css">
 	table2 {
   border: 2px solid #42b983;
@@ -661,9 +673,47 @@ th.active .arrow {
 }
 </style>
 <style lang="sass">
+.event-br
+  display: none
+@media (max-width: 768px)
+  .event-br
+    display: block
+  .event-panel-detail
+    li
+      span
+        min-width: 0
+
+.event-panel-detail
+  flex-direction: column
+  padding: 1rem 0 .2rem
+  margin: 0 1.5rem 1.2rem
+  border-bottom: 1px solid #dddddd
+  overflow-y: auto
+  li
+    &:first-child
+      white-space: nowrap
+      overflow: hidden
+    label
+      margin-bottom: .8rem
+      color: #787878
+    span
+      margin-bottom: .8rem
+      color: #333
+      display: inline-block
+      min-width: 22rem
+      padding-right: 3rem
+      &.title
+        font-size: 1.5rem
+        font-weight: bold
+@media (max-width: 1440px)
+  .event-panel-detail
+    li
+      span
+        min-width: 13rem
+
 /*css for timeline.*/
 .tl-storyslider
-    /*padding: 25px 0 35px*/
+    padding: 25px 0 35px
 .tl-slide
   overflow-y: hidden!important
   .tl-slide-content-container
