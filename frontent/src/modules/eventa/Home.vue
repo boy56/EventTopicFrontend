@@ -44,12 +44,12 @@
                 </td>
                 <td style="width:50%; height: 50%">
                     <div class="row main-row" v-title data-title="Ring 事件概览">
-                        <div class="col-md-8">
+                        <div class="col-md-8" style="flex-basis: 100%; max-width: 100%;">
                           <div class="r-panel hotnews-panel">
                             <div class="panel-title-wrapper">
                               <div class="panel-title">
                                 <span>事件概览</span>
-                                <div class="switch">
+                                <!-- <div class="switch">
                                   <span class="fa"
                                     :class="{
                                       'fa-toggle-on': translated,
@@ -57,13 +57,13 @@
                                     }"
                                     @click="translated = !translated"></span>
                                   <label class="toggle-label">翻译</label>
-                                </div>
+                                </div> -->
                               </div>
                             </div>
-                            <!-- <div class="events-wrapper">
+                            <div class="events-wrapper">
                               <ul class="event-panel-detail">
                                 <li >
-                                  <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">美舰连续两天在南海非法活动</span>
+                                  <div class = 'descripition'>描&nbsp;&nbsp;&nbsp;述：</div><span class="title">{{event.description}}</span>
                                 </li>
                                 <li>
                                   <label for="">参与者：</label><span>{{ event.participant }}</span>
@@ -71,26 +71,23 @@
                                 </li>
                                 <li>
                                   <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type | toLegacyType }}</span><br class="event-br">
-                                  <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2 | toManyType }}</span><br class="event-br">
-                                  <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion | toEmotion }}</span>
+                                  <!-- <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2 | toManyType }}</span><br class="event-br"> -->
+                                  <!-- <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion | toEmotion }}</span> -->
                                 </li>
                                 <li>
                                   <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
                                   <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
-                                  <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
+                                  <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event.eventFrom }}</span>
                                 </li>
-                              </ul> -->
-                              <!-- <v-desc-view :event="event"></v-desc-view>
+                              </ul>
+                              <v-desc-view :event="event"></v-desc-view>
                               <div class="event-panel event-panel-source">
                                 <div id="source-timeline" class="event-chart"></div>
-                              </div> -->
-                            <!-- </div> -->
+                              </div>
+                            </div>
                           </div>
                         </div>
                     </div>
-                    <!-- <div class = 'picture'> -->
-                        <!-- <img src="static/image/eventa.png" style="width:100%; height: 100%"> -->
-                    <!-- </div> -->
                 </td>
             </tr>
       </table>
@@ -115,12 +112,13 @@ import rdData from "assets/data/eventa_rddata.json"
 import Footer from 'components/header/Footer.vue'
 import TL from 'components/common/TimelineJS/timeline.js'
 
+require('components/common/TimelineJS/timeline.css')
 export default {
-  props: {
-    event: {
-      type: Object,
-    },
-  },
+  // props: {
+  //   event: {
+  //     type: Object,
+  //   },
+  // },
   data () {
     return {
       unique_id: -1,
@@ -129,7 +127,7 @@ export default {
       imgUrl: require("../../assets/image/eventa.png"),
       // for timeline
       timeline: {},
-      // event: {},
+      event: [],
       // events: [],
       loading: {
         timeline: true,
@@ -213,9 +211,10 @@ export default {
   mounted () {
     console.log("123456");
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
+    this.event = rdData.data[0];
     this.newmakeTimeLine(TL);
     console.log(this.timeline);
-    console.log(event);
+    console.log(this.event);
     // console.log(sources);
     var myChart = echarts.init(document.getElementById('left_up'));
     var left_up_option = {
@@ -456,8 +455,10 @@ export default {
         console.log('noEmpty');
         sources.events = _.map(response.data, item => {
           let date = new Date(item.releaseDate);
-          let text = item.content;
+          let text = item.content.slice(0,10);
+          console.log(text);
           if (item.foreign && item.content) {
+            console.log('foreign');
             text = '<div class="text-content-wrapper">' +
                     '<div class="text-content-inner text-content-left">' + item.origin_content + '</div>' +
                     '<div class="text-content-sep"></div>' +
@@ -658,4 +659,60 @@ th.active .arrow {
   border-right: 4px solid transparent;
   border-top: 4px solid #fff;
 }
+</style>
+<style lang="sass">
+/*css for timeline.*/
+.tl-storyslider
+    /*padding: 25px 0 35px*/
+.tl-slide
+  overflow-y: hidden!important
+  .tl-slide-content-container
+    .tl-slide-content
+      .tl-text
+        overflow: hidden
+        .tl-headline-date
+          font-size: 14px
+          margin-bottom: 4px
+          color: #999
+        h2.tl-headline
+          font-size: 24px
+          line-height: 28px
+          max-height: 56px
+          overflow: hidden
+          font-weight: bold
+          margin-bottom: 8px
+          a
+            /*color: #414b54*/
+            transition: .3s
+            &:focus, &:hover
+              color: #256bcc
+        .tl-text-content
+          max-height: 140px
+          overflow: hidden
+          p
+            font-size: 14px
+            line-height: 20px
+            margin-top: 0
+            color: #454545
+.tl-storyslider
+  .tl-slidenav-title
+    display: none!important
+  .tl-slidenav-description
+    display: none!important
+.tl-slidenav-icon
+  color: #999!important
+  transition: .3s
+  &:hover
+    color: #454545!important
+/* Timeline里面外文/中文内容并排显示 */
+.text-content-wrapper
+  display: flex
+  justify-content: space-between
+  .text-content-inner
+    width: 46%
+    display: inline-block
+  .text-content-sep
+    width: 1px
+    border-left: 2px solid
+    display: inline-block
 </style>
