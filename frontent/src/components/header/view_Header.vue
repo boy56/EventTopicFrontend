@@ -1,16 +1,16 @@
 <template>
   <div class="r-header">
     <b-navbar class="r-navbar" toggleable type="dark" >
-      <b-link class="navbar-brand" href="./">
+      <!-- <b-link class="navbar-brand" href="./">
         <img src="../../assets/image/header-logo.png" alt="">
-      </b-link>
+      </b-link> -->
 
       <b-nav-toggle target="nav_collapse"></b-nav-toggle>
 
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="header-navbar-nav">
           <li class="nav-item">
-            <a href="#/" class="nav-link" :class="{active: $route.fullPath==='/'}" target="_self">专家观点</a>
+            <a href="#/" class="nav-link" :class="{active: $route.fullPath==='/'}" target="_self">{{headdata}}</a>
           </li>
           <!-- <li class="nav-item">
             <a href="#/event" class="nav-link" :class="{active: $route.fullPath==='/event'}" target="_self">回溯分析</a>
@@ -40,6 +40,14 @@
 
 <script type="text/ecmascript-6">
 export default {
+  props: {
+    'headdata': {
+      type: String,
+      default () {
+        return "";
+      }
+    }
+  },
   data () {
     return {
       title: '事件',
@@ -82,19 +90,19 @@ export default {
 .r-navbar
   width: 100%
   padding: 0 1rem
-@media (min-width: 1200px)
+@media (min-width: 100%)
   .r-navbar
-    width: 1200px
+    width: 100%
     margin: 0 auto
     .navbar-brand
       margin-right: 2em
-@media (max-width: 768px)
+@media (max-width: 100%)
   padding: 1rem 0
 .r-navbar
   .header-navbar-nav 
     .nav-link
       padding: 1.5rem 1.5rem
-      color: #daebf7
+      color: #007bff
       transition: .3s
       &:hover, &.active
         color: #fff

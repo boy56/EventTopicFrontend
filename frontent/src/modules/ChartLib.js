@@ -9,9 +9,12 @@ var fish_data = {}
 var dataBJ = Data.event1
 var dataSH = Data.event2
 var dataGZ = Data.event3
+console.log(dataBJ)
+console.log(dataSH)
+console.log(dataGZ)
 var datelist = ['2019-3-1','2019-3-2','2019-3-3','2019-3-4','2019-3-5'];
 var neg = [1,2,3,4,5];
-var pos = [1,2,3,4,5];
+var pos = [10,20,3,4,5];
 var influence = [10,20,30,40,50];
 // var dataBJ = [
 //   // [1,Data.event.text,Data.event.emotion]
@@ -48,13 +51,9 @@ var influence = [10,20,30,40,50];
 //   // [31,46,5,49,0.28,10,6,"优"]
 // ]
 var schema = [
-  {name: 'emotion', index: 0, text: '日'},
-  {name: 'text', index: 1, text: '新闻热度值'},
-  {name: 'date', index: 2, text: '发生日期'},
-  // {name: 'PM10', index: 3, text: 'PM10'},
-  // {name: 'CO', index: 4, text: '一氧化碳（CO）'},
-  // {name: 'NO2', index: 5, text: '二氧化氮（NO2）'},
-  // {name: 'SO2', index: 6, text: '二氧化硫（SO2）'}
+  {name: 'date', index: 0, text: '日期'},
+  {name: 'text', index: 1, text: '影响力指数'},
+  {name: 'text', index: 4, text: '标题'}
 ]
 var itemStyle = {
   opacity: 0.8,
@@ -1929,11 +1928,6 @@ const ChartLib = {
           bottom: '25%',
           containLabel: true
       },
-      toolbox: {
-          feature: {
-              saveAsImage: {}
-          }
-      },
       xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -1969,11 +1963,6 @@ const ChartLib = {
           right: '4%',
           bottom: '25%',
           containLabel: true
-      },
-      toolbox: {
-          feature: {
-              saveAsImage: {}
-          }
       },
       xAxis: {
           type: 'category',
@@ -2498,7 +2487,7 @@ const ChartLib = {
       ],
       legend: {
           top: 10,
-          data: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动"],
+          data: ["入侵行动", "国家立场", "防卫行动", "其他"],
           textStyle: {
               color: '#fff',
               fontSize: 16
@@ -2517,18 +2506,17 @@ const ChartLib = {
           borderWidth: 1,
           formatter: function (obj) {
               var value = obj.value;
-              return '<div style="border-bottom: 1px solid rgba(255,255,255,.3);font-size: 14px;padding-bottom: 1px;margin-bottom: 1px">' + '新闻：' + value[7] + '</div>' + schema[1].text + '：' + value[1] + '<br>' + schema[2].text + '：' + value[2] + '<br>';
+              return '<div style="border-bottom: 1px solid rgba(255,255,255,.3);font-size: 14px;padding-bottom: 1px;margin-bottom: 1px">' + "新闻" + ' ' + value[2] + '</div>' + schema[1].text + '：' + value[1].toFixed(2) + '<br>' + schema[2].text + '：' + value[0] + '<br>';
           }
       },
       xAxis: {
-          type: 'value',
+          type: 'time',
           name: '发生日期',
           nameGap: 16,
           nameTextStyle: {
               color: '#fff',
               fontSize: 14
           },
-          max: 31,
           splitLine: {
               show: false
           },
@@ -2557,67 +2545,41 @@ const ChartLib = {
               show: false
           }
       },
-      // visualMap: [
-      //     {
-      //         left: 'right',
-      //         top: '10%',
-      //         dimension: 2,
-      //         min: 0,
-      //         max: 250,
-      //         itemWidth: 30,
-      //         itemHeight: 120,
-      //         calculable: true,
-      //         precision: 0.1,
-      //         text: ['圆形大小：PM2.5'],
-      //         textGap: 30,
-      //         textStyle: {
-      //             color: '#fff'
-      //         },
-      //         inRange: {
-      //             symbolSize: [10, 70]
-      //         },
-      //         outOfRange: {
-      //             symbolSize: [10, 70],
-      //             color: ['rgba(255,255,255,.2)']
-      //         },
-      //         controller: {
-      //             inRange: {
-      //                 color: ['#c23531']
-      //             },
-      //             outOfRange: {
-      //                 color: ['#444']
-      //             }
-      //         }
-      //     },
-      //     {
-      //         left: 'right',
-      //         bottom: '5%',
-      //         dimension: 6,
-      //         min: 0,
-      //         max: 50,
-      //         itemHeight: 120,
-      //         precision: 0.1,
-      //         text: ['明暗：二氧化硫'],
-      //         textGap: 30,
-      //         textStyle: {
-      //             color: '#fff'
-      //         },
-      //         inRange: {
-      //             colorLightness: [1, 0.5]
-      //         },
-      //         outOfRange: {
-      //             color: ['rgba(255,255,255,.2)']
-      //         },
-      //         controller: {
-      //             inRange: {
-      //                 color: ['#c23531']
-      //             },
-      //             outOfRange: {
-      //                 color: ['#444']
-      //             }
-      //         }
-      //     }
-      // ],
+      visualMap: [
+        {
+            left: 'right',
+            top: '5%',
+            dimension: 1,
+            min: 0,
+            max: 100,
+            itemWidth: 20,
+            itemHeight: 120,
+            calculable: true,
+            precision: 0.1,
+            text: ['圆形大小：事件重要性'],
+            textGap: 30,
+            textStyle: {
+                color: '#fff'
+            },
+            inRange: {
+                symbolSize: [10, 50]
+            },
+            outOfRange: {
+                symbolSize: function (data) {
+                  return Math.sqrt(data[1]) / 5e2;
+              },
+                color: ['rgba(255,255,255,.2)']
+            },
+            controller: {
+                inRange: {
+                    color: ['#c23531']
+                },
+                outOfRange: {
+                    color: ['#444']
+                }
+            }
+        }
+    ],
       series: [
           {
               name: '入侵行动',
@@ -2654,7 +2616,7 @@ const ChartLib = {
               color: '#fff',
               fontSize: 12
           },
-          data: ['正面','负面','影响力指数']
+          data: ['正面','负面']
       },
       tooltip: {
           trigger: 'axis',
@@ -2747,15 +2709,6 @@ const ChartLib = {
               },
               areaStyle: {
                   normal: {
-                      // color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                      //     offset: 0,
-                      //     color: 'rgba(30, 152, 255, 0.9)'
-                      // }, {
-                      //     offset: 1,
-                      //     color: 'rgba(30, 152, 255, 0.3)'
-                      // }], false),
-                      // shadowColor: 'rgba(0, 0, 0, 0.1)',
-                      // shadowBlur: 10
                   }
               },
               itemStyle: {
@@ -2799,24 +2752,6 @@ const ChartLib = {
                   }
               },
               data: pos
-          },
-          {
-              name: '影响力指数',
-              type: 'line',
-              lineStyle: {
-                  normal: {
-                      color: '#FFC11E',
-                      width: 1
-                  }
-              },
-              itemStyle: {
-                  normal: {
-                      color: '#FFC11E',
-                      borderColor: '#FFC11E',
-                      borderWidth: 9
-                  }
-              },
-              data: influence
           }
       ]
     }

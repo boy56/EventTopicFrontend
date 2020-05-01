@@ -1,6 +1,7 @@
 <template>
   <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
-    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+    <v-header :headdata='headdata'></v-header>
+    <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
      <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
@@ -24,12 +25,14 @@ import FilterTab from 'components/filtertab/xuanti_FilterTab'
 import Data from 'assets/data/xuanti_data.json'
 import Demo from 'assets/data/xuanti_demo.json'
 import Footer from 'components/header/Footer.vue'
+import Header from 'components/header/view_Header.vue'
 // import Header from 'components\\header\\xuanti_Header.vue'
 
 export default {
   data () {
     return {
       Colors: Colors,
+      headdata: "综合选题",
       topic: null,
       dispDatas: [],
       totalRows: 64,
@@ -52,8 +55,8 @@ export default {
     },
   },
   created () {
-    this.findDatas();
     this.topic = this.$route.params.topic;
+    this.findDatas();
   },
   mounted () {
   },
@@ -111,6 +114,7 @@ export default {
     'v-search-box': SearchBox,
     'v-filter-tab': FilterTab,
     'v-footer': Footer,
+    'v-header': Header,
   }
 };
 </script>

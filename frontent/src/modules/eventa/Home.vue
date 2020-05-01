@@ -1,6 +1,7 @@
 <template>
   <div class="page-wrapper" v-title data-title="事件分析">
-    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+    <v-header :headdata='headdata'></v-header>
+    <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
     <v-search-box :search-input.sync="searchInput"></v-search-box>
       <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 800px">
             <tr>
@@ -24,28 +25,16 @@
                       <td style="width:20%; height: 20%">观点数量</td>
                       <td style="width:80%; height: 20%">中心观点</td>
                     </tr>
-                    <tr>
-                      <td style="width:20%; height: 20%">22</td>
-                      <td style="width:80%; height: 20%">外交部：反对以航行自由名损害中国主权和安全</td>
-                    </tr>
-                    <tr>
-                      <td style="width:20%; height: 20%">12</td>
-                      <td style="width:80%; height: 20%">外交部：美方“横行自由才是南海局势紧张根源</td>
-                    </tr>
-                    <tr>
-                      <td style="width:20%; height: 20%">17</td>
-                      <td style="width:80%; height: 20%">美军接连两天在南海动 解放军警告驱离</td>
-                    </tr>
-                    <tr>
-                      <td style="width:20%; height: 20%">26</td>
-                      <td style="width:80%; height: 20%">挑衅？美国派军舰连续两天闯中国南岛礁 ，被我军海空兵力警告驱离</td>
+                   <tr v-bind:key='item' v-for='item in left_down_data'>
+                      <td style="width:20%; height: 20%">{{item.view_num}}</td>
+                      <td style="width:80%; height: 20%">{{item.center}}</td>
                     </tr>
                   </table>
                 </td>
                 <td style="width:50%; height: 50%">
                   <div class="r-panel">
                     <div class="events-wrapper">
-                      <ul class="event-panel-detail">
+                      <!-- <ul class="event-panel-detail">
                         <li >
                           <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">{{ event.description && event.description.trim() }}</span>
                         </li>
@@ -63,7 +52,7 @@
                           <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
                           <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
                         </li>
-                      </ul>
+                      </ul> -->
                       <div class="event-panel event-panel-source">
                         <div id="source-timeline" class="event-chart"></div>
                       </div>
@@ -83,16 +72,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-
 import Colors from 'components/Colors'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
 import Data from 'assets/data/eventa_data.json'
-import rdData from 'assets/data/eventa_rddata.json'
+import Demo from 'assets/data/eventa_demo.json'
+// import rdData from 'assets/data/eventa_rddata.json'
 import Footer from 'components/header/Footer.vue'
+import Header from 'components/header/view_Header.vue'
 // import TL from 'components/common/TimelineJS/timeline.js'
-
 require('components/common/TimelineJS/timeline.css')
 export default {
   // props: {
@@ -102,9 +91,12 @@ export default {
   // },
   data () {
     return {
+      headdata: "事件分析",
       unique_id: -1,
       sourceMap: {},
+      left_down_data: [],
       topic: null,
+      // Demo: null,
       imgUrl: require('../../assets/image/eventa.png'),
       // for timeline
       timeline: {},
@@ -186,6 +178,7 @@ export default {
     },
   },
   created () {
+    this.topic = this.$route.params.topic;
     this.findDatas();
     // var echarts = require('echarts');
   },
@@ -193,7 +186,7 @@ export default {
     require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
     console.log('123456');
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
-    this.event = rdData.data[0];
+    // this.event = Demo.data[0];
     console.log(this.timeline);
     console.log(this.event);
     // console.log(sources);
@@ -209,7 +202,7 @@ export default {
         }
       },
       legend: {
-        data: ['朝鲜','南海','台湾']
+        // data: ['朝鲜','南海','台湾']
       },
       grid: {
         left: '1%',
@@ -225,8 +218,7 @@ export default {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: ['19.12.1','19.12.2','19.12.3','19.12.4','19.12.5','19.12.6','19.12.7','19.12.8',
-          '19.12.9','19.12.10','19.12.11','19.12.12']
+        data: Demo.tendency_data.tendency_time
       },
       yAxis: {
         type: 'value'
@@ -237,33 +229,7 @@ export default {
           type: 'line',
           stack: '总量',
           areaStyle: {normal: {}},
-              // label: {
-              //       normal: {
-              //         show: true,
-              //         position: 'inner',
-              //         textStyle: {
-              //           fontWeight: 300 ,
-              //           fontSize: 16
-              //         },
-              //         formatter: function (param) {
-              //           return param.data.name + ":" + param.data.value;
-              //       }
-              //     }
-              // },
-          data: [
-                {value: 3755, name: '美方在南海开展“航行自由行动”？'},
-                {value: 3511, name: '外交部丨所谓南海航行与飞越自由就是一个伪命题'},
-                {value: 3605, name: '英军舰驶近西沙群岛 遭中方护卫舰和直升机驱离'},
-                {value: 11859, name: '外交部:反对打着航行自由幌子损害南海'},
-                {value: 4635, name: '美军称中国驱逐舰在南海逼近美舰 最近仅45英尺'},
-                {value: 63858, name: '国防部回应美军南海“航行自由行动”'},
-                {value: 6547, name: '美批准南海"航行自由"计划 印度窃喜:中国会忙翻'},
-                {value: 7774, name: '中国驻英大使投书英媒：中国不容美国在南海“秀肌肉”'},
-                {value: 3720, name: '美军巡洋舰在西沙群岛附近“航行自由”'},
-                {value: 6547, name: '美批准南海"航行自由"计划 印度窃喜:中国会忙翻'},
-                {value: 7774, name: '中国驻英大使投书英媒：中国不容美国在南海“秀肌肉”'},
-                {value: 3720, name: '美军巡洋舰在西沙群岛附近“航行自由”'}
-          ]
+          data: Demo.tendency_data.tendency_news
         },
       ]
     }
@@ -285,7 +251,7 @@ export default {
         orient: 'vertical',
         left: '70%',
         y: 'center',
-        data: ['入侵行动', '国家立场', '防卫行动', '军演行动', '媒体评论', '访问行动']
+        data: Demo.eventpre_data.legend_data
       },
       color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
         'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
@@ -295,36 +261,12 @@ export default {
           type: 'pie',
           radius: '70%',
           center: ['35%', '50%'],
-          data: [
-            {
-              name: '入侵行动',
-              value: '10'
-            },
-            {
-              name: '国家立场',
-              value: '8'
-            },
-            {
-              name: '防卫行动',
-              value: '9'
-            },
-            {
-              name: '军演行动',
-              value: '5'
-            },
-            {
-              name: '媒体评论',
-              value: '6'
-            },
-            {
-              name: '访问行动',
-              value: '4'
-            }
-          ]
+          data: Demo.eventpre_data.data
         }
       ]
     };
     myChart.setOption(right_up_option);
+    this.left_down_data = Demo.view_cluster_data;
   },
   beforeDestroy () {
   },
@@ -348,13 +290,11 @@ export default {
         });
         selected[tmpname] = i < 6;
       }
-
       return {
         legendData: legendData,
         seriesData: seriesData,
         selected: selected
       };
-
       function makeWord (max, min) {
         var nameLen = Math.ceil(Math.random() * max + min);
         var name = [];
@@ -371,27 +311,29 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
-      // axios.get('/api/cncert/source/findDatas', {params: {
-      //   from: this.searchInput.dateStart.format('yyyy-MM-dd'),
-      //   to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
-      //   kws: this.searchInput.kws,
-      //   kws_kinds: _.join(filter.selectedWords, ' '),
-      //   include_text: this.searchInput.includeText,
-      //   size: 64,
-      //   pageno: this.pageno,
-      //   sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
-      //   types0: _.join(filter.selectedLegacyTypes, ' '),
-      //   types2: _.join(filter.selectedTypes, ' '),
-      //   language: filter.selectedLanguge,
-      //   location: filter.selectedLocation,
-      // }}).then(response => {
-      //   this.dispDatas = response.data.content;
-      //   this.totalRows = response.data.totalElements;
-      // });
-      this.dispDatas = Data;
-      console.log(this.dispDatas);
-      this.totalRows = 64;
-      console.log(this.totalRows);
+      axios.get('/api/search_eventa', {params: {
+        date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
+        date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
+        kws: this.searchInput.kws,
+        kws_kinds: _.join(filter.selectedWords, ' '),
+        include_text: this.searchInput.includeText,
+        size: 64,
+        pageno: this.pageno,
+        // sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
+        // types0: _.join(filter.selectedLegacyTypes, ' '),
+        // types2: _.join(filter.selectedTypes, ' '),
+        language: filter.selectedLanguge,
+        location: filter.selectedLocation,
+        theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
+      }}).then(response => {
+        this.Demo = response.data
+        // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+        this.totalRows = response.data.totalElements;
+      });
+      // this.dispDatas = Data;
+      // console.log(this.dispDatas);
+      // this.totalRows = 64;
+      // console.log(this.totalRows);
     },
     fetchSimNewsById: function (id, callback) {
       axios.get('/api/cache3/source/fetchSimNewsById', {params: {
@@ -406,7 +348,7 @@ export default {
     },
     newmakeTimeLine (TL) {
       var sources = {events: []};
-      var response = rdData.edata;
+      var response = Demo.timeline_data;
       this.TL = TL;
       console.log(response);
       response.data = _.orderBy(response.data, 'releaseDate');
@@ -415,7 +357,7 @@ export default {
       let maxSimIndex = -1;
       if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
         console.log('isEmpty');
-        let date = new Date(this.event.time);
+        let date = new Date(this.event.dateDay);
         sources.events = [{
           start_date: {
             year: date.getFullYear(),
@@ -435,13 +377,13 @@ export default {
       } else {
         console.log('noEmpty');
         sources.events = _.map(response.data, item => {
-          let date = new Date(item.releaseDate);
-          let text = item.content.slice(0,10);
+          let date = new Date(item.dateDay);
+          let text = item.content;
           console.log(text);
           if (item.foreign && item.content) {
             console.log('foreign');
             text = '<div class="text-content-wrapper">' +
-                    '<div class="text-content-inner text-content-left">' + item.origin_content + '</div>' +
+                    '<div class="text-content-inner text-content-left">' + item.content + '</div>' +
                     '<div class="text-content-sep"></div>' +
                     '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
                     '</div>';
@@ -457,7 +399,7 @@ export default {
               display_date: date.format('yyyy-MM-dd hh:mm:ss'),
             },
             text: {
-              headline: '<a href="' + item.url + '" target="_blank">' + (item.origin_title || item.title) + '</a>',
+              headline: '<a href="' + item.url + '" target="_blank">' + (item.title) + '</a>',
               text: text,
             },
             unique_id: item.id,
@@ -468,12 +410,12 @@ export default {
         this.unique_id = _.last(response.data).id;
         // calculate max similarity index.
         console.log(this.unique_id);
-        for (var i = 0; i < response.data.length; ++i) {
-          if (response.data[i].similarity > maxSim) {
-            maxSimIndex = i;
-            maxSim = response.data[i].similarity;
-          }
-        }
+        // for (var i = 0; i < response.data.length; ++i) {
+        //   if (response.data[i].similarity > maxSim) {
+        //     maxSimIndex = i;
+        //     maxSim = response.data[i].similarity;
+        //   }
+        // }
       }
       let options = { language: 'zh_CN', start_at_end: true };
       this.timeline = new this.TL.Timeline('source-timeline', sources, options);
@@ -510,6 +452,7 @@ export default {
   components: {
     'v-search-box': SearchBox,
     'v-filter-tab': FilterTab,
+    'v-header': Header,
     'v-footer': Footer,
   }
 };
@@ -588,17 +531,14 @@ export default {
 <style lang="sass" scoped>
 .r-panel
   height: 100%
-
 .events-wrapper
   display: flex
   flex-direction: column
   flex: 1
-
 .event-panel
   display: flex
   flex: 1 1 auto
   overflow-y: auto
-
 .event-panel.event-panel-source
   flex: 1 1 auto
   height: auto
@@ -608,12 +548,10 @@ export default {
     height: inherit
     display: flex
     flex: 1 1 0
-
 .r-panel
   .event-chart
     display: flex
     flex: 1 1 0
-
 </style>
 
 <style type="text/css">
@@ -622,7 +560,6 @@ export default {
   border-radius: 3px;
   background-color: #fff;
 }
-
 th {
   background-color: #42b983;
   color: rgba(255, 255, 255, 0.66);
@@ -632,25 +569,20 @@ th {
   -ms-user-select: none;
   user-select: none;
 }
-
 td {
   background-color: #f9f9f9;
 }
-
 th,
 td {
   min-width: 120px;
   padding: 1px 1px;
 }
-
 th.active {
   color: #fff;
 }
-
 th.active .arrow {
   opacity: 1;
 }
-
 .arrow {
   display: inline-block;
   vertical-align: middle;
@@ -659,13 +591,11 @@ th.active .arrow {
   margin-left: 5px;
   opacity: 0.66;
 }
-
 .arrow.asc {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-bottom: 4px solid #fff;
 }
-
 .arrow.dsc {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
@@ -682,7 +612,6 @@ th.active .arrow {
     li
       span
         min-width: 0
-
 .event-panel-detail
   flex-direction: column
   padding: 1rem 0 .2rem
@@ -710,7 +639,6 @@ th.active .arrow {
     li
       span
         min-width: 13rem
-
 /*css for timeline.*/
 .tl-storyslider
     padding: 25px 0 35px
@@ -766,3 +694,4 @@ th.active .arrow {
     border-left: 2px solid
     display: inline-block
 </style>
+

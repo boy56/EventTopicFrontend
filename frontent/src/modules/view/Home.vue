@@ -1,7 +1,7 @@
 <template>
   <div class="view-page-wrapper" v-title data-title="专家观点">
-    <!-- <v-header></v-header> -->
-    <v-filter-tab @update:filter="updateFilter"></v-filter-tab>
+    <v-header :headdata='headdata'></v-header>
+    <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
     <v-search-box :search-input.sync="searchInput"></v-search-box>
     <v-list :disp-datas="dispDatas"
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
@@ -30,6 +30,7 @@ export default {
   data () {
     return {
       Colors: Colors,
+      headdata: "专家观点",
       dispDatas: [],
       totalRows: 64,
       pageno: 1,
@@ -51,6 +52,7 @@ export default {
     },
   },
   created () {
+    this.topic = this.$route.params.topic;
     this.findDatas();
   },
   mounted () {

@@ -14,12 +14,12 @@
         <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list" >
-                      <div class='list-text'>{{v.text}}</div>
+                      <div class='list-text'>{{v.title}}</div>
                   </ul>
               </div>
               <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
                             <ul class="list-item outer-view-list" id="outer-view-list">
-                               <div class="list-text">{{v.text}}</div>
+                               <div class="list-text">{{v.title}}</div>
                             </ul>
                         </div>
         </div>
@@ -73,7 +73,7 @@
         <div class="view-list-wrapper" v-bind:key=v v-for="v in right_up_list">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list">
-                        <div>{{v.user}} {{v.point|ellipsis}}</div>
+                        <div>{{v.personname}}&nbsp;&nbsp;{{v.verb}}&nbsp;&nbsp;{{v.viewpoint|ellipsis}}</div>
                   </ul>
               </div>
         </div>
@@ -90,7 +90,7 @@
     <div class="con-box r-b-box" @click="goto">
       <center>
         <router-link :to="'/eventa'">
-          <font size="6" color="white">事件分析</font>
+          <font size="6" color="white">热点事件</font>
         </router-link>
       </center>
         <Echarts theme="ring" :option="options.right_down.option" className="chart"></Echarts>
@@ -101,7 +101,7 @@
                     <div id="discuss-emotion" class="box light-corner discuss-emotion"></div>
         </div> -->
         <center>
-           <font size="6" color="white">情绪分布图</font>
+           <font size="6" color="white">情绪分析</font>
         </center>
         <Echarts theme="ring" :option="options.right1_down.option" className="chart" ></Echarts>
      </div>
@@ -120,6 +120,7 @@
 <script type="text/ecmascript-6">
   import 'components/charts/theme/Ring.js'
   import Data from "../assets/data/data.json"
+  import Demo from "../assets/data/mainpage_demo.json"
   import Echarts from 'vue-echarts-v3/src/full.js'
   // import "yugu/js/jquery-1.8.0.min.js"
   // import {fishBone} from "yugu/js/fishBone.js"
@@ -293,87 +294,37 @@
             },
             data: [],
           }]
-        },
-        // globe_new_option: {
-        //   backgroundColor: 'rgba(0, 0, 0, 0)',
-        //   geo: {
-        //     type: 'map',
-        //     map: 'world',
-        //     top: 0,
-        //     left: 0,
-        //     right: 0,
-        //     bottom: 0,
-        //     boundingCoords: [[-180, 90], [180, -90]],
-        //     // silent: true,
-        //     itemStyle: {
-        //       normal: {
-        //         borderColor: '#000'
-        //       }
-        //     },
-        //     label: {
-        //       normal: {
-        //         textStyle: {
-        //           color: '#fff',
-        //           fontSize: 40
-        //         }
-        //       }
-        //     }
-        //   },
-        //   globe: {
-        //     baseTexture: this.globe,
-        //     heightTexture: heightTexture.src,
-        //     displacementScale: 0.1,
-        //     shading: 'realistic',
-        //     realisticMaterial: {
-        //       roughness: 0.8,
-        //       metalness: 0
-        //     },
-        //     postEffect: {
-        //       enable: true
-        //     },
-        //     temporalSuperSampling: {
-        //       enable: true
-        //     },
-        //     // light: {
-        //     //   ambient: {
-        //     //     intensity: 0
-        //     //   },
-        //     //   main: {
-        //     //     intensity: 2,
-        //     //     shadow: true
-        //     //   },
-        //     //   ambientCubemap: {
-        //     //     texture: '',
-        //     //     exposure: 1,
-        //     //     diffuseIntensity: 0.2
-        //     //   }
-        //     // },
-        //     viewControl: {
-        //       animationDurationUpdate: 1000,
-        //       animationEasingUpdate: 'cubicInOut',
-        //       targetCoord: [116.46, 39.92],
-        //       autoRotate: false
-        //     }
-        //   }
-        // },
+        }
       }
     },
     mounted () {
       console.log('ningyx');
       this.echartsGlobe();
-      console.log(Data);
-      this.result = Data;
       this.getGoodsList();
+      this.left_up_list = Demo.news_views_data;
+      this.right_up_list = this.left_up_list[0].views;
       console.log(this.right_up_list);
-      this.left_up_list = Data.topics // ChartData['topics'];
-      this.right_up_list = Data.exports[1] // ChartData['exports'][this.topic];
-      console.log(this.right_up_list);
-      this.options.right_down.option = ChartLib['南海气泡图'].option;
-      this.options.right1_down.option = ChartLib['情绪分布图'].option;
+      // 热度趋势图
       this.options.left_down.option = ChartLib['折线图南海'].option;
+      this.options.left_down.option.xAxis.data = Demo.hot_data.hot_date;
+      this.options.left_down.option.series[0].data = Demo.hot_data.hot_num;
+      console.log(this.options.left_down.option);
+
+      // 情绪分布图
+      this.options.right1_down.option = ChartLib['情绪分布图'].option;
+      this.options.right1_down.option.xAxis.data = Demo.sentiment_data.sentiment_data;
+      this.options.right1_down.option.series[0].data = Demo.sentiment_data.sentiment_neg;
+      this.options.right1_down.option.series[1].data = Demo.sentiment_data.sentiment_pos;
+
+      //  热点事件图
+      this.options.right_down.option = ChartLib['南海气泡图'].option;
+      console.log(Demo.nevent_data)
+      this.options.right_down.option.legend.data = Demo.nevent_data.legend;
+      this.options.right_down.option.series = Demo.nevent_data.series;
     },
     created () {
       this.initOptions();
+      this.findDatas();
       this.intervalID = setInterval(() => {
         this.initOptions()
       }, 100 * 1000);
@@ -387,12 +338,9 @@
         } else {
           this.around(41);
         }
-        this.clicking(this.topics[this.topic_index]);
+        // this.clicking(this.topics[this.topic_index]);
         this.topic_index = this.topic_index + 1;
       }, 10000);
-      // setInterval(function() {
-      //   this.around();
-      // }, 2000);
 
       this.intervalGlobe = setInterval(() => {
         if (this.globe) {
@@ -400,10 +348,6 @@
           this.echartsGlobe();
         }
       }, 1 * 60 * 60 * 1000);
-      // console.log(Common.addr + '');
-      // this.intervalRotate = setInterval(() => {
-      //   this.rotate_globe()
-      // }, 4 * 1000);
       axios.get('/api/getPageJump', {params: {}}).then(response => {
         // alert(response.data.page0.to)
         // eslint-disable-next-line no-unused-vars
@@ -428,6 +372,19 @@
       }
     },
     methods: {
+      findDatas: function (filter = {
+      // selectedTypes: [],
+      // selectedLanguge: '全部',
+      // selectedLocation: '全部',
+      // selectedSecu: false,
+      // selectedWords: [],
+    }) {
+      axios.get('/api/search_mainpage', {params: {
+        theme: this.topic,
+      }}).then(response => {
+        this.Demo = response.data;
+      });
+    },
       goto: function () {
         // document.location.href = Common.addr + Common.page1;
       },
