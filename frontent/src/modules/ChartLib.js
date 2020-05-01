@@ -2494,10 +2494,10 @@ const ChartLib = {
           }
       },
       grid: {
-        left: '12%',
-        right: 100,
+        left: '8%',
+        right: '5%',
         top: '18%',
-        bottom: '10%'
+        bottom: '20%'
       },
       tooltip: {
           padding: 10,
@@ -2511,31 +2511,51 @@ const ChartLib = {
       },
       xAxis: {
           type: 'time',
-          name: '发生日期',
+          // name: '发生日期',
           nameGap: 16,
-          nameTextStyle: {
-              color: '#fff',
-              fontSize: 14
-          },
-          splitLine: {
-              show: false
+          boundaryGap: true,
+          axisLabel: {
+            textStyle: {
+                color: '#fff',
+                fontSize: 12
+            },
+            interval: 1,
           },
           axisLine: {
+            lineStyle: {
+                color: '#2e63cf'
+            }
+          },
+          splitLine: {
+              show: true,
               lineStyle: {
-                  color: '#eee'
-              }
-          }
+                color: '#052f5d'
+              },
+              width: 1
+          },
+          nameTextStyle: {
+              color: 'white',
+              fontSize: 14
+          },
+          // splitLine: {
+          //     show: false
+          // },
+          // axisLine: {
+          //     lineStyle: {
+          //         // color: '#eee'
+          //     }
+          // }
       },
       yAxis: {
           type: 'value',
           name: '影响力指数',
           nameLocation: 'end',
-          nameGap: 20,
+          // nameGap: 20,
           nameTextStyle: {
               color: '#fff',
-              fontSize: 8
+              fontSize: 12
           },
-          max: 100,
+          // max: 100,
           axisLine: {
               lineStyle: {
                   color: '#eee'
@@ -2547,8 +2567,9 @@ const ChartLib = {
       },
       visualMap: [
         {
-            left: 'right',
+            right: '0%',
             top: '5%',
+            show: false,
             dimension: 1,
             min: 0,
             max: 100,
@@ -2562,7 +2583,7 @@ const ChartLib = {
                 color: '#fff'
             },
             inRange: {
-                symbolSize: [10, 50]
+                symbolSize: [10, 20]
             },
             outOfRange: {
                 symbolSize: function (data) {
@@ -2609,7 +2630,7 @@ const ChartLib = {
           x: 'left',
           itemWidth: 13,
           itemHeight: 13,
-          padding: [10, 20, 10, 10],
+          // padding: [10, 20, 10, 10],
           left: '30%',
           top: '5%',
           textStyle: {
@@ -2642,13 +2663,13 @@ const ChartLib = {
       grid: {
         left: '2%',
         right: '5%',
-        bottom: '3%',
+        bottom: '10%',
         containLabel: true
       },
       xAxis: [
             {
                 type: 'category',
-                boundaryGap: false,
+                boundaryGap: true,
                 data: datelist, // .map(stripDate),
                 axisLabel: {
                   textStyle: {
@@ -2674,7 +2695,7 @@ const ChartLib = {
       yAxis: [
           {
               type: 'value',
-              max: 100,
+              // name: '百分比',
               axisLabel: {
                   textStyle: {
                       color: '#fff',

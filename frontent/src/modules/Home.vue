@@ -318,9 +318,9 @@
 
       //  热点事件图
       this.options.right_down.option = ChartLib['南海气泡图'].option;
-      console.log(Demo.nevent_data)
-      this.options.right_down.option.legend.data = Demo.nevent_data.legend;
-      this.options.right_down.option.series = Demo.nevent_data.series;
+      console.log(Demo.event_data)
+      this.options.right_down.option.legend.data = Demo.event_data.legend;
+      this.options.right_down.option.series = Demo.event_data.series;
     },
     created () {
       this.initOptions();
@@ -618,7 +618,7 @@
   .con-box
     position: absolute
     width: 47%
-    height: 45%
+    height: 50%
     overflow: scroll
     padding: .7rem 1rem .8rem
     background-image: url("~assets/image/box-bg.png")
