@@ -55,7 +55,7 @@ export default {
     },
   },
   created () {
-    this.topic = this.$route.params.topic;
+    this.topic = '南海'; // this.$route.params.topic;
     this.findDatas();
   },
   mounted () {
@@ -70,7 +70,13 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
-      axios.get('/api/search_xuanti_news', {params: {
+      axios.get('api/foo', {params: {
+      }}).then(response => {
+        this.dispDatas = response.data.newsList;
+        this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+        this.totalRows = response.data.totalElements;
+      });
+      axios.get('api/search_xuanti', {params: {
         date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
         date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
         kws: this.searchInput.kws,

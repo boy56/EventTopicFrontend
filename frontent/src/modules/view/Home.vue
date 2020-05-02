@@ -52,7 +52,7 @@ export default {
     },
   },
   created () {
-    this.topic = this.$route.params.topic;
+    this.topic = '南海'; // this.$route.params.topic;
     this.findDatas();
   },
   mounted () {
@@ -67,7 +67,7 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
-      axios.get('/api/search_view', {params: {
+      axios.get('api/search_view', {params: {
         date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
         date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
         kws: this.searchInput.kws,
@@ -87,10 +87,10 @@ export default {
         this.totalRows = response.data.totalElements;
       });
       // this.dispDatas = Demo.viewsList;
-      // console.log(this.dispDatas);
+      console.log(this.dispDatas);
       // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 20, this.pageno * 20);
       // this.totalRows = Demo.totalElements;
-      // console.log(this.totalRows);
+      console.log(this.totalRows);
       // console.log(this.pageno);
     },
     fetchSimNewsById: function (id, callback) {

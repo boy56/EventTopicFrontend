@@ -77,7 +77,7 @@ import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
 import Data from 'assets/data/eventa_data.json'
-import Demo from 'assets/data/eventa_demo.json'
+// import Demo from 'assets/data/eventa_demo.json'
 // import rdData from 'assets/data/eventa_rddata.json'
 import Footer from 'components/header/Footer.vue'
 import Header from 'components/header/view_Header.vue'
@@ -96,7 +96,7 @@ export default {
       sourceMap: {},
       left_down_data: [],
       topic: null,
-      // Demo: null,
+      Demo: null,
       imgUrl: require('../../assets/image/eventa.png'),
       // for timeline
       timeline: {},
@@ -178,13 +178,13 @@ export default {
     },
   },
   created () {
-    this.topic = this.$route.params.topic;
+    this.topic = '南海' // this.$route.params.topic;
     this.findDatas();
     // var echarts = require('echarts');
   },
   mounted () {
     require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
-    console.log('123456');
+    console.log(this.Demo);
     // this.options.left_up.option = ChartLib.折线图朝鲜.option;
     // this.event = Demo.data[0];
     console.log(this.timeline);
@@ -213,7 +213,7 @@ export default {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: Demo.tendency_data.tendency_time
+        data: this.Demo.tendency_data.tendency_time
       },
       yAxis: {
         type: 'value'
@@ -224,7 +224,7 @@ export default {
           type: 'line',
           stack: '总量',
           areaStyle: {normal: {}},
-          data: Demo.tendency_data.tendency_news
+          data: this.Demo.tendency_data.tendency_news
         },
       ]
     }
@@ -246,7 +246,7 @@ export default {
         orient: 'vertical',
         left: '70%',
         y: 'center',
-        data: Demo.eventpre_data.legend_data
+        data: this.Demo.eventpre_data.legend_data
       },
       color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
         'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
@@ -256,12 +256,12 @@ export default {
           type: 'pie',
           radius: '70%',
           center: ['35%', '50%'],
-          data: Demo.eventpre_data.data
+          data: this.Demo.eventpre_data.data
         }
       ]
     };
     myChart.setOption(right_up_option);
-    this.left_down_data = Demo.view_cluster_data;
+    this.left_down_data = this.Demo.view_cluster_data;
   },
   beforeDestroy () {
   },
@@ -306,7 +306,7 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
-      axios.get('/api/search_eventa', {params: {
+      axios.get('api/search_eventa', {params: {
         date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
         date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
         kws: this.searchInput.kws,
@@ -326,7 +326,7 @@ export default {
         this.totalRows = response.data.totalElements;
       });
       // this.dispDatas = Data;
-      // console.log(this.dispDatas);
+      console.log(this.Demo);
       // this.totalRows = 64;
       // console.log(this.totalRows);
     },
@@ -343,7 +343,7 @@ export default {
     },
     newmakeTimeLine (TL) {
       var sources = {events: []};
-      var response = Demo.timeline_data;
+      var response = this.Demo.timeline_data;
       this.TL = TL;
       console.log(response);
       response.data = _.orderBy(response.data, 'releaseDate');
