@@ -21,8 +21,8 @@ import Colors from 'components/Colors'
 import List from 'components/list/view_List'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/view_FilterTab'
-import Data from "assets/data/view_data.json"
-import Demo from 'assets/data/view_demo.json'
+// import Data from "assets/data/view_data.json"
+// import Demo from 'assets/data/view_demo.json'
 import Header from 'components/header/view_Header.vue'
 import Footer from 'components/header/Footer.vue'
 
@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       Colors: Colors,
-      headdata: "专家观点",
+      headdata: '专家观点',
       dispDatas: [],
       totalRows: 64,
       pageno: 1,

@@ -46,7 +46,7 @@
 <script type="text/ecmascript-6">
   // import Vue from 'vue'
   import 'components/charts/theme/Ring.js'
-  import Graphic from 'echarts/lib/util/graphic'
+  // import Graphic from 'echarts/lib/util/graphic'
 
   export default {
     // props: ['title'],

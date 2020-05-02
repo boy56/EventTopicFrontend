@@ -26,7 +26,7 @@
   // import 'echarts-wordcloud'
   // import bCarousel from 'bootstrap-vue/es/components/carousel/carousel'
   // import bCarouselSlide from 'bootstrap-vue/es/components/carousel/carousel-slide'
-  import Common from 'components/Common.js'
+  // import Common from 'components/Common.js'
 
   import Conbox from './Conbox.vue'
 
@@ -85,7 +85,7 @@
       //   // alert(response.data.page0.to)
       //   // eslint-disable-next-line no-unused-vars
         this.jumpto = response.data.check.to;
-        let timer = setTimeout(function () { location.href = '../' + response.data.check.to; } , response.data.check.delay * 1000);
+        // let timer = setTimeout(function () { location.href = '../' + response.data.check.to; } , response.data.check.delay * 1000);
       })
     },
     mounted () {

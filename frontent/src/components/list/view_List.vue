@@ -37,9 +37,9 @@
                    :class="{ 'trend_asc': item.trend > 0, 'trend_desc': item.trend <= 0 }"
                    @click="viewTrendGraph(item.org_title, item.org_text)">
               </span>
-              <li class="title-link" target="_blank" 
-                    @mouseenter="enter(item)" 
-   		              @mouseleave="leave" 
+              <li class="title-link" target="_blank"
+                    @mouseenter="enter(item)"
+   		              @mouseleave="leave"
    		              @mousemove="updateXY">
                 {{ item.viewpoint}}
               </li>
@@ -86,7 +86,7 @@
         </div>
     </div>
     <!-- <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="chart" style="overflow: scroll"> 
+      <div class="chart" style="overflow: scroll">
         <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts>
         {{item.newsinfo.source}}
       </div>
@@ -373,12 +373,12 @@ export default {
       return item;
     });
     if (this.sorting) {
-      console.log("ningyx");
+      console.log('ningyx');
       this.dispValues = _.orderBy(xs, this.sorting, this.sortingMap[this.sorting]);
     } else {
       this.dispValues = xs;
     }
-    console.log("ningyx");
+    console.log('ningyx');
     console.log(xs);
     console.log(this.dispValues)
   },

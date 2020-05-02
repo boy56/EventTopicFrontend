@@ -48,13 +48,13 @@
 
 <script type="text/ecmascript-6">
 
-  import { ManyType, LegacyType, Topic } from 'components/Const'
+  import { ManyType, Topic } from 'components/Const'
 
   export default {
     data () {
       return {
         categories: ManyType,
-        types: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动", "其他"],
+        types: ['入侵行动', '国家立场', '防卫行动', '军演行动', '媒体评论', '访问行动', '其他'],
         topics: Topic,
         languages: ['全部', '中文','英文'],
         locations: ['全部', '国内', '海外'],
@@ -146,7 +146,7 @@
           selectedSecu: this.selectedSecu,
           selectedWords: this.selectedWords,
         });
-        console.log("ningyxa")
+        console.log('ningyxa')
       },
     },
   }

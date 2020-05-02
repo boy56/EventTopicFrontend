@@ -44,7 +44,7 @@ export default {
     'headdata': {
       type: String,
       default () {
-        return "";
+        return '';
       }
     }
   },
@@ -99,7 +99,7 @@ export default {
 @media (max-width: 100%)
   padding: 1rem 0
 .r-navbar
-  .header-navbar-nav 
+  .header-navbar-nav
     .nav-link
       padding: 1.5rem 1.5rem
       color: #007bff

@@ -22,8 +22,8 @@ import Colors from 'components/Colors'
 import List from 'components/list/xuanti_List'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/xuanti_FilterTab'
-import Data from 'assets/data/xuanti_data.json'
-import Demo from 'assets/data/xuanti_demo.json'
+// import Data from 'assets/data/xuanti_data.json'
+// import Demo from 'assets/data/xuanti_demo.json'
 import Footer from 'components/header/Footer.vue'
 import Header from 'components/header/view_Header.vue'
 // import Header from 'components\\header\\xuanti_Header.vue'
@@ -32,7 +32,7 @@ export default {
   data () {
     return {
       Colors: Colors,
-      headdata: "综合选题",
+      headdata: '综合选题',
       topic: null,
       dispDatas: [],
       totalRows: 64,
@@ -110,9 +110,8 @@ export default {
       });
     },
     updateFilter: function (filter) {
-      this.filter = filter;
-      this.findDatas(filter);
-      console.log("ningyxff");
+      // this.filter = filter;
+      // this.findDatas(filter);
     },
   },
   components: {

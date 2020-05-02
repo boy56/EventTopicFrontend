@@ -40,13 +40,13 @@
 
 <script type="text/ecmascript-6">
 
-  import { ManyType, LegacyType, Topic } from 'components/Const'
+  import { ManyType, Topic } from 'components/Const'
 
   export default {
     data () {
       return {
         categories: ManyType,
-        types: ["入侵行动", "国家立场", "防卫行动", "军演行动", "媒体评论", "访问行动", "其他"],
+        types: ['入侵行动', '国家立场', '防卫行动', '军演行动', '媒体评论', '访问行动', '其他'],
         topics: Topic,
         languages: ['朝鲜拟重启洲际导弹试验和试验活动'],
         locations: ['全部', '2019-09-11', '2019-12-31'],

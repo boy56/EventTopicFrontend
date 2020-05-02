@@ -76,7 +76,7 @@ import Colors from 'components/Colors'
 import SearchBox from 'components/search/SearchBox'
 import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
-import Data from 'assets/data/eventa_data.json'
+// import Data from 'assets/data/eventa_data.json'
 // import Demo from 'assets/data/eventa_demo.json'
 // import rdData from 'assets/data/eventa_rddata.json'
 import Footer from 'components/header/Footer.vue'
@@ -91,7 +91,7 @@ export default {
   // },
   data () {
     return {
-      headdata: "事件分析",
+      headdata: '事件分析',
       unique_id: -1,
       sourceMap: {},
       left_down_data: [],
@@ -348,7 +348,7 @@ export default {
       console.log(response);
       response.data = _.orderBy(response.data, 'releaseDate');
       console.log(response.data);
-      let maxSim = 0.0;
+      // let maxSim = 0.0;
       let maxSimIndex = -1;
       if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
         console.log('isEmpty');
