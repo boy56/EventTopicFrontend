@@ -302,31 +302,31 @@
       console.log('ningyx');
       this.echartsGlobe();
       this.getGoodsList();
-      this.left_up_list = this.Demo.news_views_data;
-      console.log(this.left_up_list);
-      this.right_up_list = this.left_up_list[0].views;
-      console.log(this.right_up_list);
-      // 热度趋势图
-      this.options.left_down.option = ChartLib['折线图南海'].option;
-      this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
-      this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
-      console.log(this.options.left_down.option);
+      // this.left_up_list = this.Demo.news_views_data;
+      // console.log(this.left_up_list);
+      // this.right_up_list = this.left_up_list[0].views;
+      // console.log(this.right_up_list);
+      // // 热度趋势图
+      // this.options.left_down.option = ChartLib['折线图南海'].option;
+      // this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
+      // this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
+      // console.log(this.options.left_down.option);
 
-      // 情绪分布图
-      this.options.right1_down.option = ChartLib['情绪分布图'].option;
-      this.options.right1_down.option.xAxis.data = this.Demo.sentiment_data.sentiment_data;
-      this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
-      this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
+      // // 情绪分布图
+      // this.options.right1_down.option = ChartLib['情绪分布图'].option;
+      // this.options.right1_down.option.xAxis.data = this.Demo.sentiment_data.sentiment_data;
+      // this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
+      // this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
 
-      //  热点事件图
-      this.options.right_down.option = ChartLib['南海气泡图'].option;
-      // console.log(Demo.event_data)
-      this.options.right_down.option.legend.data = this.Demo.event_data.legend;
-      this.options.right_down.option.series = this.Demo.event_data.series;
+      // //  热点事件图
+      // this.options.right_down.option = ChartLib['南海气泡图'].option;
+      // // console.log(Demo.event_data)
+      // this.options.right_down.option.legend.data = this.Demo.event_data.legend;
+      // this.options.right_down.option.series = this.Demo.event_data.series;
+      this.findDatas();
     },
     created () {
       this.initOptions();
-      this.findDatas();
       this.intervalID = setInterval(() => {
         this.initOptions()
       }, 100 * 1000);
@@ -375,11 +375,6 @@
     },
     methods: {
       findDatas: function (filter = {
-      // selectedTypes: [],
-      // selectedLanguge: '全部',
-      // selectedLocation: '全部',
-      // selectedSecu: false,
-      // selectedWords: [],
     }) {
       axios.get('api/search_main', {params: {
         theme: this.topic,
