@@ -179,89 +179,89 @@ export default {
   },
   created () {
     this.topic = '南海' // this.$route.params.topic;
-    this.findDatas();
     // var echarts = require('echarts');
   },
   mounted () {
-    require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
-    console.log(this.Demo);
-    // this.options.left_up.option = ChartLib.折线图朝鲜.option;
-    // this.event = Demo.data[0];
-    console.log(this.timeline);
-    console.log(this.event);
-    // console.log(sources);
-    var myChart = echarts.init(document.getElementById('left_up'));
-    var left_up_option = {
-      title: {
-        text: ''
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: function (param) {
-          return param.data.name + ':' + param.data.value;
-        }
-      },
-      legend: {
-        // data: ['朝鲜','南海','台湾']
-      },
-      grid: {
-        left: '1%',
-        right: '1%',
-        bottom: '2%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: this.Demo.tendency_data.tendency_time
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '南海',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {normal: {}},
-          data: this.Demo.tendency_data.tendency_news
-        },
-      ]
-    }
-    myChart.setOption(left_up_option);
-    // console.log(myChart);
-    myChart = echarts.init(document.getElementById('right_up'));
-    // var ru_data = this.genData(50);
-    var right_up_option = {
-      title: {
-        text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
-        subtext: '',
-        x: 'center'
-      },
-      tooltip: {
-        trigger: 'item',
-        formatter: '{a} <br/>{b}({d}%)'
-      },
-      legend: {
-        orient: 'vertical',
-        left: '70%',
-        y: 'center',
-        data: this.Demo.eventpre_data.legend_data
-      },
-      color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
-        'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
-      series: [
-        {
-          name: '',
-          type: 'pie',
-          radius: '70%',
-          center: ['35%', '50%'],
-          data: this.Demo.eventpre_data.data
-        }
-      ]
-    };
-    myChart.setOption(right_up_option);
-    this.left_down_data = this.Demo.view_cluster_data;
+    this.findDatas();
+    // require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
+    // console.log(this.Demo);
+    // // this.options.left_up.option = ChartLib.折线图朝鲜.option;
+    // // this.event = Demo.data[0];
+    // console.log(this.timeline);
+    // console.log(this.event);
+    // // console.log(sources);
+    // var myChart = echarts.init(document.getElementById('left_up'));
+    // var left_up_option = {
+    //   title: {
+    //     text: ''
+    //   },
+    //   tooltip: {
+    //     trigger: 'item',
+    //     formatter: function (param) {
+    //       return param.data.name + ':' + param.data.value;
+    //     }
+    //   },
+    //   legend: {
+    //     // data: ['朝鲜','南海','台湾']
+    //   },
+    //   grid: {
+    //     left: '1%',
+    //     right: '1%',
+    //     bottom: '2%',
+    //     containLabel: true
+    //   },
+    //   xAxis: {
+    //     type: 'category',
+    //     boundaryGap: false,
+    //     data: this.Demo.tendency_data.tendency_time
+    //   },
+    //   yAxis: {
+    //     type: 'value'
+    //   },
+    //   series: [
+    //     {
+    //       name: '南海',
+    //       type: 'line',
+    //       stack: '总量',
+    //       areaStyle: {normal: {}},
+    //       data: this.Demo.tendency_data.tendency_news
+    //     },
+    //   ]
+    // }
+    // myChart.setOption(left_up_option);
+    // // console.log(myChart);
+    // myChart = echarts.init(document.getElementById('right_up'));
+    // // var ru_data = this.genData(50);
+    // var right_up_option = {
+    //   title: {
+    //     text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
+    //     subtext: '',
+    //     x: 'center'
+    //   },
+    //   tooltip: {
+    //     trigger: 'item',
+    //     formatter: '{a} <br/>{b}({d}%)'
+    //   },
+    //   legend: {
+    //     orient: 'vertical',
+    //     left: '70%',
+    //     y: 'center',
+    //     data: this.Demo.eventpre_data.legend_data
+    //   },
+    //   color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
+    //     'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
+    //   series: [
+    //     {
+    //       name: '',
+    //       type: 'pie',
+    //       radius: '70%',
+    //       center: ['35%', '50%'],
+    //       data: this.Demo.eventpre_data.data
+    //     }
+    //   ]
+    // };
+    // myChart.setOption(right_up_option);
+    // this.left_down_data = this.Demo.view_cluster_data;
   },
   beforeDestroy () {
   },
@@ -323,10 +323,90 @@ export default {
       }}).then(response => {
         this.Demo = response.data
         // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
-        this.totalRows = response.data.totalElements;
+        // this.totalRows = response.data.totalElements;
+        require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
+        console.log(this.Demo);
+        console.log(response);
+        // this.options.left_up.option = ChartLib.折线图朝鲜.option;
+        // this.event = Demo.data[0];
+        console.log(this.timeline);
+        console.log(this.event);
+        // console.log(sources);
+        var myChart = echarts.init(document.getElementById('left_up'));
+        var left_up_option = {
+          title: {
+            text: ''
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: function (param) {
+              return param.data.name + ':' + param.data.value;
+            }
+          },
+          legend: {
+            // data: ['朝鲜','南海','台湾']
+          },
+          grid: {
+            left: '1%',
+            right: '1%',
+            bottom: '2%',
+            containLabel: true
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: this.Demo.tendency_data.tendency_time
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              name: '南海',
+              type: 'line',
+              stack: '总量',
+              areaStyle: {normal: {}},
+              data: this.Demo.tendency_data.tendency_news
+            },
+          ]
+        }
+        myChart.setOption(left_up_option);
+        // console.log(myChart);
+        myChart = echarts.init(document.getElementById('right_up'));
+        // var ru_data = this.genData(50);
+        var right_up_option = {
+          title: {
+            text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
+            subtext: '',
+            x: 'center'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b}({d}%)'
+          },
+          legend: {
+            orient: 'vertical',
+            left: '70%',
+            y: 'center',
+            data: this.Demo.eventpre_data.legend_data
+          },
+          color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
+            'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
+          series: [
+            {
+              name: '',
+              type: 'pie',
+              radius: '70%',
+              center: ['35%', '50%'],
+              data: this.Demo.eventpre_data.data
+            }
+          ]
+        };
+        myChart.setOption(right_up_option);
+        this.left_down_data = this.Demo.view_cluster_data;
+        // this.dispDatas = Data;
+        console.log(this.Demo);
       });
-      // this.dispDatas = Data;
-      console.log(this.Demo);
       // this.totalRows = 64;
       // console.log(this.totalRows);
     },
