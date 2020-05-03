@@ -47,9 +47,9 @@ export default {
     searchInput: function (input) {
       this.findDatas(this.filter);
     },
-    pageno: function (pageno) {
-      this.findDatas(this.filter);
-    },
+    // pageno: function (pageno) {
+    //   this.findDatas(this.filter);
+    // },
   },
   created () {
     this.topic = '南海'; // this.$route.params.topic;
