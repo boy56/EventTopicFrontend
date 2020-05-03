@@ -8,7 +8,7 @@
 
 
     <b-pagination align="center" size="md" :limit="8"
-                 :per-page="50"
+                 :per-page="64"
                  :total-rows="totalRows"
                  v-model="pageno">
     </b-pagination>
@@ -50,9 +50,9 @@ export default {
     searchInput: function (input) {
       this.findDatas(this.filter);
     },
-    // pageno: function (pageno) {
-    //   this.findDatas(this.filter);
-    // },
+    pageno: function (pageno) {
+      this.findDatas(this.filter);
+    },
   },
   created () {
     this.topic = '南海'; // this.$route.params.topic;
@@ -92,7 +92,7 @@ export default {
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
         this.dispDatas = response.data.newsList;
-        this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+        // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         this.totalRows = response.data.totalElements;
       });
       // this.dispDatas = Demo.newsList;
