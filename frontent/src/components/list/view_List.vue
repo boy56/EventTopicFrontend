@@ -34,8 +34,8 @@
               <span v-b-model.modaltrend
                     class="trend"
                     title="查看详情"
-                   :class="{ 'trend_asc': item.trend > 0, 'trend_desc': item.trend <= 0 }"
-                   @click="viewTrendGraph(item.org_title, item.org_text)">
+                   :class="{ 'trend_asc': item.sentiment > 0, 'trend_desc': item.sentiment <= 0 }"
+                   @click="viewTrendGraph(item.newsinfo.title, item.original_text)">
               </span>
               <li class="title-link" target="_blank" 
                     @mouseenter="enter(item)" 
@@ -85,13 +85,13 @@
           </div>
         </div>
     </div>
-    <!-- <b-modal id="modaltrend" size="lg" :title="viewtitle">
+    <b-modal id="modaltrend" size="lg" :title="viewtitle">
       <div class="chart" style="overflow: scroll"> 
-        <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts>
-        {{item.newsinfo.source}}
+        <!-- <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts> -->
+        {{viewtext}}
       </div>
       <footer slot="modal-footer"></footer>
-    </b-modal> -->
+    </b-modal>
   </div>
 </template>
 

@@ -2652,13 +2652,11 @@ const ChartLib = {
           },
           confine: true,
           extraCssText: 'max-width: 230px; background:rgba(17, 47, 117, 0.8); border:1px solid #0775e4',
-          formatter: '2017-{b}<br> \n' +
+          formatter: '{b}<br> \n' +
               '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#1e98ff"> \n' +
               '</span>{a0} : {c0}%<br> \n' +
               '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FF5421"> \n' +
-              '</span>{a1} : {c1}%<br> \n' +
-              '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FFC11E"> \n' +
-              '</span>{a2} : {c2}</div>',
+              '</span>{a1} : {c1}%<br>',
       },
       grid: {
         left: '2%',

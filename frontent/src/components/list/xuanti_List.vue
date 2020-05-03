@@ -36,8 +36,8 @@
               <span v-b-model.modaltrend
                     class="trend"
                     title="查看详情"
-                   :class="{ 'trend_asc': item.trend > 0, 'trend_desc': item.trend <= 0 }"
-                   @click="viewTrendGraph(item.id, item.title, item.time)">
+                   :class="{ 'trend_asc': item.userview > 0, 'trend_desc': item.userview <= 0 }"
+                   @click="viewTrendGraph(item.title, item.content)">
               </span> 
               <a :href="item.url" class="title-link" target="_blank">{{ item.title }}</a>
             </div>
@@ -87,7 +87,8 @@
     </div>
     <b-modal id="modaltrend" size="lg" :title="viewtitle">
       <div class="chart">
-        <Echarts theme="ring" :resizable="true" :option="trend_option" :loading="loading.trend" :loadingOpts="{ text: '加载中...' }"></Echarts>
+        <!-- <Echarts theme="ring" :resizable="true" :option="trend_option" :loading="loading.trend" :loadingOpts="{ text: '加载中...' }"></Echarts> -->
+        {{viewtext}}
       </div>
       <footer slot="modal-footer"></footer>
     </b-modal>
@@ -137,6 +138,7 @@ export default {
       toggleSource: false,
       sourceMore: [],
       viewtitle: '',
+      viewtext: "",
       loading: { trend: true },
       trend_option: {
         title: {
@@ -251,23 +253,24 @@ export default {
         this.toggleSource = false;
       }
     },
-    viewTrendGraph (id, text, time) {
-      this.viewtitle = text;
+    viewTrendGraph (title, text) {
+      this.viewtitle = title;
       this.loading.trend = true;
-      axios.get('/api/cache3/source/fetchTrendById', {params: {
-        id: id,
-        text: text,
-        kind: 'daily',
-        time: new Date(time).format('yyyy-MM-ddThh:mm:ss.000+0800'),
-      }}).then(response => {
-        this.loading.trend = false;
-        let dates = _.map(_.keys(response.data), date => {
-          return new Date(date).format('dd日hh时');
-        });
-        let values = _.values(response.data);
-        this.trend_option.xAxis.data = dates;
-        this.trend_option.series[0].data = values;
-      });
+      this.viewtext = text;
+      // axios.get('/api/cache3/source/fetchTrendById', {params: {
+      //   id: id,
+      //   text: text,
+      //   kind: 'daily',
+      //   time: new Date(time).format('yyyy-MM-ddThh:mm:ss.000+0800'),
+      // }}).then(response => {
+      //   this.loading.trend = false;
+      //   let dates = _.map(_.keys(response.data), date => {
+      //     return new Date(date).format('dd日hh时');
+      //   });
+      //   let values = _.values(response.data);
+      //   this.trend_option.xAxis.data = dates;
+      //   this.trend_option.series[0].data = values;
+      // });
     },
     toggleItem (idx) {
       let item = this.dispValues[idx];

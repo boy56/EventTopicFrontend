@@ -385,22 +385,23 @@
         this.Demo.hot_data = response.data.hot_data;
         this.Demo.sentiment_data = response.data.sentiment_data;
         this.Demo.event_data = response.data.event_data;
-        console.log(this.Demo);
-        console.log(this.Demo.news_views_data);
-        console.log(this.Demo.hot_data);
+        // console.log(this.Demo);
+        // console.log(this.Demo.news_views_data);
+        // console.log(this.Demo.hot_data);
         this.left_up_list = this.Demo.news_views_data;
-        console.log(this.left_up_list);
+        // console.log(this.left_up_list);
         this.right_up_list = this.left_up_list[0].views;
-        console.log(this.right_up_list);
+        // console.log(this.right_up_list);
         // 热度趋势图
         this.options.left_down.option = ChartLib['折线图南海'].option;
         this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
         this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
-        console.log(this.options.left_down.option);
+        // console.log(this.options.left_down.option);
 
         // 情绪分布图
         this.options.right1_down.option = ChartLib['情绪分布图'].option;
-        this.options.right1_down.option.xAxis.data = this.Demo.sentiment_data.sentiment_data;
+        this.options.right1_down.option.xAxis[0].data = this.Demo.sentiment_data.sentiment_date;
+        // console.log(this.options.right1_down.option.xAxis.data);
         this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
         this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
 
