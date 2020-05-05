@@ -14,14 +14,14 @@
         <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list" >
-                      <div class='list-text'>{{v.title}}</div>
+                      <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div>
                   </ul>
               </div>
-              <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
+              <!-- <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
                             <ul class="list-item outer-view-list" id="outer-view-list">
                                <div class="list-text">{{v.title}}</div>
                             </ul>
-                        </div>
+                        </div> -->
         </div>
     </div>
     </router-link>
@@ -360,8 +360,8 @@
     filters: {
       ellipsis (value) {
         if (!value) return ''
-        if (value.length > 16) {
-          return value.slice(0,16) + '...'
+        if (value.length > 28) {
+          return value.slice(0,28) + '...'
         }
         return value
       },
