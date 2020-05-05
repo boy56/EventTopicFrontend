@@ -338,7 +338,7 @@ export default {
             text: ''
           },
           tooltip: {
-            trigger: 'item',
+            trigger: 'axis',
             formatter: function (param) {
               return param.data.name + ':' + param.data.value;
             }

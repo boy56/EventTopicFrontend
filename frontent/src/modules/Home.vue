@@ -360,8 +360,8 @@
     filters: {
       ellipsis (value) {
         if (!value) return ''
-        if (value.length > 28) {
-          return value.slice(0,28) + '...'
+        if (value.length > 20) {
+          return value.slice(0,20) + '...'
         }
         return value
       },
