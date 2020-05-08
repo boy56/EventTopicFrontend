@@ -14,8 +14,8 @@
         <div class="table-th td-hot">热度</div>
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
-        <div class="table-th td-country_l" v-if='!isevent'>所属国家</div>
-        <div class="table-th td-content_l" v-if='!isevent'>内容类别</div>
+        <!-- <div class="table-th td-country_l" v-if='!isevent'>所属国家</div> -->
+        <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
         <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
       </div class="table-tr">
@@ -45,8 +45,8 @@
             <div class="table-td td-location">{{ item.location }}</div>
             <div class="table-td td-emotion">{{ item.emotion | toEmotion }}</div>
             <div class="table-td td-hot">{{ item.userview }}</div>
-            <div class="table-td td-country_l">{{ item.country_label }}</div>
-            <div class="table-td td-content_l">{{ item.content_label }}</div>
+            <!-- <div class="table-td td-country_l">{{ item.country_label }}</div> -->
+            <!-- <div class="table-td td-content_l">{{ item.content_label }}</div> -->
             <!-- <div class="table-td td-userview">{{ item.userview }}</div> -->
             <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
             <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
@@ -386,7 +386,7 @@ export default {
   width: 100%
   margin-bottom: 1rem
 .list-table-head
-  width: 1170px
+  width: 100%
   position: relative
   top: 0
   margin-bottom: 0
@@ -409,18 +409,18 @@ export default {
       // &.td-index
         // width: 5%
       &.td-type
-        width: 12%
+        width: 10%
       &.td-title
         flex: 1
-        width: 200.6%
+        width: 30%
         text-align: left
       &.td-date
-        width: 17%
+        width: 15%
         text-align: center
         &:before
           left: 7%
-        // &:after
-          // right: 8%
+        &:after
+          right: 8%
       &.td-emotion
         width: 5%
       &.td-location
@@ -432,9 +432,9 @@ export default {
       // &.td-recommend
         // width: 6%
       &.td-source
-        width: 20%
-      &.td-feedback
-        width: 18%
+        width: 15%
+      // &.td-feedback
+        // width: 18%
 
 .chart
   width: 750px
@@ -491,22 +491,24 @@ export default {
             text-overflow: ellipsis
             white-space: nowrap
         &.td-date
-          width: 7%
+          width: 15%
           text-align: center
         &.td-emotion
           width: 5%
         &.td-location
-          width: 7%
+          width: 5%
+        &.td-hot
+          width: 5%
         // &.td-sensitive
           // width: 7%
         // &.td-recommend
           // width: 6%
-        &.td-country_l
-          width: 6%
-        &.td-content_l
-          width: 10%
+        // &.td-country_l
+          // width: 6%
+        // &.td-content_l
+          // width: 10%
         &.td-source
-          width: 10%
+          width: 15%
           vertical-align: middle
           position: relative
           cursor: pointer

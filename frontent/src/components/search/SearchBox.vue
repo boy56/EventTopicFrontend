@@ -86,6 +86,7 @@
     label
       display: inline-block
       width: 28%
+      font-size: 1.6rem
       padding: 7px 0 0 0px
       margin-bottom: 0
   .search-btns
@@ -93,7 +94,7 @@
     justify-content: space-between
     button
       color: #fff
-      font-size: 1.0rem
+      font-size: 1.6rem
       margin-left: 10px
       background-color: #158bdc
       cursor: pointer
@@ -103,10 +104,10 @@
 @media (min-width:768px)
   .search-row
     .search-wrapper
-      flex: 0 0 20%
+      flex: 0 0 16%
     .date-wrapper
-      flex: 0 0 28%
-      max-width: 28%
+      flex: 0 0 33%
+      max-width: 33%
 
 @media (max-width:768px)
   .search-row
@@ -122,7 +123,7 @@
         height: 100%
         line-height: 1
         padding: 0 1.5rem
-        font-size: 2.2rem
+        font-size: 3.2rem
         border: none
         background-color: #00abff
         color: #fff
