@@ -14,14 +14,14 @@
         <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list" >
-                      <div class='list-text'>{{v.title}}</div>
+                      <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div>
                   </ul>
               </div>
-              <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
+              <!-- <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
                             <ul class="list-item outer-view-list" id="outer-view-list">
                                <div class="list-text">{{v.title}}</div>
                             </ul>
-                        </div>
+                        </div> -->
         </div>
     </div>
     </router-link>
@@ -38,7 +38,7 @@
                 </a>
               </font>
             </tr>
-          </table>
+          </table> 
       </ul> -->
     </div>
       <!-- <div class="con-box button-box" @click="goto">   -->
@@ -119,7 +119,7 @@
 
 <script type="text/ecmascript-6">
   import 'components/charts/theme/Ring.js'
-  import Data from '../assets/data/data.json'
+  import Data from "../assets/data/data.json"
   // import Demo from "../assets/data/mainpage_demo.json"
   import Echarts from 'vue-echarts-v3/src/full.js'
   // import "yugu/js/jquery-1.8.0.min.js"
@@ -128,11 +128,11 @@
   import echarts from 'echarts'
   require('echarts-gl');
 
-  import 'echarts/map/js/world.js';
+  import "echarts/map/js/world.js";
 
   import Common from 'components/Common.js'
 
-  import {ChartLib} from './ChartLib.js'
+  import {fish_data, fishBone, ChartLib, ChartData} from './ChartLib.js'
 
   import BaseTexture from 'components/texture/Base.js'
   // import HeightTexture from 'components/texture/Height.js'
@@ -173,7 +173,7 @@
     data () {
       return {
         Common: Common,
-        jumpto: '',
+        jumpto: "",
         Demo: {},
         topic: '南海',
         topics: [1,2,3],
@@ -302,9 +302,28 @@
       console.log('ningyx');
       this.echartsGlobe();
       this.getGoodsList();
+      // this.left_up_list = this.Demo.news_views_data;
+      // console.log(this.left_up_list);
+      // this.right_up_list = this.left_up_list[0].views;
+      // console.log(this.right_up_list);
+      // // 热度趋势图
+      // this.options.left_down.option = ChartLib['折线图南海'].option;
+      // this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
+      // this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
+      // console.log(this.options.left_down.option);
+
+      // // 情绪分布图
+      // this.options.right1_down.option = ChartLib['情绪分布图'].option;
+      // this.options.right1_down.option.xAxis.data = this.Demo.sentiment_data.sentiment_data;
+      // this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
+      // this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
+
+      // //  热点事件图
+      // this.options.right_down.option = ChartLib['南海气泡图'].option;
+      // // console.log(Demo.event_data)
+      // this.options.right_down.option.legend.data = this.Demo.event_data.legend;
+      // this.options.right_down.option.series = this.Demo.event_data.series;
       this.findDatas();
-      console.log('this.options.right_down')
-      console.log(this.options.right_down)
     },
     created () {
       this.initOptions();
@@ -314,7 +333,7 @@
 
       setInterval(() => {
         if (this.topic_index === (3)) {
-          this.topic_index = 0;
+           this.topic_index = 0;
         };
         if (this.topic_index === 0) {
           this.around(63);
@@ -341,8 +360,8 @@
     filters: {
       ellipsis (value) {
         if (!value) return ''
-        if (value.length > 16) {
-          return value.slice(0,16) + '...'
+        if (value.length > 20) {
+          return value.slice(0,20) + '...'
         }
         return value
       },
@@ -356,79 +375,53 @@
     },
     methods: {
       findDatas: function (filter = {
-      // selectedTypes: [],
-      // selectedLanguge: '全部',
-      // selectedLocation: '全部',
-      // selectedSecu: false,
-      // selectedWords: [],
-      }) {
-        axios.get('api/search_main', {params: {
-          theme: this.topic,
-        }}).then(response => {
-          console.log(response);
-          console.log(response.data)
-          this.Demo = response.data
-          // this.Demo.news_views_data = response.data.news_views_data;
-          // this.Demo.hot_data = response.data.hot_data;
-          // this.Demo.sentiment_data = response.data.sentiment_data;
-          // this.Demo.event_data = response.data.event_data;
-          this.left_up_list = this.Demo.news_views_data;
-          console.log(this.left_up_list);
-          this.right_up_list = this.left_up_list[0].views;
-          console.log(this.right_up_list);
-          // 热度趋势图
-          this.options.left_down.option = ChartLib['折线图南海'].option;
-          this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
-          this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
-          console.log(this.options.left_down.option);
-
-          // 情绪分布图
-          this.options.right1_down.option = ChartLib['情绪分布图'].option;
-          this.options.right1_down.option.xAxis.data = this.Demo.sentiment_data.sentiment_data;
-          this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
-          this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
-
-          //  热点事件图
-          this.options.right_down.option = ChartLib['南海气泡图'].option;
-          // console.log(Demo.event_data)
-          this.options.right_down.option.legend.data = this.Demo.event_data.legend;
-          this.options.right_down.option.series = this.Demo.event_data.series;
-        });
-        console.log(this.Demo);
-        console.log(this.Demo.news_views_data);
-        console.log(this.Demo.hot_data);
+    }) {
+      axios.get('api/search_main', {params: {
+        theme: this.topic,
+      }}).then(response => {
+        console.log(response);
+        console.log(response.data)
+        this.Demo.news_views_data = response.data.news_views_data;
+        this.Demo.hot_data = response.data.hot_data;
+        this.Demo.sentiment_data = response.data.sentiment_data;
+        this.Demo.event_data = response.data.event_data;
+        // console.log(this.Demo);
+        // console.log(this.Demo.news_views_data);
+        // console.log(this.Demo.hot_data);
         this.left_up_list = this.Demo.news_views_data;
-        console.log(this.left_up_list);
+        // console.log(this.left_up_list);
         this.right_up_list = this.left_up_list[0].views;
-        console.log(this.right_up_list);
-      // 热度趋势图
+        // console.log(this.right_up_list);
+        // 热度趋势图
         this.options.left_down.option = ChartLib['折线图南海'].option;
         this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
         this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
-        console.log(this.options.left_down.option);
+        // console.log(this.options.left_down.option);
 
-      // 情绪分布图
+        // 情绪分布图
         this.options.right1_down.option = ChartLib['情绪分布图'].option;
-        this.options.right1_down.option.xAxis.data = this.Demo.sentiment_data.sentiment_data;
+        this.options.right1_down.option.xAxis[0].data = this.Demo.sentiment_data.sentiment_date;
+        // console.log(this.options.right1_down.option.xAxis.data);
         this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
         this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
 
-      //  热点事件图
+        //  热点事件图
         this.options.right_down.option = ChartLib['南海气泡图'].option;
-      // console.log(Demo.event_data)
+        // console.log(Demo.event_data)
         this.options.right_down.option.legend.data = this.Demo.event_data.legend;
         this.options.right_down.option.series = this.Demo.event_data.series;
         console.log(this.Demo);
         console.log(this.Demo.data);
-      },
+      });
+    },
       goto: function () {
         // document.location.href = Common.addr + Common.page1;
       },
       getGoodsList () {
-        axios.get('/goods').then((res) => {
-          this.result = res.data
-          console.log(this.result)
-        })
+            axios.get('/goods').then((res) => {
+              this.result = res.data
+              console.log(this.result)
+            })
       },
       initOptions: function () {
         axios.get('/api/getShowCharts').then(response => {
@@ -468,81 +461,82 @@
         // 创建一个canvas类型的对象(mapChart)来作为地球的纹理(baseTexture)
         let canvas = document.createElement('canvas');
         let mapChart = echarts.init(canvas, null, {
-          width: 2048,
-          height: 1024
+            width: 2048,
+            height: 1024
         });
 
         mapChart.setOption({
-          backgroundColor: '#999',
-          geo: {
-            type: 'map',
-            map: 'world',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            boundingCoords: [[-180, 90], [180, -90]],
+            backgroundColor: '#999',
+            geo: {
+                type: 'map',
+                map: 'world',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                boundingCoords: [[-180, 90], [180, -90]],
                 // silent: true,
-            itemStyle: {
-              normal: {
-                borderColor: '#000'
-              }
-            },
-            label: {
-              normal: {
-                textStyle: {
-                  color: '#fff',
-                  fontSize: 40
+                itemStyle: {
+                    normal: {
+                        borderColor: '#000'
+                    }
+                },
+                label: {
+                    normal: {
+                        textStyle: {
+                            color: '#fff',
+                            fontSize: 40
+                        }
+                    }
                 }
-              }
             }
-          }
         });
 
-        // let globe_new_option = {
-        //   backgroundColor: 'rgba(0, 0, 0, 0)',
-        //   globe: {
-        //     baseTexture: mapChart,
-        //     heightTexture: heightTexture.src,
-        //     displacementScale: 0.1,
-        //     shading: 'realistic',
-        //     realisticMaterial: {
-        //       roughness: 0.8,
-        //       metalness: 0
-        //     },
-        //     postEffect: {
-        //       enable: true
-        //     },
-        //     temporalSuperSampling: {
-        //       enable: true
-        //     },
-        //     // light: {
-        //     //   ambient: {
-        //     //     intensity: 0
-        //     //   },
-        //     //   main: {
-        //     //     intensity: 2,
-        //     //     shadow: true
-        //     //   },
-        //     //   ambientCubemap: {
-        //     //     texture: '',
-        //     //     exposure: 1,
-        //     //     diffuseIntensity: 0.2
-        //     //   }
-        //     // },
-        //     viewControl: {
-        //       autoRotateSpeed: 0,
-        //       animationDurationUpdate: 1000,
-        //       animationEasingUpdate: 'cubicInOut',
-        //       targetCoord: [116.46, 39.92],
-        //       autoRotate: true
-        //     }
-        //   }
-        // };
+        let globe_new_option = {
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          globe: {
+            baseTexture: mapChart,
+            heightTexture: heightTexture.src,
+            displacementScale: 0.1,
+            shading: 'realistic',
+            realisticMaterial: {
+              roughness: 0.8,
+              metalness: 0
+            },
+            postEffect: {
+              enable: true
+            },
+            temporalSuperSampling: {
+              enable: true
+            },
+            // light: {
+            //   ambient: {
+            //     intensity: 0
+            //   },
+            //   main: {
+            //     intensity: 2,
+            //     shadow: true
+            //   },
+            //   ambientCubemap: {
+            //     texture: '',
+            //     exposure: 1,
+            //     diffuseIntensity: 0.2
+            //   }
+            // },
+            viewControl: {
+              autoRotateSpeed: 0,
+              animationDurationUpdate: 1000,
+              animationEasingUpdate: 'cubicInOut',
+              targetCoord: [116.46, 39.92],
+              autoRotate: true
+            }
+          }
+        };
         // this.globe = echarts.init(document.getElementById('echarts-globe'));
         // this.globe.setOption(globe_new_option);
         this.regions = mapChart.getModel().getComponent('geo').coordinateSystem.regions;
-        // var geo = mapChart.getModel().getComponent('geo').coordinateSystem;
+        var geo;
+        geo = mapChart.getModel().getComponent('geo').coordinateSystem;
         // console.log("---------------------------------");
         // console.log(this.regions);
         // console.log(geo.getRegion('China'));

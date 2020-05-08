@@ -8,7 +8,7 @@
 
 
     <b-pagination align="center" size="md" :limit="8"
-                 :per-page="50"
+                 :per-page="64"
                  :total-rows="totalRows"
                  v-model="pageno">
     </b-pagination>
@@ -70,12 +70,12 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
-      axios.get('api/foo', {params: {
-      }}).then(response => {
-        this.dispDatas = response.data.newsList;
-        this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
-        this.totalRows = response.data.totalElements;
-      });
+      // axios.get('api/foo', {params: {
+      // }}).then(response => {
+      //   this.dispDatas = response.data.newsList;
+      //   this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+      //   this.totalRows = response.data.totalElements;
+      // });
       axios.get('api/search_xuanti', {params: {
         date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
         date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
@@ -92,14 +92,14 @@ export default {
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
         this.dispDatas = response.data.newsList;
-        this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+        // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         this.totalRows = response.data.totalElements;
       });
       // this.dispDatas = Demo.newsList;
       // console.log(this.dispDatas);
       // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 20, this.pageno * 20);
       // this.totalRows = Demo.totalElements;
-      // console.log(this.totalRows);
+      console.log(this.totalRows);
       // console.log(this.pageno);
     },
     fetchSimNewsById: function (id, callback) {

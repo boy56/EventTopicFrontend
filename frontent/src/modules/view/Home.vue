@@ -7,7 +7,7 @@
             :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
     <b-pagination align="center" size="md" :limit="8"
-                 :per-page="50"
+                 :per-page="64"
                  :total-rows="totalRows"
                  v-model="pageno">
     </b-pagination>
@@ -83,7 +83,7 @@ export default {
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
         this.dispDatas = response.data.viewsList;
-        this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
+        // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         this.totalRows = response.data.totalElements;
       });
       // this.dispDatas = Demo.viewsList;

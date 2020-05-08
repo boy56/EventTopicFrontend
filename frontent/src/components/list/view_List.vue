@@ -34,12 +34,12 @@
               <span v-b-model.modaltrend
                     class="trend"
                     title="查看详情"
-                   :class="{ 'trend_asc': item.trend > 0, 'trend_desc': item.trend <= 0 }"
-                   @click="viewTrendGraph(item.org_title, item.org_text)">
+                   :class="{ 'trend_asc': item.sentiment > 0, 'trend_desc': item.sentiment <= 0 }"
+                   @click="viewTrendGraph(item.newsinfo.title, item.original_text)">
               </span>
-              <li class="title-link" target="_blank"
-                    @mouseenter="enter(item)"
-   		              @mouseleave="leave"
+              <li class="title-link" target="_blank" 
+                    @mouseenter="enter(item)" 
+   		              @mouseleave="leave" 
    		              @mousemove="updateXY">
                 {{ item.viewpoint}}
               </li>
@@ -85,13 +85,13 @@
           </div>
         </div>
     </div>
-    <!-- <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="chart" style="overflow: scroll">
-        <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts>
-        {{item.newsinfo.source}}
+    <b-modal id="modaltrend" size="lg" :title="viewtitle">
+      <div class="chart" style="overflow: scroll"> 
+        <!-- <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts> -->
+        {{viewtext}}
       </div>
       <footer slot="modal-footer"></footer>
-    </b-modal> -->
+    </b-modal>
   </div>
 </template>
 
@@ -373,12 +373,12 @@ export default {
       return item;
     });
     if (this.sorting) {
-      console.log('ningyx');
+      console.log("ningyx");
       this.dispValues = _.orderBy(xs, this.sorting, this.sortingMap[this.sorting]);
     } else {
       this.dispValues = xs;
     }
-    console.log('ningyx');
+    console.log("ningyx");
     console.log(xs);
     console.log(this.dispValues)
   },
