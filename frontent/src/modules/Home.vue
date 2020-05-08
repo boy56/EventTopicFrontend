@@ -25,40 +25,17 @@
         </div>
     </div>
     </router-link>
-      <!-- <ul>
-          <table border="" cellspacing="" cellpadding="" style="background-color: transparent">
-            <tr v-bind:key=v v-for="v in left_up_list" @click="clicking(v.index)">
-              <font size="3" color="white">
-                <td style="width:30%">{{v.topic}}</td>
-                <td style="width:70%">{{v.date}}</td>
-                <a :href="v.link">
-                    <font size="3" color="white">
-                    <td style="width:100%"> {{v.text | ellipsis}}</td>
-                    </font>
-                </a>
-              </font>
-            </tr>
-          </table> 
-      </ul> -->
     </div>
-      <!-- <div class="con-box button-box" @click="goto">   -->
-      <div class="box light-corner view-core toogle-tab-element" style="top: 10% width: 10%">
-        <div class="view-table start_box box_align pack_center">
-          <div class="view-table start_box box_align pack_center">
-            <font size="1000" color="red">
-              <!-- <el-button type="success" round color='red'>圆角按钮</el-button> -->
-              <!-- <m-button size= large type="info" round>南海</m-button> -->
-              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab" color='blue'><span class="iconfont icon-yuqing"></span>南&nbsp;海<span class="unqie-guang"></span></div>
-              <!-- <m-button type="info" round>朝鲜</m-button> -->
-              <!-- <m-button type="info" round>台湾</m-button> -->
-              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing" color='blue'></span>朝&nbsp;核<span class="unqie-guang"></span></div>
-              <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span><font color= 'white'>台&nbsp;湾</font><span class="unqie-guang"></span></div>
-            <!-- </m-button-group> -->
-            </font>
-        </div>
-        </div>
+      <div class="con-box world-map">
+          <table style="width:100%">
+            <tr>
+              <td style="background-color: rgb(0, 0, 0);color: #00abff;" @click="clicking('南海')">南海新闻(100324)</td>
+              <td style="background-color: rgb(0, 0, 0);color: #00abff;" @click="clicking('朝核')">朝核新闻(203234)</td>
+              <td style="background-color: rgb(0, 0, 0);color: #00abff;" @click="clicking('南海')">台湾新闻(234353)</td>
+            </tr>
+          </table>
+          <Echarts theme="ring" :option="options.worldmap.option" className="chart"></Echarts>
       </div>
-    <!-- </div> -->
     <div class="con-box r-t-box" @click="goto">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
       <router-link :to="'/view'">
@@ -190,6 +167,7 @@
         options: {
           left_up: { option: {}, update: () => { return; } },
           right_up: { option: {}, update: () => { return; } },
+          worldmap: { option: {}, update: () => { return; } },
           left_down: { option: {}, update: () => { return; } },
           right_down: { option: {}, update: () => { return; } },
           right1_down: { option: {}, update: () => { return; } },
@@ -410,8 +388,11 @@
         // console.log(Demo.event_data)
         this.options.right_down.option.legend.data = this.Demo.event_data.legend;
         this.options.right_down.option.series = this.Demo.event_data.series;
-        console.log(this.Demo);
-        console.log(this.Demo.data);
+
+        //  世界地图
+        this.options.worldmap.option = ChartLib['世界地图'].option;
+        // console.log(this.Demo);
+        // console.log(this.Demo.data);
       });
     },
       goto: function () {
@@ -436,10 +417,7 @@
       },
       clicking: function (term) {
         this.topic = term;
-        this.right_up_list = Data.exports[this.topic] // ChartData['exports'][this.topic];
-        this.topic = '南海'
-        this.options.left_down.option = ChartLib['折线图' + this.topic].option;
-        // this.options.right_down.option = ChartLib['事件演化' + this.topic].option;
+        this.findDatas();
         this.around(41);
       },
       findcountry: function (country) {
@@ -656,11 +634,16 @@
     cursor: pointer
     &.l-t-box
       left: 2%
-      width: 40%
+      width: 30%
       top: 1.2rem
+    &.world-map
+      left: 32%
+      width: 38%
+      top: 1.2rem
+      background-image: none
     &.r-t-box
       right: 2%
-      width: 40%
+      width: 30%
       top: 1.2rem
     &.l-b-box
       left: 0%
