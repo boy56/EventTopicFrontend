@@ -412,7 +412,7 @@ export default {
   width: 100%
   margin-bottom: 1rem
 .list-table-head
-  width: 1170px
+  width: 100%
   position: relative
   top: 0
   margin-bottom: 0
@@ -432,33 +432,35 @@ export default {
       padding: .75rem
       &.sorting
         text-align: left
-      &.td-index
-        width: 5%
+      // &.td-index
+        // width: 5%
       &.td-type
         width: 10%
       &.td-title
         flex: 1
-        // width: 46.6%
+        width: 30%
         text-align: left
       &.td-date
-        width: 7%
+        width: 10%
         text-align: center
         &:before
-          right: 18%
+          right: 7%
         &:after
           right: 8%
       &.td-emotion
         width: 5%
       &.td-location
-        width: 7%
-      &.td-sensitive
-        width: 7%
-      &.td-recommend
-        width: 6%
-      &.td-source
         width: 10%
-      &.td-feedback
-        width: 8%
+      // &.td-sensitive
+        // width: 7%
+      // &.td-recommend
+        // width: 6%
+      &.td-country_l
+        width: 10%
+      &.td-source
+        width: 15%
+      // &.td-feedback
+        // width: 8%
 
 .chart
   width: 750px
@@ -489,8 +491,8 @@ export default {
         white-space: nowrap
         overflow: hidden
         display: inline-block
-        &.td-index
-          width: 5%
+        // &.td-index
+          // width: 5%
         &.td-type
           width: 10%
         &.td-title
@@ -515,18 +517,20 @@ export default {
             text-overflow: ellipsis
             white-space: nowrap
         &.td-date
-          width: 7%
+          width: 10%
           text-align: center
         &.td-emotion
           width: 5%
         &.td-location
-          width: 7%
-        &.td-sensitive
-          width: 7%
-        &.td-recommend
-          width: 6%
-        &.td-source
           width: 10%
+        // &.td-sensitive
+          // width: 7%
+        // &.td-recommend
+          // width: 6%
+        &.td-country_l
+        width: 10%
+        &.td-source
+          width: 15%
           vertical-align: middle
           position: relative
           cursor: pointer

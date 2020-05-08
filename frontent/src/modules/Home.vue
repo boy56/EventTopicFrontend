@@ -11,10 +11,23 @@
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>综合选题<span class="unqie-guang"></span></div> -->
           </div>
         </div>
-        <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index">
+        <!-- <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index"> -->
+          <div class="view-list-wrapper">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list" >
-                      <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div>
+                      <!-- <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div> -->
+                      <li class="item box clearfix" v-bind:key=e v-for="e in left_up_list">
+                        <div class="item-content">
+                          <div class="content-top ">
+                            <span class="view-type attr-block">南海</span>
+                            <p class="title">{{e.title}}</p>
+                          </div>
+                          <div class="content-bt clearfix">
+                            <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>来源：新华网</span>
+                          </div>
+                        </div>
+                      </li>
                   </ul>
               </div>
               <!-- <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
@@ -47,10 +60,22 @@
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
           </div>
         </div>
-        <div class="view-list-wrapper" v-bind:key=v v-for="v in right_up_list">
+        <div class="view-list-wrapper">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list">
-                        <div>{{v.personname}}&nbsp;&nbsp;{{v.verb}}&nbsp;&nbsp;{{v.viewpoint|ellipsis}}</div>
+                        <!-- <div>{{v.personname}}&nbsp;&nbsp;{{v.verb}}&nbsp;&nbsp;{{v.viewpoint|ellipsis}}</div> -->
+                    <li class="item box clearfix" v-bind:key=e v-for="e in right_up_list">
+                        <div class="item-content">
+                          <div class="content-top ">
+                            <span class="view-type attr-block">中国</span>
+                            <p class="title">{{e.viewpoint}}</p>
+                          </div>
+                          <div class="content-bt clearfix">
+                            <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>来源：人民日报</span>
+                          </div>
+                        </div>
+                      </li>
                   </ul>
               </div>
         </div>
@@ -363,10 +388,15 @@
         this.Demo.hot_data = response.data.hot_data;
         this.Demo.sentiment_data = response.data.sentiment_data;
         this.Demo.event_data = response.data.event_data;
+        // 事件观点表格
+        // this.innerOuterViewList("ul#inner-view-list", this.Demo.news_views_data, false);
         // console.log(this.Demo);
         // console.log(this.Demo.news_views_data);
         // console.log(this.Demo.hot_data);
         this.left_up_list = this.Demo.news_views_data;
+        for (var i = 0; i < this.left_up_list.length; i++) {
+          this.left_up_list[i].timestr = new Date(this.left_up_list[i].time).format('yyyy-MM-dd');
+        }
         // console.log(this.left_up_list);
         this.right_up_list = this.left_up_list[0].views;
         // console.log(this.right_up_list);
@@ -419,6 +449,61 @@
         this.topic = term;
         this.findDatas();
         this.around(41);
+      },
+      each: function (a,b) {
+        for (var c = 0,d = a.length; d > c && b(c,a[c]) !== !1; c++);
+      },
+      innerOuterViewList: function (targetList, data, outerTJ) {
+        // var tpl = '{{#events}} \n' +
+          var tpl = '<li class="item box clearfix" v-for="e in events" :key="v.index"> \n' +
+                '<div class="item-content"> \n' +
+                    '<div class="content-top "> \n' +
+                        '<span class="view-type attr-block">{{e.typestr}}</span> \n' +
+                        '<p class="title">{{e.title}}</p> \n' +
+                    '</div> \n' +
+                    '<div class="content-bt clearfix"> \n' +
+                        '<span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span> \n' +
+                        // '{{#outerTJ}}<span class="relevancy">相关度：{{relativity}}%</span>{{/outerTJ}} \n' +
+                        '<span class="from"><i class="iconfont icon-resource"></i>来源：{{e.content_label}}</span> \n' +
+                    '</div> \n' +
+                '</div> \n' +
+            '</li>';
+        // '{{/events}}';
+        var cnt = 0;
+        var items = [];
+        this.each(data, function (i, d) {
+            // if(d.description.indexOf('大脑体积') != -1 || d.description.indexOf('全县组织工作会议召开') != -1) {
+                // return true;
+            // }
+            d.timestr = d.time.split("T")[0];
+            // d.typestr = typeArr[parseInt(d.eventType)];
+            // if (d.src === '新闻') {
+                // d.es_type = 0;
+            // }
+            // else {
+                // d.es_type = 1;
+            // }
+            // var eventType = parseInt(d.eventType)
+            // if (eventType == 1 || eventType == 25) {
+            //     d.typestr = typeArr[eventType];
+            //     d.typecolor = "#FF7920!important";
+            // }
+            // else if (eventType == 4) {
+            //     d.typestr = "科技";
+            //     d.typecolor = "#60A3F5!important";
+            // }
+            // else {
+            //     d.typestr = typeArr[eventType].split(" ")[0];
+            //     d.typecolor = "#87A5B5!important";
+            // }
+            d.typestr = '南海';
+            // d.relativity = Math.floor(d.relativity * (90-60) / 100 + 60),
+            items.push(d);
+            if (cnt++ > 2) {
+                return false;
+            }
+        });
+        (targetList).html(Mustache.render(tpl, {events: items, outerTJ: outerTJ}));
       },
       findcountry: function (country) {
         var o;

@@ -3,6 +3,7 @@
  */
 import Graphic from 'echarts/lib/util/graphic'
 import Data from "../assets/data/data.json"
+import nameMap from '../assets/data/name_map.json'
 console.log(Data.event)
 // console.log(Data.event[0])
 var fish_data = {}
@@ -2795,6 +2796,7 @@ const ChartLib = {
                     name: 'World Population (2010)',
                     type: 'map',
                     mapType: 'world',
+                    nameMap: nameMap,
                     roam: true,
                     itemStyle: {
                         emphasis: {label: {show: true}}
@@ -2830,7 +2832,7 @@ const ChartLib = {
                         {name: 'Canada', value: 34126.24},
                         {name: 'Switzerland', value: 7830.534},
                         {name: 'Chile', value: 17150.76},
-                        {name: 'China', value: 1359821.465},
+                        {name: '中国', value: 1359821.465},
                         {name: 'Ivory Coast', value: 60508.978},
                         {name: 'Cameroon', value: 20624.343},
                         {name: 'Democratic Republic of the Congo', value: 62191.161},

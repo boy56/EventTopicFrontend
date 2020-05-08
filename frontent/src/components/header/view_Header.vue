@@ -1,5 +1,5 @@
 <template>
-  <div class="r-header">
+  <div class="r-header" style="background:#333">
     <b-navbar class="r-navbar" toggleable type="dark" >
       <!-- <b-link class="navbar-brand" href="./">
         <img src="../../assets/image/header-logo.png" alt="">
