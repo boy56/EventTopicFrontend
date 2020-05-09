@@ -19,12 +19,12 @@
                       <li class="item box clearfix" v-bind:key=e v-for="e in left_up_list">
                         <div class="item-content">
                           <div class="content-top ">
-                            <span class="view-type attr-block">南海</span>
+                            <span class="view-type attr-block">{{topic}}</span>
                             <p class="title">{{e.title}}</p>
                           </div>
                           <div class="content-bt clearfix">
                             <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>来源：新华网</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}}</span>
                           </div>
                         </div>
                       </li>
@@ -67,12 +67,12 @@
                     <li class="item box clearfix" v-bind:key=e v-for="e in right_up_list">
                         <div class="item-content">
                           <div class="content-top ">
-                            <span class="view-type attr-block">中国</span>
+                            <span class="view-type attr-block">{{e.country}}</span>
                             <p class="title">{{e.viewpoint}}</p>
                           </div>
                           <div class="content-bt clearfix">
                             <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>来源：人民日报</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
                           </div>
                         </div>
                       </li>
@@ -388,6 +388,7 @@
         this.Demo.hot_data = response.data.hot_data;
         this.Demo.sentiment_data = response.data.sentiment_data;
         this.Demo.event_data = response.data.event_data;
+        this.Demo.map_data = response.data.map_data;
         // 事件观点表格
         // this.innerOuterViewList("ul#inner-view-list", this.Demo.news_views_data, false);
         // console.log(this.Demo);
@@ -421,6 +422,9 @@
 
         //  世界地图
         this.options.worldmap.option = ChartLib['世界地图'].option;
+        this.options.worldmap.option.visualMap.min = this.Demo.map_data.min
+        this.options.worldmap.option.visualMap.max = this.Demo.map_data.max
+        this.options.worldmap.option.series[0].data = this.Demo.map_data.data
         // console.log(this.Demo);
         // console.log(this.Demo.data);
       });
