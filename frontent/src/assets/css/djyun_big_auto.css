@@ -479,8 +479,8 @@ body {
 .view-core {
   position: relative;
   height: 100%;
-  margin-bottom: 20px;
-  overflow: scroll;
+  /*margin-bottom: 20px;*/
+  /*overflow: scroll;*/
 }
 @media (max-width: 767px) {
   .view-core {

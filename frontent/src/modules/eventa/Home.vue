@@ -1,73 +1,72 @@
 <template>
-  <div class="page-wrapper" v-title data-title="事件分析">
+  <div style="background: #f4f4f4">
     <v-header :headdata='headdata'></v-header>
-    <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
-    <v-search-box :search-input.sync="searchInput"></v-search-box>
-      <table class="event-table" border="" cellspacing="" cellpadding="" style="width:100%; height: 800px">
-            <tr>
-                <td style="width:50%; height: 50%">
-                  <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
-                </td>
-                <td style="width:50%; height: 50%">
-                  <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
-                </td>
-            </tr>
-            <tr>
-                <td style="width:50%; height: 50%">
-                  <!-- <div id="left_down" ref="myCharts" style="width:100%; height: 100%"></div> -->
-                  <table border="" style="width:100%; height: 100%">
-                    <tr style="width:100%; height: 20%">
-                      <th colspan="2" style="width:100%; height: 20%; vertical-align: middle !important;text-align: center">
-                        专家观点
-                      </th>
-                    </tr>
-                    <tr>
-                      <td style="width:20%; height: 20%">观点数量</td>
-                      <td style="width:80%; height: 20%">中心观点</td>
-                    </tr>
-                   <tr v-bind:key='item' v-for='item in left_down_data'>
-                      <td style="width:20%; height: 20%">{{item.view_num}}</td>
-                      <td style="width:80%; height: 20%">{{item.center}}</td>
-                    </tr>
-                  </table>
-                </td>
-                <td style="width:50%; height: 50%">
-                  <div class="r-panel">
-                    <div class="events-wrapper">
-                      <!-- <ul class="event-panel-detail">
-                        <li >
-                          <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">{{ event.description && event.description.trim() }}</span>
-                        </li>
-                        <li>
-                          <label for="">参与者：</label><span>{{ event.participant }}</span><br class="event-br">
-                          <label for="">关键词：</label><span>{{ event.corewords }}</span>
-                        </li>
-                        <li>
-                          <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type}}</span><br class="event-br">
-                          <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2}}</span><br class="event-br">
-                          <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion}}</span>
-                        </li>
-                        <li>
-                          <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
-                          <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
-                          <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
-                        </li>
-                      </ul> -->
-                      <div class="event-panel event-panel-source">
-                        <div id="source-timeline" class="event-chart"></div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-            </tr>
+    <div class="page-wrapper" v-title data-title="事件分析">
+      <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
+      <v-search-box :search-input.sync="searchInput"></v-search-box>
+      <table class="event-table" border="" cellspacing="" cellpadding="" :style="tableStyle">
+        <tr>
+          <td style="width:48%; height: 40%; padding: 40px 20px 20px 20px">
+            <div id="left_up" ref="myCharts" style="width:100%; height: 90%"></div>
+          </td>
+          <td style="width:48%; height: 40%; padding: 40px 20px 20px 20px">
+            <div id="right_up" ref="myCharts" style="width:100%; height: 90%"></div>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:48%; height: 40%; padding: 20px">
+            <!-- <div id="left_down" ref="myCharts" style="width:100%; height: 100%"></div> -->
+            <div style="text-align: center;font-size: 20px; background: #03c9a9">专家观点</div>
+            <table style="width:100%; height: 80%; table-layout: fixed">
+              <tr>
+                <td style="width:84%; font-size: 18px; text-align: center; font-family: 'SimHei'">中心观点</td>
+                <td style="width:16%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点数量</td>
+              </tr>
+              <tr v-bind:key='item.center' v-for='item in left_down_data' style="height: 4rem">
+                <td style="width:96%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical; display: -webkit-box;font-size: 14px;" :title="item.center">{{item.center}}</td>
+<!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
+                <td style="width:20%;overflow: hidden;line-height: 1.5;">{{item.view_num}}</td>
+              </tr>
+            </table>
+          </td>
+          <td style="width:48%; height: 40%; padding: 20px">
+            <div class="r-panel">
+              <div class="events-wrapper">
+                <!-- <ul class="event-panel-detail">
+                  <li >
+                    <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">{{ event.description && event.description.trim() }}</span>
+                  </li>
+                  <li>
+                    <label for="">参与者：</label><span>{{ event.participant }}</span><br class="event-br">
+                    <label for="">关键词：</label><span>{{ event.corewords }}</span>
+                  </li>
+                  <li>
+                    <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type}}</span><br class="event-br">
+                    <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2}}</span><br class="event-br">
+                    <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion}}</span>
+                  </li>
+                  <li>
+                    <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
+                    <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
+                    <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
+                  </li>
+                </ul> -->
+                <div class="event-panel event-panel-source">
+                  <div id="source-timeline" class="event-chart" :style="timelineStyle"></div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
       </table>
-      <v-footer></v-footer>
-    <!-- </iframe> -->
-    <!-- <b-pagination align="center" size="md" :limit="8"
-                 :per-page="64"
-                 :total-rows="totalRows"
-                 v-model="pageno"> -->
-    <!-- </b-pagination> -->
+<!--      <v-footer></v-footer>-->
+      <!-- </iframe> -->
+      <!-- <b-pagination align="center" size="md" :limit="8"
+                   :per-page="64"
+                   :total-rows="totalRows"
+                   v-model="pageno"> -->
+      <!-- </b-pagination> -->
+    </div>
   </div>
 </template>
 
@@ -100,6 +99,13 @@ export default {
       imgUrl: require('../../assets/image/eventa.png'),
       // for timeline
       timeline: {},
+      tableStyle: {
+        width: '100%',
+        height: '800px',
+      },
+      timelineStyle: {
+        height: '300px',
+      },
       event: [],
       // events: [],
       loading: {
@@ -179,6 +185,8 @@ export default {
   },
   created () {
     this.topic = '南海' // this.$route.params.topic;
+    window.addEventListener('resize', this.getHeight);
+    this.getHeight();
     // var echarts = require('echarts');
   },
   mounted () {
@@ -266,6 +274,10 @@ export default {
   beforeDestroy () {
   },
   methods: {
+    getHeight () {
+      this.tableStyle.height = (window.innerHeight - 159.5) + 'px'
+      this.timelineStyle.height = (window.innerHeight - 159.5) * 0.5 + 'px'
+    },
     genData (count) {
       var nameList = [
         '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
@@ -325,12 +337,12 @@ export default {
         // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         // this.totalRows = response.data.totalElements;
         require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
-        console.log(this.Demo);
-        console.log(response);
+        // console.log(this.Demo);
+        // console.log(response);
         // this.options.left_up.option = ChartLib.折线图朝鲜.option;
         // this.event = Demo.data[0];
-        console.log(this.timeline);
-        console.log(this.event);
+        // console.log(this.timeline);
+        // console.log(this.event);
         // console.log(sources);
         var myChart = echarts.init(document.getElementById('left_up'));
         var left_up_option = {
@@ -349,7 +361,7 @@ export default {
           grid: {
             left: '1%',
             right: '1%',
-            bottom: '2%',
+            bottom: '10%',
             containLabel: true
           },
           xAxis: {
@@ -403,9 +415,10 @@ export default {
           ]
         };
         myChart.setOption(right_up_option);
-        this.left_down_data = this.Demo.view_cluster_data;
+        console.log(((window.innerHeight - 159.5) * 0.5) / 40)
+        this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
         // this.dispDatas = Data;
-        console.log(this.Demo);
+        // console.log(this.Demo);
       });
       // this.totalRows = 64;
       // console.log(this.totalRows);
@@ -425,13 +438,13 @@ export default {
       var sources = {events: []};
       var response = this.Demo.timeline_data;
       this.TL = TL;
-      console.log(response);
+      // console.log(response);
       response.data = _.orderBy(response.data, 'releaseDate');
-      console.log(response.data);
+      // console.log(response.data);
       // let maxSim = 0.0;
       let maxSimIndex = -1;
       if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
-        console.log('isEmpty');
+        // console.log('isEmpty');
         let date = new Date(this.event.dateDay);
         sources.events = [{
           start_date: {
@@ -450,13 +463,13 @@ export default {
           unique_id: this.event.eventId,
         }];
       } else {
-        console.log('noEmpty');
+        // console.log('noEmpty');
         sources.events = _.map(response.data, item => {
           let date = new Date(item.dateDay);
           let text = item.content;
-          console.log(text);
+          // console.log(text);
           if (item.foreign && item.content) {
-            console.log('foreign');
+            // console.log('foreign');
             text = '<div class="text-content-wrapper">' +
                     '<div class="text-content-inner text-content-left">' + item.content + '</div>' +
                     '<div class="text-content-sep"></div>' +
@@ -481,10 +494,10 @@ export default {
           };
           return source;
         });
-        console.log(sources);
+        // console.log(sources);
         this.unique_id = _.last(response.data).id;
         // calculate max similarity index.
-        console.log(this.unique_id);
+        // console.log(this.unique_id);
         // for (var i = 0; i < response.data.length; ++i) {
         //   if (response.data[i].similarity > maxSim) {
         //     maxSimIndex = i;
@@ -592,13 +605,13 @@ export default {
   padding: 20px 15px
   // position: relative
   flex-direction: column
-// @media (min-width: 1200px)
-//   .page-wrapper
-//     width: 1200px
-//     min-height: 525px
-// @media (max-width: 768px)
-//   .page-wrapper
-//     margin-top: 0
+@media (min-width: 1200px)
+  .page-wrapper
+    width: 1200px
+    min-height: 525px
+@media (max-width: 768px)
+  .page-wrapper
+    margin-top: 0
 // .roll-warning-list-move
 //   transition: transform 1s
 </style>

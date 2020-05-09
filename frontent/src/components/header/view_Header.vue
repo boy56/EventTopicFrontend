@@ -1,5 +1,5 @@
 <template>
-  <div class="r-header" style="background:#333">
+  <div class="r-header">
     <b-navbar class="r-navbar" toggleable type="dark" >
       <!-- <b-link class="navbar-brand" href="./">
         <img src="../../assets/image/header-logo.png" alt="">
@@ -10,7 +10,7 @@
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="header-navbar-nav">
           <li class="nav-item">
-            <a href="#/" class="nav-link" :class="{active: $route.fullPath==='/'}" target="_self">{{headdata}}</a>
+            <a href="#/" class="nav-link active" target="_self">{{headdata}}</a>
           </li>
           <!-- <li class="nav-item">
             <a href="#/event" class="nav-link" :class="{active: $route.fullPath==='/event'}" target="_self">回溯分析</a>
@@ -87,16 +87,17 @@ export default {
   // flex-grow: 0
   // flex-shrink: 0
   // @include r_navbar
+  background-color: #158bdc;
 .r-navbar
   width: 100%
   padding: 0 1rem
-@media (min-width: 100%)
+@media (min-width: 1200px)
   .r-navbar
-    width: 100%
+    width: 1200px
     margin: 0 auto
     .navbar-brand
       margin-right: 2em
-@media (max-width: 100%)
+@media (max-width: 768px)
   padding: 1rem 0
 .r-navbar
   .header-navbar-nav

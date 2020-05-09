@@ -1,7 +1,7 @@
 <template>
   <div class="list-wrapper" ref="TableHeadWrapper">
     <!-- 使用DIV模拟Table布局 -->
-    <div class="table list-table-head" :class="{tableHeadTop:scrolled}">
+    <div class="table list-table-head" :class="{tableHeadTop:scrolled}" :style="{width: width}">
       <div class="table-tr">
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
@@ -37,9 +37,9 @@
                    :class="{ 'trend_asc': item.sentiment > 0, 'trend_desc': item.sentiment <= 0 }"
                    @click="viewTrendGraph(item.newsinfo.title, item.original_text)">
               </span>
-              <li class="title-link" target="_blank" 
-                    @mouseenter="enter(item)" 
-   		              @mouseleave="leave" 
+              <li class="title-link" target="_blank"
+                    @mouseenter="enter(item)"
+   		              @mouseleave="leave"
    		              @mousemove="updateXY">
                 {{ item.viewpoint}}
               </li>
@@ -86,7 +86,7 @@
         </div>
     </div>
     <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="chart" style="overflow: scroll"> 
+      <div class="chart" style="overflow: scroll">
         <!-- <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts> -->
         {{viewtext}}
       </div>
@@ -135,6 +135,7 @@ export default {
       seen: false,
       x: 0,
       y: 0,
+      width: '1200px',
       positionStyle: {top: '100px',left: '100px'},
       sourceMore: [],
       viewtitle: '',
@@ -241,6 +242,13 @@ export default {
       // 当页面滚动超过当前元素距视口顶部的距离时，表格头置顶
       var topHeight = this.$refs.TableHeadWrapper.offsetTop;
       this.scrolled = window.scrollY > topHeight;
+      if (this.scrolled) {
+        if (window.innerWidth < 1200) {
+          this.width = window.innerWidth - 30 + 'px'
+        } else {
+          this.width = 1200 - 30 + 'px'
+        }
+      }
     },
     moreSource (item) {
       this.sourceMore = [];
@@ -373,12 +381,10 @@ export default {
       return item;
     });
     if (this.sorting) {
-      console.log("ningyx");
       this.dispValues = _.orderBy(xs, this.sorting, this.sortingMap[this.sorting]);
     } else {
       this.dispValues = xs;
     }
-    console.log("ningyx");
     console.log(xs);
     console.log(this.dispValues)
   },
@@ -396,10 +402,10 @@ export default {
 
 // special switch, double-orientated.
 .switch
-  font-size: 1.6rem;
+  font-size: 1.6rem
   span.fa
-    font-size: 2.0rem;
-    cursor: pointer;
+    font-size: 2.0rem
+    cursor: pointer
   .fa-toggle-on
     // color: rgba(255, 255, 255, .6)
     color: #2196f3

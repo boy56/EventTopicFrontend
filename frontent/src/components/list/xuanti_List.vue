@@ -2,7 +2,7 @@
 <template>
   <div class="list-wrapper" ref="TableHeadWrapper">
     <!-- 使用DIV模拟Table布局 -->
-    <div class="table list-table-head" :class="{tableHeadTop:scrolled}">
+    <div class="table list-table-head">
       <div class="table-tr">
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
@@ -38,7 +38,7 @@
                     title="查看详情"
                    :class="{ 'trend_asc': item.userview > 0, 'trend_desc': item.userview <= 0 }"
                    @click="viewTrendGraph(item.title, item.content)">
-              </span> 
+              </span>
               <a :href="item.url" class="title-link" target="_blank">{{ item.title }}</a>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
@@ -138,7 +138,7 @@ export default {
       toggleSource: false,
       sourceMore: [],
       viewtitle: '',
-      viewtext: "",
+      viewtext: '',
       loading: { trend: true },
       trend_option: {
         title: {
@@ -224,11 +224,11 @@ export default {
     },
   },
   methods: {
-    handleScroll () {
-      // 当页面滚动超过当前元素距视口顶部的距离时，表格头置顶
-      var topHeight = this.$refs.TableHeadWrapper.offsetTop;
-      this.scrolled = window.scrollY > topHeight;
-    },
+    // handleScroll () {
+    //   // 当页面滚动超过当前元素距视口顶部的距离时，表格头置顶
+    //   var topHeight = this.$refs.TableHeadWrapper.offsetTop;
+    //   this.scrolled = window.scrollY > topHeight;
+    // },
     moreSource (item) {
       this.sourceMore = [];
       if (this.toggleSource !== item.id) {

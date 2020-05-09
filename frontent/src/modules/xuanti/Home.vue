@@ -1,18 +1,20 @@
 <template>
-  <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
+  <div style="background: #f4f4f4">
     <v-header :headdata='headdata'></v-header>
-    <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
-     <v-search-box :search-input.sync="searchInput"></v-search-box>
-    <v-list :disp-datas="dispDatas"
-            :fetch-simitems-cb="fetchSimNewsById"></v-list>
+    <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
+      <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
+      <v-search-box :search-input.sync="searchInput"></v-search-box>
+      <v-list :disp-datas="dispDatas"
+              :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
 
-    <b-pagination align="center" size="md" :limit="8"
-                 :per-page="64"
-                 :total-rows="totalRows"
-                 v-model="pageno">
-    </b-pagination>
-    <v-footer></v-footer>
+      <b-pagination align="center" size="md" :limit="8"
+                    :per-page="64"
+                    :total-rows="totalRows"
+                    v-model="pageno">
+      </b-pagination>
+<!--      <v-footer></v-footer>-->
+    </div>
   </div>
 </template>
 
@@ -147,24 +149,24 @@ export default {
 .pagination
   margin-bottom: 0rem
   justify-content: center
-@media (min-width: 100%)
+@media (min-width: 1200px)
   .container
-    width: 100%
+    width: 1200px
 .xuanti-page-wrapper
   width: 100%
-  margin: 0px auto 0
+  margin: 20px auto 0
   overflow: auto
   background-color: #fff
-  padding: 0px 0px
+  padding: 20px 15px
   position: relative
   flex-direction: column
-@media (min-width: 100%)
+@media (min-width: 1200px)
   .xuanti-page-wrapper
-    width: 100%
-    min-height: 100%
+    width: 1200px
+    min-height: 525px
 @media (max-width: 100%)
   .xuanti-page-wrapper
     margin-top: 0
-.roll-warning-list-move
-  transition: transform 1s
+/*.roll-warning-list-move*/
+/*  transition: transform 1s*/
 </style>
