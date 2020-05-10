@@ -6,11 +6,11 @@
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <table class="event-table" border="" cellspacing="" cellpadding="" :style="tableStyle">
         <tr>
-          <td style="width:48%; height: 40%; padding: 40px 20px 20px 20px">
-            <div id="left_up" ref="myCharts" style="width:100%; height: 90%"></div>
+          <td style="width:48%; height: 50%; padding: 5px 5px 20px 20px">
+            <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
           </td>
-          <td style="width:48%; height: 40%; padding: 40px 20px 20px 20px">
-            <div id="right_up" ref="myCharts" style="width:100%; height: 90%"></div>
+          <td style="width:48%; height: 50%; padding: 5px 5px 20px 20px">
+            <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
           </td>
         </tr>
         <tr>
@@ -27,6 +27,7 @@
 <!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
                 <td style="width:20%;overflow: hidden;line-height: 1.5;">{{item.view_num}}</td>
               </tr>
+              <tr style="height:rem"></tr>
             </table>
           </td>
           <td style="width:48%; height: 40%; padding: 20px">
@@ -361,7 +362,7 @@ export default {
           grid: {
             left: '1%',
             right: '1%',
-            bottom: '10%',
+            bottom: '1%',
             containLabel: true
           },
           xAxis: {
@@ -663,7 +664,7 @@ td {
 th,
 td {
   min-width: 120px;
-  padding: 1px 1px;
+  padding: 5px 1px;
 }
 th.active {
   color: #fff;
