@@ -10,28 +10,24 @@
       <b-collapse is-nav id="nav_collapse">
         <b-navbar-nav class="header-navbar-nav">
           <li class="nav-item">
-            <a href="#/" class="nav-link active" target="_self">{{headdata}}</a>
+            <div class="nav-link active">{{headdata}}</div>
           </li>
-          <!-- <li class="nav-item">
-            <a href="#/event" class="nav-link" :class="{active: $route.fullPath==='/event'}" target="_self">回溯分析</a>
-          </li>
-          <li class="nav-item">
-            <a href="#/warning" class="nav-link" :class="{active: $route.fullPath==='/warning'}" target="_self">突发预警</a>
-          </li> -->
-          <!-- <li class="nav-item">
-            <a href="#/viewpoint" class="nav-link" :class="{active: $route.fullPath==='/viewpoint'}" target="_self">观点分析</a>
-          </li> -->
         </b-navbar-nav>
 
-        <!-- <b-navbar-nav class="ml-auto pc-nav">
-          <b-nav-item class="login-item" v-if="!user.logined" href="/account/#/">登陆</b-nav-item>
-          <b-nav-item class="register-item" v-if="!user.logined" href="/account/#/register">注册</b-nav-item>
+        <b-navbar-nav class="ml-auto pc-nav">
+          <!-- <b-nav-item class="login-item" v-if="!user.logined" href="/account/#/">登陆</b-nav-item> -->
+          <li class="nav-item">
+            <a href="#/" class="nav-link active" target="_self">
+              <img src="~assets/image/next-home.png" alt="">
+            </a>
+          </li>
+          <!-- <b-nav-item class="register-item" v-if="!user.logined" href="/account/#/register">注册</b-nav-item>
           <b-nav-item-dropdown v-else :text="user.userName" right-alignment>
             <b-dropdown-item href="/" v-if="user.logined">个人设置</b-dropdown-item>
             <b-dropdown-item href="/admin/" v-if="user.roles && user.roles.indexOf('admin') !== -1">管理员</b-dropdown-item>
             <b-dropdown-item href="/api/auth/logout">退出</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav> -->
+          </b-nav-item-dropdown> -->
+        </b-navbar-nav>
 
       </b-collapse>
     </b-navbar>

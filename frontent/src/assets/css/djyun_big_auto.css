@@ -480,7 +480,7 @@ body {
   position: relative;
   height: 100%;
   /*margin-bottom: 20px;*/
-  /*overflow: scroll;*/
+  overflow: scroll;
 }
 @media (max-width: 767px) {
   .view-core {

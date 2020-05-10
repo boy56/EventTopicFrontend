@@ -2497,8 +2497,8 @@ const ChartLib = {
       grid: {
         left: '8%',
         right: '5%',
-        top: '18%',
-        bottom: '25%'
+        top: '10%',
+        bottom: '28%'
       },
       tooltip: {
         padding: 10,
@@ -2783,9 +2783,19 @@ const ChartLib = {
         left: 'center',
         top: 'top'
       },
+      tooltip: {
+        trigger: 'item',
+        "confine": true,
+        "formatter": (p) => {
+          let dataCon = p.data;
+          let txtCon = dataCon.name + ':' + dataCon.value;
+          return txtCon;
+        }
+      },
       visualMap: {
         min: 0,
         max: 1000000,
+        bottom: 10,
         text: ['High','Low'],
         realtime: false,
         calculable: true,

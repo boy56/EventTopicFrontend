@@ -560,17 +560,9 @@ export default {
   z-index: 1000
   cursor: pointer
   &.l-t-box
-    left: 1.5rem
-    top: 1.2rem
   &.r-t-box
-    right: 1.5rem
-    top: 1.2rem
   &.l-b-box
-    left: 1.5rem
-    bottom: 1.2rem
   &.r-b-box
-    right: 1.5rem
-    bottom: 1.2rem
     .chart
       bottom: 100rem
       width: 100%

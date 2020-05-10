@@ -8,10 +8,12 @@
         <div class="table-th td-location">发言人</div>
         <div class="table-th td-title">标题</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
-        <div class="table-th td-emotion">情绪</div>
+        <div class="table-th td-emotion">机构</div>
+        <div class="table-th td-pos">职位</div>
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
-        <div class="table-th td-country_l" v-if='!isevent'>所属国家</div>
+        <div class="table-th td-country_l" v-if='!isevent'>
+          国家</div>
         <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
         <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
@@ -45,10 +47,11 @@
               </li>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
-            <div class="table-td td-emotion">{{ item.sentiment | toEmotion }}</div>
+            <div class="table-td td-emotion">{{ item.orgname}}</div>
+            <div class="table-td td-pos">{{ item.pos}}</div>
             <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
             <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
-            <div class="table-td td-country_l">{{ item.orgname}}</div>
+            <div class="table-td td-country_l">{{ item.country}}</div>
             <!-- <div class="table-td td-content_l">{{ item.content_l | ellipsisname}}</div> -->
             <div class="table-td td-source" v-if="!isevent">
               <a :href="item.url">
@@ -184,9 +187,9 @@ export default {
           item.timestr = s.substring(4, 6) + '-' + s.substring(6, 8);
         } else {
           if (_.isInteger(item.time)) {
-            item.timestr = new Date(item.time).format('MM-dd');
+            item.timestr = new Date(item.time).format('yyyy-MM-dd');
           } else {
-            item.timestr = new Date(item.time.replace('+0000', 'Z')).format('MM-dd');
+            item.timestr = new Date(item.time.replace('+0000', 'Z')).format('yyyy-MM-dd');
           }
         }
 
@@ -260,7 +263,7 @@ export default {
               if (_.startsWith(s, '2017')) {
                 subitem.timestr = s.substring(4, 6) + '-' + s.substring(6, 8);
               } else {
-                subitem.timestr = new Date(subitem.time).format('MM-dd');
+                subitem.timestr = new Date(subitem.time).format('yyyy-MM-dd');
               }
             })
             item.sourceMore = more;
@@ -350,9 +353,9 @@ export default {
         item.timestr = s.substring(4, 6) + '-' + s.substring(6, 8);
       } else {
         if (_.isInteger(item.time)) {
-          item.timestr = new Date(item.time).format('MM-dd');
+          item.timestr = new Date(item.time).format('yyyy-MM-dd');
         } else {
-          item.timestr = new Date(item.time.replace('+0000', 'Z')).format('MM-dd');
+          item.timestr = new Date(item.time.replace('+0000', 'Z')).format('yyyy-MM-dd');
         }
       }
 
@@ -444,7 +447,7 @@ export default {
         width: 10%
       &.td-title
         flex: 1
-        width: 30%
+        width: 25%
         text-align: left
       &.td-date
         width: 10%
@@ -454,7 +457,9 @@ export default {
         &:after
           right: 8%
       &.td-emotion
-        width: 5%
+        width: 10%
+      &.td-pos
+        width: 10%
       &.td-location
         width: 10%
       // &.td-sensitive
@@ -462,7 +467,7 @@ export default {
       // &.td-recommend
         // width: 6%
       &.td-country_l
-        width: 10%
+        width: 5%
       &.td-source
         width: 15%
       // &.td-feedback
@@ -526,7 +531,9 @@ export default {
           width: 10%
           text-align: center
         &.td-emotion
-          width: 5%
+          width: 10%
+        &.td-pos
+          width: 10%
         &.td-location
           width: 10%
         // &.td-sensitive
@@ -534,7 +541,7 @@ export default {
         // &.td-recommend
           // width: 6%
         &.td-country_l
-        width: 10%
+        width: 5%
         &.td-source
           width: 15%
           vertical-align: middle

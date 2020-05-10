@@ -1,9 +1,12 @@
 <template>
   <div id="app" class="real-body">
-    <canvas id="bg"></canvas>
+    <!-- <canvas id="bg"></canvas> -->
+    <div class="con-box title">
+          <div style="background-color: rgb(0, 0, 0);color: #00abff;text-align: center;">事件专题项目</div>
+      </div>
     <div :href="'/' + jumpto" class="con-box l-t-box">
-    <router-link :to="{ name: 'xuanti', params: { topic: topic}}">
     <div class="box light-corner view-core toogle-tab-element">
+      <router-link :to="{ name: 'xuanti', params: { topic: topic}}">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
@@ -12,12 +15,13 @@
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>综合选题<span class="unqie-guang"></span></div> -->
           </div>
         </div>
+      </router-link>
         <!-- <div class="view-list-wrapper" v-for="v in left_up_list" :key="v.index"> -->
           <div class="view-list-wrapper">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list" >
                       <!-- <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div> -->
-                      <li class="item box clearfix" v-bind:key=e v-for="e in left_up_list">
+                      <li class="item box clearfix" v-bind:key=e v-for="e in left_up_list" @click='clicking_news(e.views)'>
                         <div class="item-content">
                           <div class="content-top ">
                             <span class="view-type attr-block">{{topic}}</span>
@@ -25,35 +29,29 @@
                           </div>
                           <div class="content-bt clearfix">
                             <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}}</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
                           </div>
                         </div>
                       </li>
                   </ul>
               </div>
-              <!-- <div class="view-list tianjin-view-div hidden" id="outer-view-div" style="color: white">
-                            <ul class="list-item outer-view-list" id="outer-view-list">
-                               <div class="list-text">{{v.title}}</div>
-                            </ul>
-                        </div> -->
         </div>
     </div>
-    </router-link>
     </div>
       <div class="con-box world-map">
           <table style="width:100%">
             <tr>
-              <td style="background-color: rgb(0, 0, 0);color: #00abff;text-align: center;" @click="clicking('南海')">南海新闻(100324)</td>
-              <td style="background-color: rgb(0, 0, 0);color: #00abff;text-align: center;" @click="clicking('朝核')">朝核新闻(203234)</td>
-              <td style="background-color: rgb(0, 0, 0);color: #00abff;text-align: center;" @click="clicking('南海')">台湾新闻(234353)</td>
+              <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海新闻(100324)</td>
+              <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核新闻(203234)</td>
+              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">台湾新闻(234353)</td>
             </tr>
           </table>
-          <Echarts theme="ring" :option="options.worldmap.option" className="chart"></Echarts>
+          <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
       </div>
     <div class="con-box r-t-box" @click="goto">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
-      <router-link :to="'/view'">
       <div class="box light-corner view-core toogle-tab-element">
+        <router-link :to="'/view'">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
@@ -61,6 +59,7 @@
               <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
           </div>
         </div>
+        </router-link>
         <div class="view-list-wrapper">
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list">
@@ -73,7 +72,7 @@
                           </div>
                           <div class="content-bt clearfix">
                             <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}</span>
                           </div>
                         </div>
                       </li>
@@ -81,7 +80,6 @@
               </div>
         </div>
     </div>
-    </router-link>
     </div>
     <div class="con-box l-b-box" @click="goto">
       <div style="text-align: center; margin-bottom: .5rem">
@@ -91,9 +89,15 @@
       <Echarts theme="ring" :option="options.left_down.option" className="chart" ></Echarts>
     </div>
     <div class="con-box r-b-box" @click="goto">
-      <div style="text-align: center;margin-bottom: .5rem">
+        <div class="box light-corner view-core toogle-tab-element" style='height:18%;overflow:hidden'>
         <router-link :to="'/eventa'">
-          <span style="font-size: 20px;color:white">热点事件</span>
+          <div class="view-table start_box box_align pack_center">
+                <div class="view-table start_box box_align pack_center">
+                <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
+                热点事件<span class="unqie-guang"></span></div>
+                <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
+            </div>
+          </div>
         </router-link>
       </div>
         <Echarts theme="ring" :option="options.right_down.option" className="chart"></Echarts>
@@ -108,15 +112,6 @@
         </div>
         <Echarts theme="ring" :option="options.right1_down.option" className="chart" ></Echarts>
      </div>
-    <div class="center-box">
-      <!-- <div class="chart" id="echarts-globe"></div> -->
-    </div>
-    <a :href="'/' + jumpto" class="next-page">
-      <img src="~assets/image/next-page.png" alt="">
-    </a>
-    <a href="/" class="next-home">
-      <img src="~assets/image/next-home.png" alt="">
-    </a>
   </div>
 </template>
 
@@ -179,6 +174,9 @@
         jumpto: '',
         Demo: {},
         topic: '南海',
+        topic_color1: 'red',
+        topic_color2: '#00abff',
+        topic_color3: '#00abff',
         topics: [1,2,3],
         topic_index: 0,
         intervalID: null,
@@ -452,7 +450,24 @@
       },
       clicking: function (term) {
         this.topic = term;
+        if (term === '南海') {
+            this.topic_color1 = 'red';
+            this.topic_color2 = '#00abff';
+            this.topic_color3 = '#00abff';
+        } else if (term === '朝核') {
+            this.topic_color1 = '#00abff';
+            this.topic_color2 = 'red';
+            this.topic_color3 = '#00abff';
+        } else {
+            this.topic_color1 = '#00abff';
+            this.topic_color2 = '#00abff';
+            this.topic_color3 = 'red';
+        }
         this.findDatas();
+        this.around(41);
+      },
+      clicking_news: function (term) {
+        this.right_up_list = term;
         this.around(41);
       },
       each: function (a,b) {
@@ -538,10 +553,6 @@
           geo: {
             type: 'map',
             map: 'world',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
             boundingCoords: [[-180, 90], [180, -90]],
                 // silent: true,
             itemStyle: {
@@ -559,88 +570,10 @@
             }
           }
         });
-
-        // let globe_new_option = {
-        //   backgroundColor: 'rgba(0, 0, 0, 0)',
-        //   globe: {
-        //     baseTexture: mapChart,
-        //     heightTexture: heightTexture.src,
-        //     displacementScale: 0.1,
-        //     shading: 'realistic',
-        //     realisticMaterial: {
-        //       roughness: 0.8,
-        //       metalness: 0
-        //     },
-        //     postEffect: {
-        //       enable: true
-        //     },
-        //     temporalSuperSampling: {
-        //       enable: true
-        //     },
-        //     // light: {
-        //     //   ambient: {
-        //     //     intensity: 0
-        //     //   },
-        //     //   main: {
-        //     //     intensity: 2,
-        //     //     shadow: true
-        //     //   },
-        //     //   ambientCubemap: {
-        //     //     texture: '',
-        //     //     exposure: 1,
-        //     //     diffuseIntensity: 0.2
-        //     //   }
-        //     // },
-        //     viewControl: {
-        //       autoRotateSpeed: 0,
-        //       animationDurationUpdate: 1000,
-        //       animationEasingUpdate: 'cubicInOut',
-        //       targetCoord: [116.46, 39.92],
-        //       autoRotate: true
-        //     }
-        //   }
-        // };
-        // this.globe = echarts.init(document.getElementById('echarts-globe'));
-        // this.globe.setOption(globe_new_option);
         this.regions = mapChart.getModel().getComponent('geo').coordinateSystem.regions;
-        // var geo = mapChart.getModel().getComponent('geo').coordinateSystem;
-        // console.log("---------------------------------");
-        // console.log(this.regions);
-        // console.log(geo.getRegion('China'));
-        // console.log(geo.getRegion('Dem.Rep.korea'));
-        // console.log(geo.getRegion('朝鲜'));
-        // console.log(this.findcountry("Dem.Rep.korea"));
       },
       around (index) {
-        // this.region = this.regions[Math.round(Math.random() * (this.regions.length - 1))];
         this.region = this.regions[index];
-        // this.globe.setOption({
-        //   title: {
-        //     left: 'center',
-        //     top: 'center',
-        //     text: this.region.name,
-        //     textStyle: {
-        //       fontSize: 40
-        //     }
-        //   },
-        //   globe: {
-        //     viewControl: {
-        //       targetCoord: this.region.center
-        //     }
-        //   }
-        // });
-        // this.globe.setOption({
-        //   geo: {
-        //     regions: [{
-        //       name: this.region.name,
-        //       itemStyle: {
-        //         normal: {
-        //           areaColor: '#444'
-        //         }
-        //       }
-        //     }]
-        //   }
-        // });
       },
       update_globe_option () {
         this.globe_t_option.globe.displacementScale = 0.1249;
@@ -712,7 +645,7 @@
 <style lang="sass">
   @import "~assets/sass/common"
   .con-box
-    position: absolute
+    // position: absolute
     width: 47%
     height: 50%
     padding: .7rem 1rem .8rem
@@ -720,38 +653,41 @@
     background-size: 100% 100%
     z-index: 1000
     cursor: pointer
+    &.title
+      overflow: hidden
+      font-size: 3rem
+      width: 100%
+      height: 7%
+      top: 0rem
+      background-image: none
     &.l-t-box
-      left: 2%
+      left: 0%
       width: 30%
-      top: 1.2rem
+      top: 7%
     &.world-map
       left: 32%
+      overflow: hidden
       width: 38%
-      top: 1.2rem
+      top: 7%
       background-image: none
     &.r-t-box
-      overflow: hidden
-      right: 2%
+      right: 0%
       width: 30%
-      top: 1.2rem
+      top: 7%
     &.l-b-box
       overflow: hidden
       left: 0%
-      width: 32%
+      width: 33%
       bottom: 1.2rem
-    &.button-box
-      left: 45%
-      width: 10%
-      top: 1.2rem
     &.r-b-box
       overflow: hidden
-      left: 66%
+      right: 0%
       width: 32%
       bottom: 1.2rem
     &.r-b1-box
       overflow: hidden
-      left: 33%
-      width: 32%
+      left: 34%
+      width: 33%
       bottom: 1.2rem
       .chart
         bottom: 100rem

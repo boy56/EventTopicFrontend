@@ -11,7 +11,7 @@
         <div class="table-th td-location">位置</div>
         <div class="table-th td-emotion">情绪</div>
         <!-- <div class="table-th td-userview">用户访问量</div> -->
-        <div class="table-th td-hot">热度</div>
+        <div class="table-th td-hot">内容</div>
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
         <!-- <div class="table-th td-country_l" v-if='!isevent'>所属国家</div> -->
@@ -44,7 +44,7 @@
             <div class="table-td td-date">{{ item.timestr }}</div>
             <div class="table-td td-location">{{ item.location }}</div>
             <div class="table-td td-emotion">{{ item.emotion | toEmotion }}</div>
-            <div class="table-td td-hot">{{ item.userview }}</div>
+            <div class="table-td td-hot">{{ item.content_label }}</div>
             <!-- <div class="table-td td-country_l">{{ item.country_label }}</div> -->
             <!-- <div class="table-td td-content_l">{{ item.content_label }}</div> -->
             <!-- <div class="table-td td-userview">{{ item.userview }}</div> -->
@@ -186,9 +186,9 @@ export default {
           item.timestr = s.substring(4, 6) + '-' + s.substring(6, 8);
         } else {
           if (_.isInteger(item.time)) {
-            item.timestr = new Date(item.time).format('MM-dd');
+            item.timestr = new Date(item.time).format('yyyy-MM-dd');
           } else {
-            item.timestr = new Date(item.time.replace('+0000', 'Z')).format('MM-dd');
+            item.timestr = new Date(item.time.replace('+0000', 'Z')).format('yyyy-MM-dd');
           }
         }
 
@@ -239,7 +239,7 @@ export default {
               if (_.startsWith(s, '2017')) {
                 subitem.timestr = s.substring(4, 6) + '-' + s.substring(6, 8);
               } else {
-                subitem.timestr = new Date(subitem.time).format('MM-dd');
+                subitem.timestr = new Date(subitem.time).format('yyyy-MM-dd');
               }
             })
             item.sourceMore = more;
@@ -412,7 +412,7 @@ export default {
         width: 10%
       &.td-title
         flex: 1
-        width: 30%
+        width: 20%
         text-align: left
       &.td-date
         width: 15%
@@ -426,7 +426,7 @@ export default {
       &.td-location
         width: 5%
       &.td-hot
-        width: 5%
+        width: 15%
       // &.td-sensitive
         // width: 7%
       // &.td-recommend
@@ -498,7 +498,7 @@ export default {
         &.td-location
           width: 5%
         &.td-hot
-          width: 5%
+          width: 15%
         // &.td-sensitive
           // width: 7%
         // &.td-recommend
