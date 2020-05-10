@@ -2785,8 +2785,8 @@ const ChartLib = {
       },
       tooltip: {
         trigger: 'item',
-        "confine": true,
-        "formatter": (p) => {
+        'confine': true,
+        'formatter': (p) => {
           let dataCon = p.data;
           let txtCon = dataCon.name + ':' + dataCon.value;
           return txtCon;
