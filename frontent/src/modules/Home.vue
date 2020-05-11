@@ -89,7 +89,7 @@
       <Echarts theme="ring" :option="options.left_down.option" className="chart" ></Echarts>
     </div>
     <div class="con-box r-b-box" @click="goto">
-        <div class="box light-corner view-core toogle-tab-element" style='height:18%;overflow:hidden'>
+        <div class="view-core" style='height:18%;overflow:hidden;border-top: 1px solid #052b55;'>
         <router-link :to="'/eventa'">
           <div class="view-table start_box box_align pack_center">
                 <div class="view-table start_box box_align pack_center">
@@ -451,17 +451,17 @@
       clicking: function (term) {
         this.topic = term;
         if (term === '南海') {
-            this.topic_color1 = 'red';
-            this.topic_color2 = '#00abff';
-            this.topic_color3 = '#00abff';
+          this.topic_color1 = 'red';
+          this.topic_color2 = '#00abff';
+          this.topic_color3 = '#00abff';
         } else if (term === '朝核') {
-            this.topic_color1 = '#00abff';
-            this.topic_color2 = 'red';
-            this.topic_color3 = '#00abff';
+          this.topic_color1 = '#00abff';
+          this.topic_color2 = 'red';
+          this.topic_color3 = '#00abff';
         } else {
-            this.topic_color1 = '#00abff';
-            this.topic_color2 = '#00abff';
-            this.topic_color3 = 'red';
+          this.topic_color1 = '#00abff';
+          this.topic_color2 = '#00abff';
+          this.topic_color3 = 'red';
         }
         this.findDatas();
         this.around(41);
