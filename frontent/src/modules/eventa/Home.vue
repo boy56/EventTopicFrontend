@@ -536,7 +536,6 @@ export default {
   position: absolute
   width: 37%
   height: 45%
-  overflow: scroll
   padding: .7rem 1rem .8rem
   // background-image: url("~assets/images/box-bg.png")
   background-size: 100% 100%
