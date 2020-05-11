@@ -72,7 +72,7 @@
                           </div>
                           <div class="content-bt clearfix">
                             <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}{{e.verb}}</span>
                           </div>
                         </div>
                       </li>
@@ -399,6 +399,9 @@
           }
         // console.log(this.left_up_list);
           this.right_up_list = this.left_up_list[0].views;
+          for (i = 0; i < this.right_up_list.length; i++) {
+            this.right_up_list[i].timestr = new Date(this.right_up_list[i].time).format('yyyy-MM-dd');
+          }
         // console.log(this.right_up_list);
         // 热度趋势图
           this.options.left_down.option = ChartLib['折线图南海'].option;
@@ -468,6 +471,9 @@
       },
       clicking_news: function (term) {
         this.right_up_list = term;
+        for (var j = 0; j < this.right_up_list.length; j++) {
+          this.right_up_list[j].timestr = new Date(this.right_up_list[j].time).format('yyyy-MM-dd');
+        }
         this.around(41);
       },
       each: function (a,b) {
