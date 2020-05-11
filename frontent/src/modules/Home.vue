@@ -2,7 +2,7 @@
   <div id="app" class="real-body">
     <!-- <canvas id="bg"></canvas> -->
     <div class="con-box title">
-          <div style="background-color: rgb(0, 0, 0);color: #00abff;text-align: center;">事件专题项目</div>
+          <div style="background-color: rgb(0, 0, 0);color: #00abff;text-align: center;">专题事件检测与辅助预测分析</div>
       </div>
     <div :href="'/' + jumpto" class="con-box l-t-box">
     <div class="box light-corner view-core toogle-tab-element">

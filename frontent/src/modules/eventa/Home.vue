@@ -6,15 +6,26 @@
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <table class="event-table" border="" cellspacing="" cellpadding="" :style="tableStyle">
         <tr>
-          <td style="width:48%; height: 50%; padding: 5px 5px 20px 20px">
+          <td style="width:48%; height: 200px; padding: 5px 5px 20px 20px">
             <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
           </td>
-          <td style="width:48%; height: 50%; padding: 5px 5px 20px 20px">
+          <td style="width:48%; height: 200px; padding: 5px 5px 20px 20px">
             <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
           </td>
         </tr>
         <tr>
-          <td style="width:48%; height: 40%; padding: 20px">
+          <td style="width:100%; height: 400px; padding: 20px">
+            <div class="r-panel">
+              <div class="events-wrapper">
+                <div class="event-panel event-panel-source">
+                  <div id="source-timeline" class="event-chart" :style="timelineStyle"></div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:100%; height: 400px; padding: 20px">
             <!-- <div id="left_down" ref="myCharts" style="width:100%; height: 100%"></div> -->
             <div style="text-align: center;font-size: 20px; background: #03c9a9">专家观点</div>
             <table style="width:100%; height: 80%; table-layout: fixed">
@@ -29,34 +40,6 @@
               </tr>
               <tr style="height:rem"></tr>
             </table>
-          </td>
-          <td style="width:48%; height: 40%; padding: 20px">
-            <div class="r-panel">
-              <div class="events-wrapper">
-                <!-- <ul class="event-panel-detail">
-                  <li >
-                    <label for="">描&nbsp;&nbsp;&nbsp;述：</label><span class="title">{{ event.description && event.description.trim() }}</span>
-                  </li>
-                  <li>
-                    <label for="">参与者：</label><span>{{ event.participant }}</span><br class="event-br">
-                    <label for="">关键词：</label><span>{{ event.corewords }}</span>
-                  </li>
-                  <li>
-                    <label for="">类&nbsp;&nbsp;&nbsp;型：</label><span>{{ event.e_type}}</span><br class="event-br">
-                    <label for="">标&nbsp;&nbsp;&nbsp;签：</label><span>{{ event.eventType2}}</span><br class="event-br">
-                    <label for="">情&nbsp;&nbsp;&nbsp;绪：</label><span>{{ event.emotion}}</span>
-                  </li>
-                  <li>
-                    <label for="">时&nbsp;&nbsp;&nbsp;间：</label><span>{{ event.eventSpanDateString }}</span><br class="event-br">
-                    <label for="">地&nbsp;&nbsp;&nbsp;点：</label><span>{{ event.eventLoc }}</span><br class="event-br">
-                    <label for="">来&nbsp;&nbsp;&nbsp;源：</label><span>{{ event | eventFrom }}</span>
-                  </li>
-                </ul> -->
-                <div class="event-panel event-panel-source">
-                  <div id="source-timeline" class="event-chart" :style="timelineStyle"></div>
-                </div>
-              </div>
-            </div>
           </td>
         </tr>
       </table>
@@ -348,7 +331,7 @@ export default {
         var myChart = echarts.init(document.getElementById('left_up'));
         var left_up_option = {
           title: {
-            text: ''
+            text: '事件热度'
           },
           tooltip: {
             trigger: 'axis',
@@ -389,7 +372,7 @@ export default {
         // var ru_data = this.genData(50);
         var right_up_option = {
           title: {
-            text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
+            text: '事件预测',
             subtext: '',
             x: 'center'
           },
