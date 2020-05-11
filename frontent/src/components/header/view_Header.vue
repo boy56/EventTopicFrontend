@@ -18,7 +18,7 @@
           <!-- <b-nav-item class="login-item" v-if="!user.logined" href="/account/#/">登陆</b-nav-item> -->
           <li class="nav-item">
             <a href="#/" class="nav-link active" target="_self">
-              <img src="~assets/image/next-home.png" alt="">
+              <img src="~assets/image/login_hover.png" alt="">
             </a>
           </li>
           <!-- <b-nav-item class="register-item" v-if="!user.logined" href="/account/#/register">注册</b-nav-item>

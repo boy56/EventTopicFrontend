@@ -4,44 +4,34 @@
     <div class="page-wrapper" v-title data-title="事件分析">
       <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
       <v-search-box :search-input.sync="searchInput"></v-search-box>
-      <table class="event-table" border="" cellspacing="" cellpadding="" :style="tableStyle">
+      <div class="row" :style="chartStyle">
+        <div class="col-6">
+          <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
+        </div>
+        <div class="col-6">
+          <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
+        </div>
+      </div>
+      <div class="r-panel">
+        <div class="events-wrapper">
+          <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700">事件追溯</div>
+          <div class="event-panel event-panel-source">
+            <div id="source-timeline" class="event-chart" :style="timelineStyle"></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700">专家观点</div>
+      <table style="width:100%; height: 80%; table-layout: fixed">
         <tr>
-          <td style="width:48%; height: 200px; padding: 5px 5px 20px 20px">
-            <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
-          </td>
-          <td style="width:48%; height: 200px; padding: 5px 5px 20px 20px">
-            <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
-          </td>
+          <td style="width:84%; font-size: 18px; text-align: center; font-family: 'SimHei'">中心观点</td>
+          <td style="width:16%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点数量</td>
         </tr>
-        <tr>
-          <td style="width:100%; height: 400px; padding: 20px">
-            <div class="r-panel">
-              <div class="events-wrapper">
-                <div class="event-panel event-panel-source">
-                  <div id="source-timeline" class="event-chart" :style="timelineStyle"></div>
-                </div>
-              </div>
-            </div>
-          </td>
+        <tr v-bind:key='item.center' v-for='item in left_down_data' style="height: 4rem">
+          <td style="width:96%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical; display: -webkit-box;font-size: 14px;" :title="item.center">{{item.center}}</td>
+          <!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
+          <td style="width:20%;overflow: hidden;line-height: 1.5;">{{item.view_num}}</td>
         </tr>
-        <tr>
-          <td style="width:100%; height: 400px; padding: 20px">
-            <!-- <div id="left_down" ref="myCharts" style="width:100%; height: 100%"></div> -->
-            <div style="text-align: center;font-size: 20px; background: #03c9a9">专家观点</div>
-            <table style="width:100%; height: 80%; table-layout: fixed">
-              <tr>
-                <td style="width:84%; font-size: 18px; text-align: center; font-family: 'SimHei'">中心观点</td>
-                <td style="width:16%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点数量</td>
-              </tr>
-              <tr v-bind:key='item.center' v-for='item in left_down_data' style="height: 4rem">
-                <td style="width:96%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical; display: -webkit-box;font-size: 14px;" :title="item.center">{{item.center}}</td>
-<!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
-                <td style="width:20%;overflow: hidden;line-height: 1.5;">{{item.view_num}}</td>
-              </tr>
-              <tr style="height:rem"></tr>
-            </table>
-          </td>
-        </tr>
+        <tr style="height:rem"></tr>
       </table>
 <!--      <v-footer></v-footer>-->
       <!-- </iframe> -->
@@ -89,6 +79,10 @@ export default {
       },
       timelineStyle: {
         height: '300px',
+      },
+      chartStyle: {
+        height: '300px',
+        paddingTop: '1rem'
       },
       event: [],
       // events: [],
@@ -260,7 +254,8 @@ export default {
   methods: {
     getHeight () {
       this.tableStyle.height = (window.innerHeight - 159.5) + 'px'
-      this.timelineStyle.height = (window.innerHeight - 159.5) * 0.5 + 'px'
+      this.chartStyle.height = (window.innerHeight - 173.5) * 0.38 + 'px'
+      this.timelineStyle.height = (window.innerHeight - 173.5) * 0.6 + 'px'
     },
     genData (count) {
       var nameList = [
@@ -331,7 +326,8 @@ export default {
         var myChart = echarts.init(document.getElementById('left_up'));
         var left_up_option = {
           title: {
-            text: '事件热度'
+            text: '事件热度',
+            x: 'center'
           },
           tooltip: {
             trigger: 'axis',
@@ -343,8 +339,8 @@ export default {
             // data: ['朝鲜','南海','台湾']
           },
           grid: {
-            left: '1%',
-            right: '1%',
+            left: '5%',
+            right: '5%',
             bottom: '1%',
             containLabel: true
           },
@@ -594,6 +590,7 @@ export default {
 <style lang="sass" scoped>
 .r-panel
   height: 100%
+  margin-top: 1rem
 .events-wrapper
   display: flex
   flex-direction: column
@@ -704,7 +701,7 @@ th.active .arrow {
         min-width: 13rem
 /*css for timeline.*/
 .tl-storyslider
-    padding: 25px 0 35px
+    /*padding: 25px 0 35px*/
 .tl-slide
   overflow-y: hidden!important
   .tl-slide-content-container
