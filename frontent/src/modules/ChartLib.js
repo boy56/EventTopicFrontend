@@ -2675,7 +2675,7 @@ const ChartLib = {
               color: '#fff',
               fontSize: 12
             },
-            interval: 1,
+            interval: 4,
           },
           axisLine: {
             lineStyle: {
