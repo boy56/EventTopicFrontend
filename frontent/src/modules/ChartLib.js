@@ -2851,6 +2851,9 @@ const ChartLib = {
           nameMap: nameMap,
           roam: true,
           itemStyle: {
+            normal: {
+              areaColor: 'lightskyblue',
+            },
             emphasis: {label: {show: true}}
           },
           data: [
