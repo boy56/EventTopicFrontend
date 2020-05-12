@@ -91,7 +91,7 @@ export default {
 @media (max-width: 768px)
   padding: 1rem 0
 .r-navbar
-  .header-navbar-nav 
+  .header-navbar-nav
     .nav-link
       padding: 1.5rem 1.5rem
       color: #daebf7
@@ -127,14 +127,14 @@ export default {
         outline: none
   .login-item
     .nav-link
-      background: url("~assets/image/login.png") no-repeat 14px center
+      background: url("../../assets/image/login.png") no-repeat 14px center
       &:hover
-        background-image: url("~assets/image/login_hover.png")
+        background-image: url("../../assets/image/login_hover.png")
   .register-item
     .nav-link
-      background: url("~assets/image/register.png") no-repeat 15px center
+      background: url("../../assets/image/register.png") no-repeat 15px center
       &:hover
-        background-image: url("~assets/image/register_hover.png")
+        background-image: url("../../assets/image/register_hover.png")
 .navbar-inverse
   .navbar-nav
     .nav-link

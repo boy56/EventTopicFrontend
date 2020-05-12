@@ -518,7 +518,7 @@ export default {
             line-height: 24px
             margin-right: .5rem
             cursor: pointer
-            background: url('~assets/image/trend_icon.png') no-repeat center
+            background: url('../../assets/image/trend_icon.png') no-repeat center
             &.trend_asc
               background-position: 0 0
             &.trend_desc

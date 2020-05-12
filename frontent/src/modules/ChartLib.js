@@ -4,15 +4,10 @@
 import Graphic from 'echarts/lib/util/graphic'
 import Data from '../assets/data/data.json'
 import nameMap from '../assets/data/name_map.json'
-console.log(Data.event)
-// console.log(Data.event[0])
 var fish_data = {}
 var dataBJ = Data.event1
 var dataSH = Data.event2
 var dataGZ = Data.event3
-console.log(dataBJ)
-console.log(dataSH)
-console.log(dataGZ)
 var datelist = ['2019-3-1','2019-3-2','2019-3-3','2019-3-4','2019-3-5'];
 var neg = [1,2,3,4,5];
 var pos = [10,20,3,4,5];
@@ -52,7 +47,7 @@ var pos = [10,20,3,4,5];
 //   // [31,46,5,49,0.28,10,6,"优"]
 // ]
 var schema = [
-  {name: 'date', index: 0, text: '日期'},
+  {name: 'date', index: 0, text: '报道时间'},
   {name: 'text', index: 1, text: '影响力指数'},
   {name: 'text', index: 4, text: '标题'}
 ]
@@ -1933,9 +1928,9 @@ const ChartLib = {
         formatter: function (data) {
           // console.log(data);
           return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#1e98ff"> \n' +
-              '</span>' + "时间" + ':' + data[0].data[0].slice(0,10) + '<br> \n' +
+              '</span>' + '时间' + ':' + data[0].data[0].slice(0,10) + '<br> \n' +
               '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FF5421"> \n' +
-              '</span>' + "热度" + ':' + data[0].data[1] + '<br> \n';
+              '</span>' + '热度' + ':' + data[0].data[1] + '<br> \n';
         }
       },
       legend: {
@@ -1975,14 +1970,6 @@ const ChartLib = {
           color: 'white',
           fontSize: 14
         },
-          // splitLine: {
-          //     show: false
-          // },
-          // axisLine: {
-          //     lineStyle: {
-          //         // color: '#eee'
-          //     }
-          // }
       },
       yAxis: {
         type: 'value'
@@ -2557,7 +2544,7 @@ const ChartLib = {
         borderWidth: 1,
         formatter: function (obj) {
           var value = obj.value;
-          return '<div style="border-bottom: 1px solid rgba(255,255,255,.3);font-size: 14px;padding-bottom: 1px;margin-bottom: 1px">' + '新闻' + ' ' + value[2] + '</div>' + schema[1].text + '：' + value[1].toFixed(2) + '<br>' + schema[2].text + '：' + value[0] + '<br>';
+          return '<div style="border-bottom: 1px solid rgba(255,255,255,.3);font-size: 14px;padding-bottom: 1px;margin-bottom: 1px;">' + '新闻' + ' ' + value[2] + '</div>' + schema[1].text + '：' + value[1].toFixed(2) + '<br>' + schema[0].text + '：' + value[0] + '<br>';
         }
       },
       xAxis: {
