@@ -1918,7 +1918,25 @@ const ChartLib = {
         text: ''
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#0775e4'
+          },
+          crossStyle: {
+            color: '#bbb'
+          }
+        },
+        confine: true,
+        extraCssText: 'max-width: 230px; background:rgba(17, 47, 117, 0.8); border:1px solid #0775e4',
+        formatter: function (data) {
+          // console.log(data);
+          return '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#1e98ff"> \n' +
+              '</span>' + "时间" + ':' + data[0].data[0].slice(0,10) + '<br> \n' +
+              '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FF5421"> \n' +
+              '</span>' + "热度" + ':' + data[0].data[1] + '<br> \n';
+        }
       },
       legend: {
         data: ['朝鲜','南海','台湾']
@@ -1938,9 +1956,6 @@ const ChartLib = {
           textStyle: {
             color: '#fff',
             fontSize: 12,
-            formatter: function (data) {
-              return data[0].slice(0,7);
-            },
           },
           interval: 1,
         },
@@ -2688,11 +2703,13 @@ const ChartLib = {
         },
         confine: true,
         extraCssText: 'max-width: 230px; background:rgba(17, 47, 117, 0.8); border:1px solid #0775e4',
-        formatter: '{b}<br> \n' +
+        formatter: function (data) {
+          return data[0].name.slice(0,10) + '<br> \n' +
               '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#1e98ff"> \n' +
-              '</span>{a0} : {c0}%<br> \n' +
+              '</span>' + data[0].seriesName + ':' + data[0].value + '<br> \n' +
               '<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#FF5421"> \n' +
-              '</span>{a1} : {c1}%<br>',
+              '</span>' + data[1].seriesName + ':' + data[1].value + '<br> \n';
+        }
       },
       grid: {
         left: '2%',

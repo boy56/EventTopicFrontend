@@ -41,9 +41,9 @@
       <div class="con-box world-map">
           <table style="width:100%">
             <tr>
-              <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海新闻(100324)</td>
-              <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核新闻(203234)</td>
-              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">台湾新闻(234353)</td>
+              <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(100324)</td>
+              <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(203234)</td>
+              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">台湾专题(234353)</td>
             </tr>
           </table>
           <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
@@ -662,7 +662,7 @@
     &.title
       overflow: hidden
       font-size: 3rem
-      width: 100%
+      width: 97%
       height: 7%
       top: 0rem
       background-image: none

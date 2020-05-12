@@ -355,6 +355,7 @@ export default {
           series: [
             {
               name: '南海',
+              smooth: true,
               type: 'line',
               stack: '总量',
               areaStyle: {normal: {}},
