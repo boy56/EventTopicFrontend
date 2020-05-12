@@ -405,8 +405,8 @@
         // console.log(this.right_up_list);
         // 热度趋势图
           this.options.left_down.option = ChartLib['折线图南海'].option;
-          this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
-          this.options.left_down.option.series[0].data = this.Demo.hot_data.hot_num;
+          // this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
+          this.options.left_down.option.series[0].data = this.Demo.hot_data.data;
         // console.log(this.options.left_down.option);
 
         // 情绪分布图

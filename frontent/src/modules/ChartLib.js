@@ -1930,9 +1930,44 @@ const ChartLib = {
         containLabel: true
       },
       xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: Data.static.x
+        type: 'time',
+          // name: '发生日期',
+        nameGap: 16,
+        boundaryGap: true,
+        axisLabel: {
+          textStyle: {
+            color: '#fff',
+            fontSize: 12,
+            formatter: function (data) {
+              return data[0].slice(0,7);
+            },
+          },
+          interval: 1,
+        },
+        axisLine: {
+          lineStyle: {
+            color: '#2e63cf'
+          }
+        },
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: '#052f5d'
+          },
+          width: 1
+        },
+        nameTextStyle: {
+          color: 'white',
+          fontSize: 14
+        },
+          // splitLine: {
+          //     show: false
+          // },
+          // axisLine: {
+          //     lineStyle: {
+          //         // color: '#eee'
+          //     }
+          // }
       },
       yAxis: {
         type: 'value'
@@ -2674,6 +2709,9 @@ const ChartLib = {
             textStyle: {
               color: '#fff',
               fontSize: 12
+            },
+            formatter: function (data) {
+              return data.slice(0,7);
             },
             interval: 4,
           },
