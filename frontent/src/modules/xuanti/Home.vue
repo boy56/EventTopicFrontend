@@ -2,7 +2,6 @@
   <div style="background: #f4f4f4">
     <v-header :headdata='headdata'></v-header>
     <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
-      <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <v-list :disp-datas="dispDatas"
               :fetch-simitems-cb="fetchSimNewsById"></v-list>
@@ -13,27 +12,18 @@
                     :total-rows="totalRows"
                     v-model="pageno">
       </b-pagination>
-<!--      <v-footer></v-footer>-->
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
-import Colors from 'components/Colors'
 import List from 'components/list/xuanti_List'
 import SearchBox from 'components/search/SearchBox'
-import FilterTab from 'components/filtertab/xuanti_FilterTab'
-// import Data from 'assets/data/xuanti_data.json'
-// import Demo from 'assets/data/xuanti_demo.json'
-import Footer from 'components/header/Footer.vue'
 import Header from 'components/header/view_Header.vue'
-// import Header from 'components\\header\\xuanti_Header.vue'
 
 export default {
   data () {
     return {
-      Colors: Colors,
       headdata: '综合选题',
       topic: null,
       dispDatas: [],
@@ -119,8 +109,6 @@ export default {
   components: {
     'v-list': List,
     'v-search-box': SearchBox,
-    'v-filter-tab': FilterTab,
-    'v-footer': Footer,
     'v-header': Header,
   }
 };
