@@ -47,7 +47,7 @@
           </table>
           <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
       </div>
-    <div class="con-box r-t-box" @click="goto">
+    <div class="con-box r-t-box">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
       <div class="box light-corner view-core toogle-tab-element">
         <router-link :to="'/view'">
@@ -80,14 +80,14 @@
         </div>
     </div>
     </div>
-    <div class="con-box l-b-box" @click="goto">
+    <div class="con-box l-b-box">
       <div style="text-align: center; margin-bottom: .5rem">
         <span style="font-size: 20px;color:white">热度趋势</span>
       </div>
       <!-- <font size="3" color="white">{{Data.}}</font> -->
       <Echarts theme="ring" :option="options.left_down.option" className="chart" ></Echarts>
     </div>
-    <div class="con-box r-b-box" @click="goto">
+    <div class="con-box r-b-box">
         <div class="view-core" style='height:18%;overflow:hidden;border-top: 1px solid #052b55;'>
         <router-link :to="'/eventa'">
           <div class="view-table start_box box_align pack_center">
@@ -101,11 +101,7 @@
       </div>
         <Echarts theme="ring" ref="hotevent" :option="options.right_down.option" className="chart"></Echarts>
     </div>
-     <div class="con-box r-b1-box" @click="goto">
-        <!-- <div class="module-wrapper opinion-emotion">
-                    <div class="module-title"><span class="iconfont icon-yuqing"></span>情绪分布图</div>
-                    <div id="discuss-emotion" class="box light-corner discuss-emotion"></div>
-        </div> -->
+     <div class="con-box r-b1-box">
         <div style="text-align: center;margin-bottom: .5rem">
            <span style="font-size: 20px;color: white;">情绪分析</span>
         </div>
@@ -122,14 +118,11 @@
 
   import 'echarts/map/js/world.js';
 
-  import Common from 'components/Common.js'
-
   import {ChartLib} from './ChartLib.js'
 
   export default {
     data () {
       return {
-        Common: Common,
         jumpto: '',
         Demo: {},
         topic: '南海',

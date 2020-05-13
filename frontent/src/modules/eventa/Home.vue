@@ -45,16 +45,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-import Colors from 'components/Colors'
 import SearchBox from 'components/search/SearchBox'
-import FilterTab from 'components/filtertab/eventa_FilterTab'
 import echarts from 'echarts'
-// import Data from 'assets/data/eventa_data.json'
-// import Demo from 'assets/data/eventa_demo.json'
-// import rdData from 'assets/data/eventa_rddata.json'
-import Footer from 'components/header/Footer.vue'
 import Header from 'components/header/view_Header.vue'
-// import TL from 'components/common/TimelineJS/timeline.js'
 require('components/common/TimelineJS/timeline.css')
 export default {
   // props: {
@@ -92,7 +85,6 @@ export default {
         words: true,
       },
       translated: false,
-      Colors: Colors,
       dispDatas: [],
       totalRows: 64,
       pageno: 1,
@@ -520,9 +512,7 @@ export default {
   },
   components: {
     'v-search-box': SearchBox,
-    'v-filter-tab': FilterTab,
     'v-header': Header,
-    'v-footer': Footer,
   }
 };
 </script>
