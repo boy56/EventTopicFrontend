@@ -307,7 +307,7 @@ export default {
         this.Demo = response.data
         // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         // this.totalRows = response.data.totalElements;
-        require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
+        require(['../../components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
         // console.log(this.Demo);
         // console.log(response);
         // this.options.left_up.option = ChartLib.折线图朝鲜.option;
