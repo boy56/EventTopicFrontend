@@ -45,7 +45,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-import SearchBox from 'components/search/SearchBox'
+import SearchBox from 'components/search/Eventa_SearchBox'
 import echarts from 'echarts'
 import Header from 'components/header/view_Header.vue'
 require('components/common/TimelineJS/timeline.css')

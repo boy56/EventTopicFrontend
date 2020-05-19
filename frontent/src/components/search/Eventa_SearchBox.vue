@@ -1,10 +1,10 @@
 <template>
   <div class="search-row row form-horizontal">
-    <div class="col-md-3 search-wrapper">
-      <input class="search-ipt form-control" type="text" v-model="searchInput.kws" placeholder="请输入关键字">
+    <!-- <div class="col-md-3 search-wrapper"> -->
+      <!-- <input class="search-ipt form-control" type="text" v-model="searchInput.kws" placeholder="请输入关键字"> -->
       <!-- 此提交按钮只在移动端显示 -->
-      <button class="search-submit"><i class="fa fa-search"></i></button>
-    </div>
+      <!-- <button class="search-submit"><i class="fa fa-search"></i></button> -->
+    <!-- </div> -->
     <!-- 时间选取功能只在PC端显示 -->
     <div class="col-md-3 date-wrapper">
       <label for="date-start" class="control-label date-label">起始时间：</label>
@@ -95,7 +95,7 @@
     button
       color: #fff
       font-size: 1.6rem
-      margin-left: 20px
+      margin-left: 10px
       background-color: #158bdc
       cursor: pointer
       &:hover
