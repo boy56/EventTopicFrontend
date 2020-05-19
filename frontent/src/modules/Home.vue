@@ -2,7 +2,7 @@
   <div id="app" class="real-body">
     <!-- <canvas id="bg"></canvas> -->
     <div class="con-box title">
-      <img src="../assets/image/title.jpg">
+      <img src="~assets/image/title.jpg">
     </div>
     <div :href="'/' + jumpto" class="con-box l-t-box">
     <div class="box light-corner view-core toogle-tab-element">
@@ -275,18 +275,18 @@
 </script>
 
 <style scoped>
-  @import "../assets/css/global.css";
-  @import "../assets/css/djyun_big_auto.css";
+  @import "~assets/css/global.css";
+  @import "~assets/css/djyun_big_auto.css";
   /* @import "~assets/font-icon/iconfont.css"; */
 </style>
 <style lang="sass">
-  @import "../assets/sass/common"
+  @import "~assets/sass/common"
   .con-box
     // position: absolute
     width: 47%
     height: 50%
     padding: .7rem 1rem .8rem
-    background-image: url("../assets/image/box-bg.png")
+    background-image: url("~assets/image/box-bg.png")
     background-size: 100% 100%
     z-index: 1000
     cursor: pointer
