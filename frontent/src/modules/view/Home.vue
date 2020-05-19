@@ -26,6 +26,7 @@ export default {
   data () {
     return {
       headdata: '专家观点',
+      topic: null,
       dispDatas: [],
       totalRows: 64,
       pageno: 1,
@@ -47,7 +48,7 @@ export default {
     },
   },
   created () {
-    this.topic = '南海'; // this.$route.params.topic;
+    this.topic = this.$route.params.id;
     this.findDatas();
   },
   mounted () {

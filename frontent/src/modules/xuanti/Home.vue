@@ -47,7 +47,8 @@ export default {
     },
   },
   created () {
-    this.topic = '南海'; // this.$route.params.topic;
+    console.log(this.$route);
+    this.topic = this.$route.params.id;
     this.findDatas();
   },
   mounted () {

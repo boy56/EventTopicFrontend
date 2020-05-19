@@ -154,7 +154,7 @@ export default {
     },
   },
   created () {
-    this.topic = '南海' // this.$route.params.topic;
+    this.topic = this.$route.params.id;
     window.addEventListener('resize', this.getHeight);
     this.getHeight();
     // var echarts = require('echarts');

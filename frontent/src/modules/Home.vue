@@ -6,7 +6,7 @@
     </div>
     <div :href="'/' + jumpto" class="con-box l-t-box">
     <div class="box light-corner view-core toogle-tab-element">
-      <router-link :to="{ name: 'xuanti', params: { topic: topic}}">
+      <router-link :to="{ name: 'xuanti', params: {id: topic}, query: {queryId: topic}}">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex"><span class="iconfont icon-yuqing"></span>
@@ -42,7 +42,7 @@
             <tr>
               <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(10324)</td>
               <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(20234)</td>
-              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">台湾专题(23353)</td>
+              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台湾')">台湾专题(23353)</td>
             </tr>
           </table>
           <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
@@ -50,7 +50,7 @@
     <div class="con-box r-t-box">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
       <div class="box light-corner view-core toogle-tab-element">
-        <router-link :to="'/view'">
+        <router-link :to="{name: 'view' ,params: {id: topic}, query: {queryId: topic}}">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
               <div class="table-item table-item-active  start_box box_align pack_center box-flex"><span class="iconfont icon-yuqing"></span>
@@ -89,7 +89,7 @@
     </div>
     <div class="con-box r-b-box">
         <div class="view-core" style='height:18%;overflow:hidden;border-top: 1px solid #052b55;'>
-        <router-link :to="'/eventa'">
+        <router-link :to="{name: 'eventa', params: {id: topic}, query: {queryId: topic}}">
           <div class="view-table start_box box_align pack_center">
                 <div class="view-table start_box box_align pack_center">
                 <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
@@ -125,7 +125,7 @@
       return {
         jumpto: '',
         Demo: {},
-        topic: '南海',
+        topic: null,
         topic_color1: 'red',
         topic_color2: '#00abff',
         topic_color3: '#00abff',
@@ -149,6 +149,7 @@
       }
     },
     mounted () {
+      this.topic = '南海';
       this.echartsGlobe();
       this.findDatas();
     },
