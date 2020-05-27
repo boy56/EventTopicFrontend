@@ -14,7 +14,7 @@
         <div class="table-th td-hot">内容</div>
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
-        <!-- <div class="table-th td-country_l" v-if='!isevent'>所属国家</div> -->
+        <div class="table-th td-believe" v-if='!isevent'>可靠性</div>
         <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
         <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
@@ -45,6 +45,7 @@
             <div class="table-td td-location">{{ item.location }}</div>
             <div class="table-td td-emotion">{{ item.emotion | toEmotion }}</div>
             <div class="table-td td-hot">{{ item.content_label }}</div>
+            <div class="table-td td-believe">{{ item.newsid.slice(0,2) }}</div>
             <!-- <div class="table-td td-country_l">{{ item.country_label }}</div> -->
             <!-- <div class="table-td td-content_l">{{ item.content_label }}</div> -->
             <!-- <div class="table-td td-userview">{{ item.userview }}</div> -->
@@ -426,15 +427,11 @@ export default {
       &.td-location
         width: 5%
       &.td-hot
-        width: 15%
-      // &.td-sensitive
-        // width: 7%
-      // &.td-recommend
-        // width: 6%
+        width: 10%
+      &.td-believe
+        width: 5%
       &.td-source
         width: 15%
-      // &.td-feedback
-        // width: 18%
 
 .chart
   width: 750px
@@ -498,7 +495,9 @@ export default {
         &.td-location
           width: 5%
         &.td-hot
-          width: 15%
+          width: 10%
+        &.td-believe
+          width: 5%
         // &.td-sensitive
           // width: 7%
         // &.td-recommend

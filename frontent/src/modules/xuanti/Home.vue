@@ -2,6 +2,7 @@
   <div style="background: #f4f4f4">
     <v-header :headdata='headdata'></v-header>
     <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
+      <v-filter></v-filter>
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <v-list :disp-datas="dispDatas"
               :fetch-simitems-cb="fetchSimNewsById"></v-list>
@@ -19,6 +20,7 @@
 <script type="text/ecmascript-6">
 import List from 'components/list/xuanti_List'
 import SearchBox from 'components/search/SearchBox'
+import Filtertab from 'components/filtertab/xuanti_FilterTab'
 import Header from 'components/header/view_Header.vue'
 
 export default {
@@ -111,6 +113,7 @@ export default {
     'v-list': List,
     'v-search-box': SearchBox,
     'v-header': Header,
+    'v-filter': Filtertab,
   }
 };
 </script>

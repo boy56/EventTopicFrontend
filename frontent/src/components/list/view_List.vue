@@ -6,7 +6,7 @@
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
         <div class="table-th td-location">发言人</div>
-        <div class="table-th td-title">标题</div>
+        <div class="table-th td-title">观点</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
         <div class="table-th td-emotion">机构</div>
         <div class="table-th td-pos">职位</div>
@@ -37,7 +37,7 @@
                     class="trend"
                     title="查看详情"
                    :class="{ 'trend_asc': item.sentiment > 0, 'trend_desc': item.sentiment <= 0 }"
-                   @click="viewTrendGraph(item.newsinfo.title, item.original_text)">
+                   @click="viewTrendGraph(item.personname + item.verb + item.viewpoint, item.newsinfo.content)">
               </span>
               <li class="title-link" target="_blank"
                     @mouseenter="enter(item)"

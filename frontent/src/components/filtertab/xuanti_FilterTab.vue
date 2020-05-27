@@ -1,6 +1,6 @@
 <template>
   <div class='view-filter'>
-    <dl class="view-dl-group first-cat">
+    <!-- <dl class="view-dl-group first-cat">
       <dt>内容分类：</dt>
       <b-nav pills>
         <b-nav-item :active="!selectedCats" @click="selectAllLegacyTypes()">全部类别</b-nav-item>
@@ -10,17 +10,9 @@
                    :active="_.includes(selectedLegacyTypes, typeid)"
                    @click="selectLegacyType(typeid)">
           {{ type }}
-          <!-- <Select style="width:200px">
-            <Option v-for="(type, typeid) in types" :value="type" :key="typeid" name="sendValue"
-            :active="_.includes(selectedLegacyTypes, typeid)"
-            @click="selectLegacyType(typeid)">
-                   {{type }}
-            </Option>
-          </Select>
-          <i class="fa fa-times" v-show="_.includes(selectedLegacyTypes, typeid)"></i> -->
         </b-nav-item>
       </b-nav>
-    </dl>
+    </dl> -->
     <dl class="view-dl-group others">
       <dt>语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言：</dt>
       <ul class="list-ul">
@@ -32,7 +24,7 @@
         </li>
       </ul>
     </dl>
-    <dl class="view-dl-group others">
+    <!-- <dl class="view-dl-group others">
       <dt>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点：</dt>
       <ul class="list-ul">
         <li class="list-btn" v-for="(loc, idx) in locations"
@@ -42,7 +34,7 @@
           {{ loc }}
         </li>
       </ul>
-    </dl>
+    </dl> -->
   </div>
 </template>
 
@@ -56,7 +48,7 @@
         categories: ManyType,
         types: ['入侵行动', '国家立场', '防卫行动', '军演行动', '媒体评论', '访问行动', '其他'],
         topics: Topic,
-        languages: ['全部', '中文','英文'],
+        languages: ['全部', '中文','英文','日文','韩文'],
         locations: ['全部', '国内', '海外'],
         selectedCats: [],
         selectedLegacyTypes: [],
