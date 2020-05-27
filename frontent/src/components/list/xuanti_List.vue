@@ -8,8 +8,8 @@
         <div class="table-th td-type">内容分类</div>
         <div class="table-th td-title">标题</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
-        <div class="table-th td-location">位置</div>
-        <div class="table-th td-emotion">情绪</div>
+        <!-- <div class="table-th td-location">位置</div> -->
+        <div class="table-th td-emotion">观点数量</div>
         <!-- <div class="table-th td-userview">用户访问量</div> -->
         <div class="table-th td-hot">内容</div>
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
@@ -42,8 +42,8 @@
               <a :href="item.url" class="title-link" target="_blank">{{ item.title }}</a>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
-            <div class="table-td td-location">{{ item.location }}</div>
-            <div class="table-td td-emotion">{{ item.emotion | toEmotion }}</div>
+            <!-- <div class="table-td td-location">{{ item.location }}</div> -->
+            <div class="table-td td-emotion">{{ item.influence}}</div>
             <div class="table-td td-hot">{{ item.content_label }}</div>
             <div class="table-td td-believe">{{ item.newsid.slice(0,2) }}</div>
             <!-- <div class="table-td td-country_l">{{ item.country_label }}</div> -->
@@ -421,11 +421,11 @@ export default {
         &:before
           left: 7%
         &:after
-          right: 8%
+          right: 10%
       &.td-emotion
-        width: 5%
-      &.td-location
-        width: 5%
+        width: 8%
+      // &.td-location
+        // width: 5%
       &.td-hot
         width: 10%
       &.td-believe
@@ -491,9 +491,9 @@ export default {
           width: 15%
           text-align: center
         &.td-emotion
-          width: 5%
-        &.td-location
-          width: 5%
+          width: 8%
+        // &.td-location
+          // width: 5%
         &.td-hot
           width: 10%
         &.td-believe
