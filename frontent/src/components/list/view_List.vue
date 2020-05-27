@@ -5,7 +5,7 @@
       <div class="table-tr">
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
-        <div class="table-th td-location">发言人</div>
+        <div class="table-th td-location">专家姓名</div>
         <div class="table-th td-title">观点</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
         <div class="table-th td-emotion">机构</div>
