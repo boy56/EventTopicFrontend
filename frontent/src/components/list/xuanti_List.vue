@@ -87,7 +87,7 @@
         </div>
     </div>
     <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="chart">
+      <div class="chart" style="overflow: scroll">
         <!-- <Echarts theme="ring" :resizable="true" :option="trend_option" :loading="loading.trend" :loadingOpts="{ text: '加载中...' }"></Echarts> -->
         {{viewtext}}
       </div>
