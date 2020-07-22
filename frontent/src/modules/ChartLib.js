@@ -162,7 +162,7 @@ const ChartLib = {
       },
       yAxis: {
         type: 'value',
-        name: '影响力指数',
+        name: '危机指数',
         nameLocation: 'end',
           // nameGap: 20,
         nameTextStyle: {

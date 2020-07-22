@@ -42,7 +42,7 @@
             <tr>
               <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(10324)</td>
               <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(20234)</td>
-              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台湾')">台湾专题(23353)</td>
+              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(23353)</td>
             </tr>
           </table>
           <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
@@ -93,7 +93,7 @@
           <div class="view-table start_box box_align pack_center">
                 <div class="view-table start_box box_align pack_center">
                 <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
-                热点事件<span class="unqie-guang"></span></div>
+                危机事件<span class="unqie-guang"></span></div>
                 <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
             </div>
           </div>

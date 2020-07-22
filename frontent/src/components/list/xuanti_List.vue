@@ -9,11 +9,12 @@
         <div class="table-th td-title">标题</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
         <!-- <div class="table-th td-location">位置</div> -->
-        <div class="table-th td-emotion">观点数量</div>
+        <!-- <div class="table-th td-emotion">观点数量</div> -->
         <!-- <div class="table-th td-userview">用户访问量</div> -->
-        <div class="table-th td-hot">内容</div>
+        <!-- <div class="table-th td-hot">内容</div> -->
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
+        <div class="table-th td-crisis">危机指数</div>
         <div class="table-th td-believe" v-if='!isevent'>可靠性</div>
         <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
@@ -37,14 +38,14 @@
                     class="trend"
                     title="查看详情"
                    :class="{ 'trend_asc': item.userview > 0, 'trend_desc': item.userview <= 0 }"
-                   @click="viewTrendGraph(item.title, item.content)">
+                   @click="viewTrendGraph(item.title, item.content, item.orgs, item.persons)">
               </span>
               <a :href="item.url" class="title-link" target="_blank">{{ item.title }}</a>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
             <!-- <div class="table-td td-location">{{ item.location }}</div> -->
-            <div class="table-td td-emotion">{{ item.influence}}</div>
-            <div class="table-td td-hot">{{ item.content_label }}</div>
+            <div class="table-td td-emotion">{{ item.crisis}}</div>
+<!--            <div class="table-td td-hot">{{ item.content_label }}</div>-->
             <div class="table-td td-believe">{{ item.newsid.slice(0,2) }}</div>
             <!-- <div class="table-td td-country_l">{{ item.country_label }}</div> -->
             <!-- <div class="table-td td-content_l">{{ item.content_label }}</div> -->
@@ -87,9 +88,24 @@
         </div>
     </div>
     <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="chart" style="overflow: scroll">
+      <div class="label">
+        内容
+      </div>
+      <div class="chart" style="overflow-y: scroll">
         <!-- <Echarts theme="ring" :resizable="true" :option="trend_option" :loading="loading.trend" :loadingOpts="{ text: '加载中...' }"></Echarts> -->
         {{viewtext}}
+      </div>
+      <div class="label">
+        机构
+      </div>
+      <div class="chart">
+        {{orgs}}
+      </div>
+      <div class="label">
+        人员
+      </div>
+      <div class="chart">
+        {{persons}}
       </div>
       <footer slot="modal-footer"></footer>
     </b-modal>
@@ -140,6 +156,8 @@ export default {
       sourceMore: [],
       viewtitle: '',
       viewtext: '',
+      orgs: '',
+      persons: '',
       loading: { trend: true },
       trend_option: {
         title: {
@@ -254,10 +272,12 @@ export default {
         this.toggleSource = false;
       }
     },
-    viewTrendGraph (title, text) {
+    viewTrendGraph (title, text, orgs, persons) {
       this.viewtitle = title;
       this.loading.trend = true;
       this.viewtext = text;
+      this.orgs = orgs;
+      this.persons = persons;
       // axios.get('/api/cache3/source/fetchTrendById', {params: {
       //   id: id,
       //   text: text,
@@ -424,6 +444,8 @@ export default {
           right: 10%
       &.td-emotion
         width: 8%
+      &.td-crisis
+        width: 8%
       // &.td-location
         // width: 5%
       &.td-hot
@@ -432,10 +454,17 @@ export default {
         width: 5%
       &.td-source
         width: 15%
-
+.label
+  width: 750px
+  margin-bottom: 10px
+  font-size: 2rem
+  font-family: "Microsoft Yahei"
+  border-color: #ddd;
 .chart
   width: 750px
-  height: 400px
+  max-height: 400px
+  min-height: 25px
+  margin-bottom: 10px
 
 @media (max-width: 768px)
   .list-table-head

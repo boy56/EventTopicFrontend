@@ -154,7 +154,7 @@ export default {
     },
   },
   created () {
-    this.topic = this.$route.params.id;
+    this.topic = this.$route.query.queryId;
     window.addEventListener('resize', this.getHeight);
     this.getHeight();
     // var echarts = require('echarts');
@@ -304,7 +304,16 @@ export default {
         location: filter.selectedLocation,
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
-        this.Demo = response.data
+        this.Demo = response.data;
+        console.log(this.Demo.tendency_data.tendency_news);
+        var exact_list = [];
+        _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
+          exact_list.push({'name': item.name, 'value': item.value})
+        });
+        var predict_list = [];
+        _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
+          predict_list.push({'name': item.name, 'value': item.predict_value})
+        });
         // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         // this.totalRows = response.data.totalElements;
         require(['../../components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
@@ -324,7 +333,7 @@ export default {
           tooltip: {
             trigger: 'axis',
             formatter: function (param) {
-              return param.data.name + ':' + param.data.value;
+              return '<div>' + param[0].data.name + '</div> <div>实际：' + param[0].data.value + '</div><div>预测：' + param[1].data.value + '</div>';
             }
           },
           legend: {
@@ -351,8 +360,16 @@ export default {
               type: 'line',
               stack: '总量',
               areaStyle: {normal: {}},
-              data: this.Demo.tendency_data.tendency_news
+              data: exact_list
             },
+            {
+              name: '南海预测',
+              smooth: true,
+              type: 'line',
+              stack: '总量',
+              areaStyle: {normal: {}},
+              data: predict_list
+            }
           ]
         }
         myChart.setOption(left_up_option);

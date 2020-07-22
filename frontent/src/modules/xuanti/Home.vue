@@ -50,7 +50,7 @@ export default {
   },
   created () {
     console.log(this.$route);
-    this.topic = this.$route.params.id;
+    this.topic = this.$route.query.queryId;
     this.findDatas();
   },
   mounted () {
