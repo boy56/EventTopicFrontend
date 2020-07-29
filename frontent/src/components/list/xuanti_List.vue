@@ -196,7 +196,7 @@ export default {
   watch: {
     dispDatas: function (datas) {
       console.log('list');
-      datas = datas.slice((this.pageno - 1) * 20, this.pageno * 20);
+      // datas = datas.slice((this.pageno - 1) * 20, this.pageno * 20);
       console.log(datas);
       let xs = _.map(_.uniqBy(datas, 'newsid'), item => {
         // fix the time.

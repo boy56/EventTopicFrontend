@@ -2,7 +2,7 @@
   <div style="background: #f4f4f4">
     <v-header :headdata='headdata'></v-header>
     <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
-      <v-filter></v-filter>
+      <v-filter @update:filter="updateFilter"></v-filter>
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <v-list :disp-datas="dispDatas"
               :fetch-simitems-cb="fetchSimNewsById"></v-list>
@@ -30,6 +30,7 @@ export default {
       topic: null,
       dispDatas: [],
       totalRows: 64,
+      selectedLanguge: '中文',
       pageno: 1,
       searchInput: {
         kws: '',
@@ -60,7 +61,7 @@ export default {
   methods: {
     findDatas: function (filter = {
       selectedTypes: [],
-      selectedLanguge: '全部',
+      selectedLanguge: this.selectedLanguge,
       selectedLocation: '全部',
       selectedSecu: false,
       selectedWords: [],
@@ -77,7 +78,7 @@ export default {
         kws: this.searchInput.kws,
         kws_kinds: _.join(filter.selectedWords, ' '),
         include_text: this.searchInput.includeText,
-        size: 64,
+        size: 20,
         pageno: this.pageno,
         // sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
         // types0: _.join(filter.selectedLegacyTypes, ' '),
@@ -105,8 +106,8 @@ export default {
       });
     },
     updateFilter: function (filter) {
-      // this.filter = filter;
-      // this.findDatas(filter);
+      this.filter = filter;
+      this.findDatas(filter);
     },
   },
   components: {

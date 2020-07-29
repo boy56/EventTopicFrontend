@@ -48,11 +48,11 @@
         categories: ManyType,
         types: ['入侵行动', '国家立场', '防卫行动', '军演行动', '媒体评论', '访问行动', '其他'],
         topics: Topic,
-        languages: ['全部', '中文','英文','日文','韩文'],
+        languages: ['中文','英文','日文','韩文'],
         locations: ['全部', '国内', '海外'],
         selectedCats: [],
         selectedLegacyTypes: [],
-        selectedLanguge: '全部',
+        selectedLanguge: '中文',
         selectedLocation: '全部',
         selectedSecu: false,
         selectedTopics: [],
@@ -138,7 +138,6 @@
           selectedSecu: this.selectedSecu,
           selectedWords: this.selectedWords,
         });
-        console.log('ningyxa')
       },
     },
   }
