@@ -4,7 +4,7 @@
 import nameMap from '../assets/data/name_map.json'
 var schema = [
   {name: 'date', index: 0, text: '报道时间'},
-  {name: 'text', index: 1, text: '影响力指数'},
+  {name: 'text', index: 1, text: '危机指数'},
   {name: 'text', index: 4, text: '标题'}
 ]
 var itemStyle = {
