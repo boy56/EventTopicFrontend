@@ -2,7 +2,7 @@
   <div id="app" class="real-body">
     <!-- <canvas id="bg"></canvas> -->
     <div class="con-box title">
-      <img src="~assets/image/title.jpg">
+      <img @click="resetCache" src="~assets/image/title.jpg">
     </div>
     <div :href="'/' + jumpto" class="con-box l-t-box">
     <div class="box light-corner view-core toogle-tab-element">
@@ -170,6 +170,12 @@
       }
     },
     methods: {
+      resetCache: function () {
+        axios.get('/api/clear_cathe')
+          .then(response => {
+            console.log('缓存清除成功！')
+          })
+      },
       findDatas: function (filter = {
       }) {
         axios.get('api/search_main', {params: {

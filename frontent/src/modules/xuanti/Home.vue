@@ -38,7 +38,13 @@ export default {
         dateEnd: new Date(),
         includeText: false,
       },
-      filter: {},
+      filter: {
+        selectedTypes: [],
+        selectedLanguge: '中文',
+        selectedLocation: '全部',
+        selectedSecu: false,
+        selectedWords: [],
+      },
     };
   },
   watch: {
