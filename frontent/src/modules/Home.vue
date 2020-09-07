@@ -174,6 +174,7 @@
         axios.get('/api/clear_cathe')
           .then(response => {
             console.log('缓存清除成功！')
+            location.reload();
           })
       },
       findDatas: function (filter = {
