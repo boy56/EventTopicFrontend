@@ -19,7 +19,7 @@
         <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source sorting" v-if='!isevent' @click="sortValues('customer')">来源</div>
         <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
-      </div class="table-tr">
+      </div>
     </div>
     <div class="table table-striped list-table-body" >
         <div class="table-tr" v-for="(item) in dispValues" :key="item.newsid">
@@ -88,6 +88,15 @@
         </div>
     </div>
     <b-modal id="modaltrend" size="lg" :title="viewtitle">
+      <div class="switch" style="float:right" v-if="this.selectedLanguage!=='中文'">
+                <span class="fa fa-rotate-180"
+                      :class="{
+                    'fa-toggle-on': checked,
+                    'fa-toggle-off': !checked
+                  }"
+                      @click="translate()"></span>
+        <label class="toggle-label">原文</label>
+      </div>
       <div class="label">
         内容
       </div>
@@ -132,6 +141,12 @@ export default {
         return [];
       }
     },
+    'language': {
+      type: String,
+      default () {
+        return '中文';
+      }
+    },
     'fetchSimitemsCb': {
       type: Function,
       default () {
@@ -158,6 +173,7 @@ export default {
       viewtext: '',
       orgs: '',
       persons: '',
+      checked: false,
       loading: { trend: true },
       trend_option: {
         title: {
@@ -189,15 +205,18 @@ export default {
         ]
       },
       dispValues: [],
+      selectedLanguage: '',
       sorting: 'time',
       sortingMap: {'time': 'desc', 'crisis': 'desc', 'customer': 'desc', 'reliability': 'desc'},
     };
   },
   watch: {
+    language: function (language) {
+      console.log(this.selectedLanguage)
+      this.selectedLanguage = language
+    },
     dispDatas: function (datas) {
-      console.log('list');
       // datas = datas.slice((this.pageno - 1) * 20, this.pageno * 20);
-      console.log(datas);
       let xs = _.map(_.uniqBy(datas, 'newsid'), item => {
         // fix the time.
         let s = '' + new Date(item.time).getTime();
@@ -248,6 +267,9 @@ export default {
     //   var topHeight = this.$refs.TableHeadWrapper.offsetTop;
     //   this.scrolled = window.scrollY > topHeight;
     // },
+    translate () {
+      this.checked = !this.checked
+    },
     moreSource (item) {
       this.sourceMore = [];
       if (this.toggleSource !== item.id) {
@@ -373,7 +395,6 @@ export default {
     } else {
       this.dispValues = xs;
     }
-    console.log(this.dispValues)
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
@@ -424,7 +445,7 @@ export default {
       position: relative
       padding: .75rem
       &.sorting
-        text-align: left
+        /*text-align: left*/
       // &.td-index
         // width: 5%
       &.td-type

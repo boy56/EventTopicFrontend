@@ -5,11 +5,12 @@
       <v-filter @update:filter="updateFilter"></v-filter>
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <v-list :disp-datas="dispDatas"
+              :language="selectedLanguge"
               :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
 
       <b-pagination align="center" size="md" :limit="8"
-                    :per-page="64"
+                    :per-page="20"
                     :total-rows="totalRows"
                     v-model="pageno">
       </b-pagination>
@@ -56,7 +57,6 @@ export default {
     },
   },
   created () {
-    console.log(this.$route);
     this.topic = this.$route.query.queryId;
     this.findDatas();
   },
@@ -101,7 +101,6 @@ export default {
       // console.log(this.dispDatas);
       // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 20, this.pageno * 20);
       // this.totalRows = Demo.totalElements;
-      console.log(this.totalRows);
       // console.log(this.pageno);
     },
     fetchSimNewsById: function (id, callback) {

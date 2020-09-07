@@ -5,7 +5,8 @@ import nameMap from '../assets/data/name_map.json'
 var schema = [
   {name: 'date', index: 0, text: '报道时间'},
   {name: 'text', index: 1, text: '危机指数'},
-  {name: 'text', index: 4, text: '标题'}
+  {name: 'text', index: 4, text: '标题'},
+  {name: 'text', index: 4, text: '事件类型'}
 ]
 var itemStyle = {
   opacity: 0.8,
@@ -120,7 +121,7 @@ const ChartLib = {
         borderWidth: 1,
         formatter: function (obj) {
           var value = obj.value;
-          return '<div style="border-bottom: 1px solid rgba(255,255,255,.3);font-size: 14px;padding-bottom: 1px;margin-bottom: 1px;">' + '新闻' + ' ' + value[2] + '</div>' + schema[1].text + '：' + value[1].toFixed(2) + '<br>' + schema[0].text + '：' + value[0] + '<br>';
+          return '<div style="border-bottom: 1px solid rgba(255,255,255,.3);font-size: 14px;padding-bottom: 1px;margin-bottom: 1px;">' + '新闻' + ' ' + value[2] + '</div>' + schema[1].text + '：' + value[1].toFixed(2) + '<br>' + schema[0].text + '：' + value[0] + '<br>' + schema[3].text + '：' + obj.seriesName + '<br>';
         }
       },
       xAxis: {

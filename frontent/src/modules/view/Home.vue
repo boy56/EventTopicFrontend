@@ -8,7 +8,7 @@
               :fetch-simitems-cb="fetchSimNewsById"></v-list>
 
       <b-pagination align="center" size="md" :limit="8"
-                    :per-page="64"
+                    :per-page="20"
                     :total-rows="totalRows"
                     v-model="pageno">
       </b-pagination>
@@ -69,7 +69,7 @@ export default {
         kws: this.searchInput.kws,
         kws_kinds: _.join(filter.selectedWords, ' '),
         include_text: this.searchInput.includeText,
-        size: 64,
+        size: 20,
         pageno: this.pageno,
         // sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
         // types0: _.join(filter.selectedLegacyTypes, ' '),

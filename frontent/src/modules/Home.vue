@@ -67,11 +67,11 @@
                         <div class="item-content">
                           <div class="content-top ">
                             <span class="view-type attr-block">{{e.country}}</span>
-                            <p class="title">{{e.viewpoint}}</p>
+                            <p class="title" style="left: 10%;max-width: 80%;" :title="e.orgname+e.pos+e.personname+e.viewpoint">{{e.verb}}{{e.viewpoint}}</p>
                           </div>
                           <div class="content-bt clearfix">
-                            <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}{{e.verb}}</span>
+                            <span style="float:left"><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}</span>
+                            <span style="float:right"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
                           </div>
                         </div>
                       </li>
@@ -133,6 +133,7 @@
         topic_index: 0,
         intervalID: null,
         intervalRotate: null,
+        intervalPop: null,
         result: null,
         nowCityIndex: 0,
         rotateCities: [],
@@ -219,7 +220,7 @@
               dataList.push([index1, index2])
             });
           });
-          setInterval(() => {
+          this.intervalPop = setInterval(() => {
             var index = Math.floor((Math.random() * dataList.length));
             this.$refs.hotevent.dispatchAction({
               type: 'showTip',
@@ -275,6 +276,9 @@
           height: 1024
         });
       },
+    },
+    beforeDestroy () {
+      clearInterval(this.intervalPop)
     },
     components: {
       'Echarts': Echarts,

@@ -5,19 +5,19 @@
       <div class="table-tr">
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
+        <div class="table-th td-emotion">机构/国家</div>
+        <div class="table-th td-pos">职位</div>
         <div class="table-th td-location">专家姓名</div>
         <div class="table-th td-title">观点</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
-        <div class="table-th td-emotion">机构</div>
-        <div class="table-th td-pos">职位</div>
         <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
         <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
-        <div class="table-th td-country_l" v-if='!isevent'>
-          国家</div>
+<!--        <div class="table-th td-country_l" v-if='!isevent'>-->
+<!--          国家</div>-->
         <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
         <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
-      </div class="table-tr">
+      </div>
     </div>
     <div class="table table-striped list-table-body" >
         <div class="table-tr" v-for="(item) in dispValues" :key="item.viewid">
@@ -25,11 +25,13 @@
           <div class="table-tr-row">
             <!-- <div class="table-td td-index">{{ idx + 1 }}</div> -->
             <div class="table-td td-type">{{ item.newsinfo.theme }}</div>
+            <div class="table-td td-emotion">{{ item.orgname}}</div>
+            <div class="table-td td-pos">{{ item.pos}}</div>
             <div class="table-td td-location">{{ item.personname }}</div>
             <!-- <div class="table-td td-type">{{ item.type1 | toMinorType }}</div> -->
             <div class="table-td td-title" v-if='isevent'>
               <router-link class="title-link" :to="{name:'Event/Detail/Overall', params: {index: item.esIndex, eventId: item.id}}" target="_blank">
-                {{ item.viewpoint }}
+                {{ item.verb }}{{ item.viewpoint }}
               </router-link>
             </div>
             <div class="table-td td-title" v-else>
@@ -43,15 +45,13 @@
                     @mouseenter="enter(item)"
    		              @mouseleave="leave"
    		              @mousemove="updateXY">
-                {{ item.viewpoint}}
+                {{ item.verb }}{{ item.viewpoint}}
               </li>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
-            <div class="table-td td-emotion">{{ item.orgname}}</div>
-            <div class="table-td td-pos">{{ item.pos}}</div>
             <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
             <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
-            <div class="table-td td-country_l">{{ item.country}}</div>
+<!--            <div class="table-td td-country_l">{{ item.country}}</div>-->
             <!-- <div class="table-td td-content_l">{{ item.content_l | ellipsisname}}</div> -->
             <div class="table-td td-source" v-if="!isevent">
               <a :href="item.url">
@@ -346,7 +346,7 @@ export default {
   created () {
     window.addEventListener('scroll', this.handleScroll);
     let xs = _.map(_.uniqBy(this.dispDatas, 'viewid'), item => {
-      console.log(this.dispDatas)
+      // console.log(this.dispDatas)
       // fix the time.
       let s = '' + new Date(item.time).getTime();
       if (_.startsWith(s, '2017')) {
@@ -440,7 +440,7 @@ export default {
       position: relative
       padding: .75rem
       &.sorting
-        text-align: left
+        /*text-align: left*/
       // &.td-index
         // width: 5%
       &.td-type
