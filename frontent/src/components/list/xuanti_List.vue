@@ -38,7 +38,7 @@
                     class="trend"
                     title="查看详情"
                    :class="{ 'trend_asc': item.userview > 0, 'trend_desc': item.userview <= 0 }"
-                   @click="viewTrendGraph(item.title, item.content, item.orgs, item.persons)">
+                   @click="viewTrendGraph(item.title, item.content, item.orgs, item.persons, item.title_zh, item.content_zh)">
               </span>
               <a :href="item.url" class="title-link" target="_blank">{{ item.title }}</a>
             </div>
@@ -87,14 +87,14 @@
           </div>
         </div>
     </div>
-    <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="switch" style="float:right" v-if="this.selectedLanguage!=='中文'">
+    <b-modal id="modaltrend" size="lg" :title="this.language!=='中文'? (checked ? viewtitle:viewtitle_zh):viewtitle">
+      <div class="switch" style="float:right" v-if="this.language!=='中文'">
                 <span class="fa fa-rotate-180"
                       :class="{
                     'fa-toggle-on': checked,
                     'fa-toggle-off': !checked
                   }"
-                      @click="translate()"></span>
+                @click="translate()"></span>
         <label class="toggle-label">原文</label>
       </div>
       <div class="label">
@@ -102,7 +102,8 @@
       </div>
       <div class="chart" style="overflow-y: scroll">
         <!-- <Echarts theme="ring" :resizable="true" :option="trend_option" :loading="loading.trend" :loadingOpts="{ text: '加载中...' }"></Echarts> -->
-        {{viewtext}}
+        {{this.language !== '中文' ?
+        (checked ? viewtext:viewtext_zh) : viewtext}}
       </div>
       <div class="label">
         机构
@@ -170,7 +171,9 @@ export default {
       toggleSource: false,
       sourceMore: [],
       viewtitle: '',
+      viewtitle_zh: '',
       viewtext: '',
+      viewtext_zh: '',
       orgs: '',
       persons: '',
       checked: false,
@@ -212,7 +215,6 @@ export default {
   },
   watch: {
     language: function (language) {
-      console.log(this.selectedLanguage)
       this.selectedLanguage = language
     },
     dispDatas: function (datas) {
@@ -294,10 +296,13 @@ export default {
         this.toggleSource = false;
       }
     },
-    viewTrendGraph (title, text, orgs, persons) {
+    viewTrendGraph (title, text, orgs, persons, title_zh, text_zh) {
+      this.checked = false;
       this.viewtitle = title;
+      this.viewtitle_zh = title_zh;
       this.loading.trend = true;
       this.viewtext = text;
+      this.viewtext_zh = text_zh;
       this.orgs = orgs;
       this.persons = persons;
       // axios.get('/api/cache3/source/fetchTrendById', {params: {

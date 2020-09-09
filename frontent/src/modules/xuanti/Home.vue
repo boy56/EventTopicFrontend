@@ -49,10 +49,10 @@ export default {
     };
   },
   watch: {
-    searchInput: function (input) {
+    searchInput: function () {
       this.findDatas(this.filter);
     },
-    pageno: function (pageno) {
+    pageno: function () {
       this.findDatas(this.filter);
     },
   },
@@ -96,6 +96,7 @@ export default {
         this.dispDatas = response.data.newsList;
         // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         this.totalRows = response.data.totalElements;
+        this.selectedLanguge = filter.selectedLanguge;
       });
       // this.dispDatas = Demo.newsList;
       // console.log(this.dispDatas);
