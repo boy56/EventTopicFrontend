@@ -305,14 +305,13 @@ export default {
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
         this.Demo = response.data;
-        console.log(this.Demo.tendency_data.tendency_news);
         var exact_list = [];
         _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
           exact_list.push({'name': item.name, 'value': item.value})
         });
         var predict_list = [];
         _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
-          predict_list.push({'name': item.name, 'value': item.predict_value})
+          predict_list.push({'name': item.name, 'value': item.crisis_value})
         });
         // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
         // this.totalRows = response.data.totalElements;
@@ -384,7 +383,10 @@ export default {
           },
           tooltip: {
             trigger: 'item',
-            formatter: '{a} <br/>{b}({d}%)'
+            formatter: function (params) {
+              let news = _.join(params.data.news.slice(0, params.percent / 10), ' <br/>')
+              return params.data.name + ' (' + params.percent + '%) <br/>' + news
+            }
           },
           legend: {
             orient: 'vertical',
@@ -396,16 +398,15 @@ export default {
             'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
           series: [
             {
-              name: '',
+              name: '事件预测',
               type: 'pie',
-              radius: '70%',
-              center: ['35%', '50%'],
+              radius: '60%',
+              center: ['40%', '50%'],
               data: this.Demo.eventpre_data.data
             }
           ]
         };
         myChart.setOption(right_up_option);
-        console.log(((window.innerHeight - 159.5) * 0.5) / 40)
         this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
         // this.dispDatas = Data;
         // console.log(this.Demo);

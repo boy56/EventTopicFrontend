@@ -24,7 +24,7 @@
                       <div class="item-content">
                         <div class="content-top ">
                           <span class="view-type attr-block">{{topic}}</span>
-                          <p class="title">{{e.title}}</p>
+                          <p class="title" :title="e.title">{{e.title}}</p>
                         </div>
                         <div class="content-bt clearfix">
                           <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>

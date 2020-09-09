@@ -415,10 +415,10 @@ export default {
 
 // special switch, double-orientated.
 .switch
-  font-size: 1.6rem;
+  font-size: 1.6rem
   span.fa
-    font-size: 2.0rem;
-    cursor: pointer;
+    font-size: 2.0rem
+    cursor: pointer
   .fa-toggle-on
     // color: rgba(255, 255, 255, .6)
     color: #2196f3
@@ -483,7 +483,7 @@ export default {
   margin-bottom: 10px
   font-size: 2rem
   font-family: "Microsoft Yahei"
-  border-color: #ddd;
+  border-color: #ddd
 .chart
   width: 750px
   max-height: 400px
