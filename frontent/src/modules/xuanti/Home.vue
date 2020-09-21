@@ -58,6 +58,15 @@ export default {
   },
   created () {
     this.topic = this.$route.query.queryId;
+    if (this.$route.query.lang === '中文' || this.$route.query.lang === '英文' || this.$route.query.lang === '日文' || this.$route.query.lang === '韩文') {
+      this.selectedLanguge = this.$route.query.lang;
+    }
+    if (this.$route.query.startDate) {
+      this.searchInput.dateStart = new Date(this.$route.query.startDate);
+    }
+    if (this.$route.query.endDate) {
+      this.searchInput.dateEnd = new Date(this.$route.query.endDate);
+    }
     this.findDatas();
   },
   mounted () {

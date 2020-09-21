@@ -155,6 +155,12 @@ export default {
   },
   created () {
     this.topic = this.$route.query.queryId;
+    if (this.$route.query.startDate) {
+      this.searchInput.dateStart = new Date(this.$route.query.startDate);
+    }
+    if (this.$route.query.endDate) {
+      this.searchInput.dateEnd = new Date(this.$route.query.endDate);
+    }
     window.addEventListener('resize', this.getHeight);
     this.getHeight();
     // var echarts = require('echarts');
@@ -332,7 +338,7 @@ export default {
           tooltip: {
             trigger: 'axis',
             formatter: function (param) {
-              return '<div>' + param[0].data.name + '</div> <div>实际：' + param[0].data.value + '</div><div>预测：' + param[1].data.value + '</div>';
+              return '<div>' + param[0].data.name + '</div> <div>实际：' + param[0].data.value + '</div><div>风险：' + param[1].data.value + '</div>';
             }
           },
           legend: {
@@ -384,7 +390,7 @@ export default {
           tooltip: {
             trigger: 'item',
             formatter: function (params) {
-              let news = _.join(params.data.news.slice(0, params.percent / 10), ' <br/>')
+              let news = _.join(params.data.news.slice(0, params.percent / 10 + 1), ' <br/>')
               return params.data.name + ' (' + params.percent + '%) <br/>' + news
             }
           },

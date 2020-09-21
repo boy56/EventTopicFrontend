@@ -150,7 +150,15 @@
       }
     },
     mounted () {
-      this.topic = '南海';
+      if (this.$route.query.event) {
+        if (this.$route.query.event === '南海' || this.$route.query.event === '朝核' || this.$route.query.event === '台选') {
+          this.clicking(this.$route.query.event);
+        } else {
+          this.topic = '南海';
+        }
+      } else {
+        this.topic = '南海';
+      }
       this.echartsGlobe();
       this.findDatas();
     },
@@ -256,7 +264,6 @@
           this.topic_color3 = 'red';
         }
         this.findDatas();
-        this.around(41);
       },
       clicking_news: function (term) {
         this.right_up_list = term;
