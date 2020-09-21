@@ -2,7 +2,7 @@
   <div style="background: #f4f4f4">
     <v-header :headdata='headdata'></v-header>
     <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
-      <v-filter @update:filter="updateFilter"></v-filter>
+      <v-filter @update:filter="updateFilter" :language="this.selectedLanguge"></v-filter>
       <v-search-box :search-input.sync="searchInput"></v-search-box>
       <v-list :disp-datas="dispDatas"
               :language="selectedLanguge"
@@ -41,7 +41,7 @@ export default {
       },
       filter: {
         selectedTypes: [],
-        selectedLanguge: '中文',
+        selectedLanguge: this.selectedLanguge,
         selectedLocation: '全部',
         selectedSecu: false,
         selectedWords: [],
@@ -60,6 +60,7 @@ export default {
     this.topic = this.$route.query.queryId;
     if (this.$route.query.lang === '中文' || this.$route.query.lang === '英文' || this.$route.query.lang === '日文' || this.$route.query.lang === '韩文') {
       this.selectedLanguge = this.$route.query.lang;
+      this.filter.selectedLanguge = this.$route.query.lang;
     }
     if (this.$route.query.startDate) {
       this.searchInput.dateStart = new Date(this.$route.query.startDate);

@@ -43,6 +43,12 @@
   import { ManyType, Topic } from 'components/Const'
 
   export default {
+    props: {
+      language: {
+        type: String,
+        default: '中文'
+      }
+    },
     data () {
       return {
         categories: ManyType,
@@ -52,7 +58,7 @@
         locations: ['全部', '国内', '海外'],
         selectedCats: [],
         selectedLegacyTypes: [],
-        selectedLanguge: '中文',
+        selectedLanguge: this.language,
         selectedLocation: '全部',
         selectedSecu: false,
         selectedTopics: [],
