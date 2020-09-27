@@ -17,7 +17,7 @@ import '../../libs/date.format.js'
 // import '../../libs/bg.js'
 import 'components/Common'
 import axios from 'axios'
-axios.defaults.baseURL = 'http://ring.act.buaa.edu.cn/FeatureEvent/'
+axios.defaults.baseURL = 'API_BASE_URL'
 Vue.prototype.axios = axios
 Vue.config.devtools = true
 Vue.use(BootstrapVue)

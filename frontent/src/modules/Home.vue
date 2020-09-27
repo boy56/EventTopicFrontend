@@ -40,9 +40,9 @@
       <div class="con-box world-map">
           <table style="width:100%">
             <tr>
-              <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(10324)</td>
-              <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(20234)</td>
-              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(23353)</td>
+              <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(6561)</td>
+              <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(6440)</td>
+              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(14384)</td>
             </tr>
           </table>
           <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
