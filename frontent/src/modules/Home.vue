@@ -113,7 +113,6 @@
 <script type="text/ecmascript-6">
   import 'components/charts/theme/Ring.js'
   import Echarts from 'vue-echarts-v3/src/full.js'
-  import echarts from 'echarts'
   require('echarts-gl');
 
   import 'echarts/map/js/world.js';
@@ -159,7 +158,6 @@
       } else {
         this.topic = '南海';
       }
-      this.echartsGlobe();
       this.findDatas();
     },
     filters: {
@@ -223,11 +221,12 @@
           this.options.right_down.option.legend.data = this.Demo.event_data.legend;
           this.options.right_down.option.series = this.Demo.event_data.series;
           let dataList = [];
-          _.each(this.Demo.event_data.series, (value1, index1) => {
+          _.each(this.options.right_down.option.series, (value1, index1) => {
             _.each(value1['data'], (value2, index2) => {
               dataList.push([index1, index2])
             });
           });
+          clearInterval(this.intervalPop);
           this.intervalPop = setInterval(() => {
             var index = Math.floor((Math.random() * dataList.length));
             this.$refs.hotevent.dispatchAction({
@@ -271,18 +270,7 @@
           this.right_up_list[j].timestr = new Date(this.right_up_list[j].time).format('yyyy-MM-dd');
         }
         this.around(41);
-      },
-      each: function (a,b) {
-        for (var c = 0,d = a.length; d > c && b(c,a[c]) !== !1; c++);
-      },
-      echartsGlobe () {
-        // 创建一个canvas类型的对象(mapChart)来作为地球的纹理(baseTexture)
-        let canvas = document.createElement('canvas');
-        echarts.init(canvas, null, {
-          width: 2048,
-          height: 1024
-        });
-      },
+      }
     },
     beforeDestroy () {
       clearInterval(this.intervalPop)
