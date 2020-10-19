@@ -15,9 +15,11 @@
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto pc-nav" style='color: white'>
-          <!-- <b-nav-item class="login-item" v-if="!user.logined" href="/account/#/">登陆</b-nav-item> -->
+          <div style="padding: 1.5rem">
+            当前专题：<span style="color: red">{{topic}}专题</span>
+          </div>
           <li class="nav-item" style='color: white'>
-            <a href="#/" class="nav-link active" target="_self" style='color: white'>
+            <a :href='"#/?event="+topic' class="nav-link active" target="_self" style='color: white'>
               <img src="~assets/image/home.png" alt="">
             </a>
           </li>
@@ -42,6 +44,12 @@ export default {
       default () {
         return '';
       }
+    },
+    'topic': {
+      type: String,
+      default () {
+        return '南海';
+      }
     }
   },
   data () {
@@ -49,7 +57,6 @@ export default {
       title: '事件',
       searchfn: x => x, // identity function.
       nosearch: false,
-      topic: '',
     };
   },
   computed: {

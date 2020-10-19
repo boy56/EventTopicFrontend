@@ -43,7 +43,7 @@ const ChartLib = {
         }
       },
       legend: {
-        data: ['朝鲜','南海','台湾']
+        data: ['朝核','南海','台选']
       },
       grid: {
         left: '6%',

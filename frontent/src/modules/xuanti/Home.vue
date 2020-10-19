@@ -1,6 +1,6 @@
 <template>
   <div style="background: #f4f4f4">
-    <v-header :headdata='headdata'></v-header>
+    <v-header :headdata='headdata' :topic="topic"></v-header>
     <div class="xuanti-page-wrapper" v-title data-title="综合推荐">
       <v-filter @update:filter="updateFilter" :language="this.selectedLanguge"></v-filter>
       <v-search-box :search-input.sync="searchInput"></v-search-box>

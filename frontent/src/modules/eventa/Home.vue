@@ -1,9 +1,9 @@
 <template>
   <div style="background: #f4f4f4">
-    <v-header :headdata='headdata'></v-header>
+    <v-header :headdata='headdata' :topic="topic"></v-header>
     <div class="page-wrapper" v-title data-title="事件分析">
       <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
-      <v-search-box :search-input.sync="searchInput"></v-search-box>
+      <v-search-box :search-input.sync="searchInput" :search-time="loadingTime"></v-search-box>
       <div class="row" :style="chartStyle">
         <div class="col-6">
           <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
@@ -63,6 +63,7 @@ export default {
       left_down_data: [],
       topic: null,
       Demo: null,
+      loadingTime: 0.795,
       imgUrl: require('../../assets/image/eventa.png'),
       // for timeline
       timeline: {},
@@ -163,89 +164,9 @@ export default {
     }
     window.addEventListener('resize', this.getHeight);
     this.getHeight();
-    // var echarts = require('echarts');
   },
   mounted () {
     this.findDatas();
-    // require(['components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
-    // console.log(this.Demo);
-    // // this.options.left_up.option = ChartLib.折线图朝鲜.option;
-    // // this.event = Demo.data[0];
-    // console.log(this.timeline);
-    // console.log(this.event);
-    // // console.log(sources);
-    // var myChart = echarts.init(document.getElementById('left_up'));
-    // var left_up_option = {
-    //   title: {
-    //     text: ''
-    //   },
-    //   tooltip: {
-    //     trigger: 'item',
-    //     formatter: function (param) {
-    //       return param.data.name + ':' + param.data.value;
-    //     }
-    //   },
-    //   legend: {
-    //     // data: ['朝鲜','南海','台湾']
-    //   },
-    //   grid: {
-    //     left: '1%',
-    //     right: '1%',
-    //     bottom: '2%',
-    //     containLabel: true
-    //   },
-    //   xAxis: {
-    //     type: 'category',
-    //     boundaryGap: false,
-    //     data: this.Demo.tendency_data.tendency_time
-    //   },
-    //   yAxis: {
-    //     type: 'value'
-    //   },
-    //   series: [
-    //     {
-    //       name: '南海',
-    //       type: 'line',
-    //       stack: '总量',
-    //       areaStyle: {normal: {}},
-    //       data: this.Demo.tendency_data.tendency_news
-    //     },
-    //   ]
-    // }
-    // myChart.setOption(left_up_option);
-    // // console.log(myChart);
-    // myChart = echarts.init(document.getElementById('right_up'));
-    // // var ru_data = this.genData(50);
-    // var right_up_option = {
-    //   title: {
-    //     text: '美军两架B-1B轰炸机与日空自联演后飞越南海上空',
-    //     subtext: '',
-    //     x: 'center'
-    //   },
-    //   tooltip: {
-    //     trigger: 'item',
-    //     formatter: '{a} <br/>{b}({d}%)'
-    //   },
-    //   legend: {
-    //     orient: 'vertical',
-    //     left: '70%',
-    //     y: 'center',
-    //     data: this.Demo.eventpre_data.legend_data
-    //   },
-    //   color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
-    //     'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
-    //   series: [
-    //     {
-    //       name: '',
-    //       type: 'pie',
-    //       radius: '70%',
-    //       center: ['35%', '50%'],
-    //       data: this.Demo.eventpre_data.data
-    //     }
-    //   ]
-    // };
-    // myChart.setOption(right_up_option);
-    // this.left_down_data = this.Demo.view_cluster_data;
   },
   beforeDestroy () {
   },
@@ -295,6 +216,7 @@ export default {
       selectedSecu: false,
       selectedWords: [],
     }) {
+      let startTime = Date.now();
       axios.get('api/search_eventa', {params: {
         date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
         date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
@@ -303,9 +225,6 @@ export default {
         include_text: this.searchInput.includeText,
         size: 64,
         pageno: this.pageno,
-        // sort: filter.selectedSecu ? 'risk' : '', // 如果选中“突发敏感”，搜索时按secu排序，否则按时间排序
-        // types0: _.join(filter.selectedLegacyTypes, ' '),
-        // types2: _.join(filter.selectedTypes, ' '),
         language: filter.selectedLanguge,
         location: filter.selectedLocation,
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
@@ -319,16 +238,7 @@ export default {
         _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
           predict_list.push({'name': item.name, 'value': item.crisis_value})
         });
-        // this.dispDatas = this.dispDatas.slice((this.pageno - 1) * 50, this.pageno * 50);
-        // this.totalRows = response.data.totalElements;
         require(['../../components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
-        // console.log(this.Demo);
-        // console.log(response);
-        // this.options.left_up.option = ChartLib.折线图朝鲜.option;
-        // this.event = Demo.data[0];
-        // console.log(this.timeline);
-        // console.log(this.event);
-        // console.log(sources);
         var myChart = echarts.init(document.getElementById('left_up'));
         var left_up_option = {
           title: {
@@ -391,7 +301,7 @@ export default {
             trigger: 'item',
             formatter: function (params) {
               let news = _.join(params.data.news.slice(0, params.percent / 10 + 1), ' <br/>')
-              return params.data.name + ' (' + params.percent + '%) <br/>' + news
+              return params.data.name + ' (' + params.percent + '%) <br/>（' + params.data.name_content + '）<br/>' + news
             }
           },
           legend: {
@@ -414,8 +324,7 @@ export default {
         };
         myChart.setOption(right_up_option);
         this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
-        // this.dispDatas = Data;
-        // console.log(this.Demo);
+        this.loadingTime = (Date.now() - startTime) / 1000;
       });
       // this.totalRows = 64;
       // console.log(this.totalRows);
