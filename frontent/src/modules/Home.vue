@@ -149,9 +149,9 @@
       }
     },
     mounted () {
-      if (this.$route.query.event) {
-        if (this.$route.query.event === '南海' || this.$route.query.event === '朝核' || this.$route.query.event === '台选') {
-          this.clicking(this.$route.query.event);
+      if (this.$route.query.queryId) {
+        if (this.$route.query.queryId === '南海' || this.$route.query.queryId === '朝核' || this.$route.query.queryId === '台选') {
+          this.clicking(this.$route.query.queryId);
         } else {
           this.topic = '南海';
         }
@@ -206,6 +206,7 @@
         // 热度趋势图
           this.options.left_down.option = ChartLib['折线图南海'].option;
           // this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
+          this.options.left_down.option.series[0].name = this.topic
           this.options.left_down.option.series[0].data = this.Demo.hot_data.data;
 
         // 情绪分布图

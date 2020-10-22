@@ -19,6 +19,7 @@
       <button class="search-title btn" @click="searchTitle">搜索</button>
       <!-- <button class="search-title-cont btn" @click="searchTitleText">搜标题+正文</button> -->
     </div>
+    <div>搜索用时：{{searchTime}}秒</div>
   </div>
 </template>
 
@@ -38,6 +39,10 @@
           };
         }
       },
+      searchTime: {
+        type: Number,
+        default: 0.754
+      }
     },
     data () {
       return {

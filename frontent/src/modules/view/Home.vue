@@ -1,6 +1,6 @@
 <template>
   <div style="background: #f4f4f4">
-    <v-header :headdata='headdata'></v-header>
+    <v-header :headdata='headdata' :topic="topic"></v-header>
     <div class="view-page-wrapper" v-title data-title="专家观点">
       <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
       <v-search-box :search-input.sync="searchInput"></v-search-box>
