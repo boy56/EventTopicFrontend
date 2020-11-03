@@ -23,15 +23,18 @@
       <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700">专家观点</div>
       <table style="width:100%; height: 80%; table-layout: fixed">
         <tr>
-          <td style="width:84%; font-size: 18px; text-align: center; font-family: 'SimHei'">中心观点</td>
-          <td style="width:16%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点数量</td>
+          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">事件类型</td>
+          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点来源</td>
+          <td style="width:48%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点内容</td>
+          <td style="width:12%; font-size: 18px; text-align: center; font-family: 'SimHei'">发布时间</td>
         </tr>
-        <tr v-bind:key='item.center' v-for='item in left_down_data' style="height: 4rem">
-          <td style="width:96%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical; display: -webkit-box;font-size: 14px;" :title="item.center">{{item.center}}</td>
+        <tr v-bind:key='item.viewpoint' v-for='item in left_down_data' style="height: 4rem">
+          <td style="width:20%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.eventname">{{item.eventname}}</td>
+          <td style="width:20%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.org">{{item.org}}</td>
+          <td style="width:48%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.viewpoint">{{item.viewpoint}}</td>
           <!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
-          <td style="width:20%;overflow: hidden;line-height: 1.5;">{{item.view_num}}</td>
+          <td style="width:12%;overflow: hidden;line-height: 1.5;">{{new Date(item.time).format('yyyy-MM-dd')}}</td>
         </tr>
-        <tr style="height:rem"></tr>
       </table>
 <!--      <v-footer></v-footer>-->
       <!-- </iframe> -->
@@ -321,7 +324,8 @@ export default {
           ]
         };
         myChart.setOption(right_up_option);
-        this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
+        // this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
+        this.left_down_data = this.Demo.nextevent_views;
         this.loadingTime = (Date.now() - startTime) / 1000;
       });
     },
