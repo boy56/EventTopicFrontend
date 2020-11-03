@@ -288,9 +288,7 @@ export default {
           ]
         }
         myChart.setOption(left_up_option);
-        // console.log(myChart);
         myChart = echarts.init(document.getElementById('right_up'));
-        // var ru_data = this.genData(50);
         var right_up_option = {
           title: {
             text: '事件预测',
@@ -301,7 +299,7 @@ export default {
             trigger: 'item',
             formatter: function (params) {
               let news = _.join(params.data.news.slice(0, params.percent / 10 + 1), ' <br/>')
-              return params.data.name + ' (' + params.percent + '%) <br/>（' + params.data.name_content + '）<br/>' + news
+              return '后续事件：<br/>' + params.data.name + '(' + params.percent + '%) <br/>事件描述：<br/>（' + params.data.name_content + '）<br/>相关新闻：<br/>' + news
             }
           },
           legend: {
@@ -326,8 +324,6 @@ export default {
         this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
         this.loadingTime = (Date.now() - startTime) / 1000;
       });
-      // this.totalRows = 64;
-      // console.log(this.totalRows);
     },
     fetchSimNewsById: function (id, callback) {
       axios.get('/api/cache3/source/fetchSimNewsById', {params: {
@@ -344,13 +340,9 @@ export default {
       var sources = {events: []};
       var response = this.Demo.timeline_data;
       this.TL = TL;
-      // console.log(response);
       response.data = _.orderBy(response.data, 'releaseDate');
-      // console.log(response.data);
-      // let maxSim = 0.0;
       let maxSimIndex = -1;
       if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
-        // console.log('isEmpty');
         let date = new Date(this.event.dateDay);
         sources.events = [{
           start_date: {
@@ -369,13 +361,10 @@ export default {
           unique_id: this.event.eventId,
         }];
       } else {
-        // console.log('noEmpty');
         sources.events = _.map(response.data, item => {
           let date = new Date(item.dateDay);
           let text = item.content;
-          // console.log(text);
           if (item.foreign && item.content) {
-            // console.log('foreign');
             text = '<div class="text-content-wrapper">' +
                     '<div class="text-content-inner text-content-left">' + item.content + '</div>' +
                     '<div class="text-content-sep"></div>' +
@@ -400,16 +389,7 @@ export default {
           };
           return source;
         });
-        // console.log(sources);
         this.unique_id = _.last(response.data).id;
-        // calculate max similarity index.
-        // console.log(this.unique_id);
-        // for (var i = 0; i < response.data.length; ++i) {
-        //   if (response.data[i].similarity > maxSim) {
-        //     maxSimIndex = i;
-        //     maxSim = response.data[i].similarity;
-        //   }
-        // }
       }
       let options = { language: 'zh_CN', start_at_end: true };
       this.timeline = new this.TL.Timeline('source-timeline', sources, options);
