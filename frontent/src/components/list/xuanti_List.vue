@@ -7,76 +7,32 @@
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
         <div class="table-th td-title">标题</div>
-        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
-        <!-- <div class="table-th td-location">位置</div> -->
-        <!-- <div class="table-th td-emotion">观点数量</div> -->
-        <!-- <div class="table-th td-userview">用户访问量</div> -->
-        <!-- <div class="table-th td-hot">内容</div> -->
-        <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
-        <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
-        <div class="table-th td-crisis sorting" @click="sortValues('crisis')">危机指数</div>
-        <div class="table-th td-believe sorting" v-if='!isevent' @click="sortValues('reliability')">可靠性</div>
-        <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
-        <div class="table-th td-source sorting" v-if='!isevent' @click="sortValues('customer')">来源</div>
-        <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
+        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间 {{this.sortingMap.time === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-crisis sorting" @click="sortValues('crisis')">危机指数 {{this.sortingMap.crisis === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-believe sorting" @click="sortValues('reliability')">可靠性 {{this.sortingMap.reliability === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-source sorting" @click="sortValues('customer')">来源 {{this.sortingMap.customer === 'desc'? '↓': '↑'}}</div>
       </div>
     </div>
     <div class="table table-striped list-table-body" >
         <div class="table-tr" v-for="(item) in dispValues" :key="item.newsid">
           <!-- 正常列表 -->
           <div class="table-tr-row">
-            <!-- <div class="table-td td-index">{{ idx + 1 }}</div> -->
             <div class="table-td td-type">{{ item.theme_label }}</div>
-            <!-- <div class="table-td td-type">{{ item.type1 | toMinorType }}</div> -->
-            <div class="table-td td-title" v-if='isevent'>
-              <router-link class="title-link" :to="{name:'Event/Detail/Overall', params: {index: item.esIndex, eventId: item.id}}" target="_blank">
-                {{ item.title }}
-              </router-link>
-            </div>
-            <div class="table-td td-title" v-else>
-              <span v-b-model.modaltrend
-                    class="trend"
-                    title="查看详情"
-                   :class="{ 'trend_asc': item.userview > 0, 'trend_desc': item.userview <= 0 }"
-                   @click="viewTrendGraph(item.title, item.content, item.orgs, item.persons, item.title_zh, item.content_zh)">
-              </span>
-              <a :href="item.url" class="title-link" target="_blank">{{ item.title }}</a>
+            <div class="table-td td-title"
+                 @click="viewTrendGraph(item.title, item.content, item.orgs, item.persons, item.title_zh, item.content_zh, item.url)">
+              <div class="title-link"
+                   v-b-model.modaltrend
+                   style="cursor: pointer"
+              >{{ item.title }}</div>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
-            <!-- <div class="table-td td-location">{{ item.location }}</div> -->
-            <div class="table-td td-emotion">{{ item.crisis}}</div>
-<!--            <div class="table-td td-hot">{{ item.content_label }}</div>-->
+            <div class="table-td td-crisis">{{ item.crisis}}</div>
             <div class="table-td td-believe">{{ item.reliability }}</div>
-            <!-- <div class="table-td td-country_l">{{ item.country_label }}</div> -->
-            <!-- <div class="table-td td-content_l">{{ item.content_label }}</div> -->
-            <!-- <div class="table-td td-userview">{{ item.userview }}</div> -->
-            <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
-            <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
             <div class="table-td td-source" v-if="!isevent">
               <a :href="item.url">
                 {{item.customer}}
               </a>
             </div>
-            <!-- <div class="table-td td-source" v-if="!isevent">
-              <span v-if="item.datatag === 'event'">
-                <a class="event-link" :href="'#/event/detail/' + item.esIndex + '/' + item.id" target="_blank">演化分析</a>
-              </span>
-              <span v-else @click="moreSource(item)">
-                {{ item.user }}
-                <i v-if="item.simids && item.simids.length > 0" class="fa fa-chevron-down"></i>
-              </span>
-            </div> -->
-            <!-- <div class="table-td td-feedback" v-if="!isevent">
-              <div class="switch">
-                <span class="fa fa-rotate-180"
-                  :class="{
-                    'fa-toggle-on': item.related,
-                    'fa-toggle-off': !item.related
-                  }"
-                  @click="toggleItem(idx)"></span>
-                <label class="toggle-label">不相关</label>
-              </div>
-            </div> -->
           </div>
           <!-- 更多列表 -->
           <div class="from-source" v-if="toggleSource == item.id" v-for="(subitem, idx) in sourceMore">
@@ -117,6 +73,8 @@
       <div class="chart">
         {{persons}}
       </div>
+      <hr>
+      <a :href="url" class="label">查看原文</a>
       <footer slot="modal-footer"></footer>
     </b-modal>
   </div>
@@ -176,6 +134,7 @@ export default {
       viewtext_zh: '',
       orgs: '',
       persons: '',
+      url: '',
       checked: false,
       loading: { trend: true },
       trend_option: {
@@ -231,29 +190,6 @@ export default {
             item.timestr = new Date(item.time.replace('+0000', 'Z')).format('yyyy-MM-dd');
           }
         }
-
-        // if (item.eventLoc) {
-        //   item.location = item.eventLoc;
-        // }
-        // if (item.eventId) {
-        //   item.id = item.eventId;
-        // }
-        // if (item.risk > 0 && item.risk < 1) {
-        //   item.risk = Math.round(item.risk * 100);
-        // }
-
-        // fix the trend
-        // item.trend = item.type0 - 5; // TODO
-        // fix the event's link and source
-        // if (item.datatag === 'event') {
-        //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-        // }
-        // Location去掉”中国“前缀
-        // if (_.startsWith(item.location, '中国')) {
-        //   item.location = item.location.substring(2);
-        // }
-        // 相关/不相关标注
-        // item.related = true;
         return item;
       });
       if (this.sorting) {
@@ -264,11 +200,6 @@ export default {
     },
   },
   methods: {
-    // handleScroll () {
-    //   // 当页面滚动超过当前元素距视口顶部的距离时，表格头置顶
-    //   var topHeight = this.$refs.TableHeadWrapper.offsetTop;
-    //   this.scrolled = window.scrollY > topHeight;
-    // },
     translate () {
       this.checked = !this.checked
     },
@@ -296,7 +227,7 @@ export default {
         this.toggleSource = false;
       }
     },
-    viewTrendGraph (title, text, orgs, persons, title_zh, text_zh) {
+    viewTrendGraph (title, text, orgs, persons, title_zh, text_zh, url) {
       this.checked = false;
       this.viewtitle = title;
       this.viewtitle_zh = title_zh;
@@ -305,20 +236,7 @@ export default {
       this.viewtext_zh = text_zh;
       this.orgs = orgs;
       this.persons = persons;
-      // axios.get('/api/cache3/source/fetchTrendById', {params: {
-      //   id: id,
-      //   text: text,
-      //   kind: 'daily',
-      //   time: new Date(time).format('yyyy-MM-ddThh:mm:ss.000+0800'),
-      // }}).then(response => {
-      //   this.loading.trend = false;
-      //   let dates = _.map(_.keys(response.data), date => {
-      //     return new Date(date).format('dd日hh时');
-      //   });
-      //   let values = _.values(response.data);
-      //   this.trend_option.xAxis.data = dates;
-      //   this.trend_option.series[0].data = values;
-      // });
+      this.url = url;
     },
     toggleItem (idx) {
       let item = this.dispValues[idx];
@@ -371,28 +289,6 @@ export default {
         }
       }
 
-      // if (item.eventLoc) {
-      //   item.location = item.eventLoc;
-      // }
-      // if (item.eventId) {
-      //   item.id = item.eventId;
-      // }
-      // if (item.risk > 0 && item.risk < 1) {
-      //   item.risk = Math.round(item.risk * 100);
-      // }
-
-      // // fix the trend
-      // item.trend = item.type0 - 5; // TODO
-      // fix the event's link and source
-      // if (item.datatag === 'event') {
-      //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-      // }
-      // Location去掉”中国“前缀
-      // if (_.startsWith(item.location, '中国')) {
-      //   item.location = item.location.substring(2);
-      // }
-      // // 相关/不相关标注
-      // item.related = true;
       return item;
     });
     if (this.sorting) {
@@ -449,10 +345,6 @@ export default {
       color: #fff
       position: relative
       padding: .75rem
-      &.sorting
-        /*text-align: left*/
-      // &.td-index
-        // width: 5%
       &.td-type
         width: 10%
       &.td-title
@@ -466,18 +358,12 @@ export default {
           left: 7%
         &:after
           right: 10%
-      &.td-emotion
-        width: 8%
       &.td-crisis
         width: 8%
-      // &.td-location
-        // width: 5%
-      &.td-hot
-        width: 10%
       &.td-believe
-        width: 5%
+        width: 8%
       &.td-source
-        width: 15%
+        width: 12%
 .label
   width: 750px
   margin-bottom: 10px
@@ -520,10 +406,11 @@ export default {
         &.td-type
           width: 10%
         &.td-title
-          flex: 1
+          flex: none
           display: flex
           text-align: left
           align-items: center
+          width: 47%
           .trend
             flex: none
             width: 18px
@@ -543,24 +430,12 @@ export default {
         &.td-date
           width: 15%
           text-align: center
-        &.td-emotion
+        &.td-crisis
           width: 8%
-        // &.td-location
-          // width: 5%
-        &.td-hot
-          width: 10%
         &.td-believe
-          width: 5%
-        // &.td-sensitive
-          // width: 7%
-        // &.td-recommend
-          // width: 6%
-        // &.td-country_l
-          // width: 6%
-        // &.td-content_l
-          // width: 10%
+          width: 8%
         &.td-source
-          width: 15%
+          width: 12%
           vertical-align: middle
           position: relative
           cursor: pointer

@@ -10,13 +10,7 @@
         <div class="table-th td-location">专家姓名</div>
         <div class="table-th td-title">观点</div>
         <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
-        <!-- <div class="table-th td-sensitive sorting" :class="sortingMap.risk" @click="sortValues('risk')">风险度</div> -->
-        <!-- <div class="table-th td-recommend sorting" :class="sortingMap.recommend" @click="sortValues('recommend')">推荐</div> -->
-<!--        <div class="table-th td-country_l" v-if='!isevent'>-->
-<!--          国家</div>-->
-        <!-- <div class="table-th td-content_l" v-if='!isevent'>内容类别</div> -->
         <div class="table-th td-source" v-if='!isevent'>来源</div>
-        <!-- <div class="table-th td-feedback" v-if='!isevent'>相关性标注</div> -->
       </div>
     </div>
     <div class="table table-striped list-table-body" >
@@ -34,13 +28,10 @@
                 {{ item.verb }}{{ item.viewpoint }}
               </router-link>
             </div>
-            <div class="table-td td-title" v-else>
-              <span v-b-model.modaltrend
-                    class="trend"
-                    title="查看详情"
-                   :class="{ 'trend_asc': item.sentiment > 0, 'trend_desc': item.sentiment <= 0 }"
-                   @click="viewTrendGraph(item.personname + item.verb + item.viewpoint, item.newsinfo.content)">
-              </span>
+            <div class="table-td td-title"
+                 v-b-model.modaltrend
+                 @click="viewTrendGraph(item.personname + item.verb + item.viewpoint, item.newsinfo.content)"
+            >
               <li class="title-link" target="_blank"
                     @mouseenter="enter(item)"
    		              @mouseleave="leave"
@@ -49,35 +40,11 @@
               </li>
             </div>
             <div class="table-td td-date">{{ item.timestr }}</div>
-            <!-- <div class="table-td td-sensitive">{{ Math.max(item.risk, 0) }}</div> -->
-            <!-- <div class="table-td td-recommend">{{ Math.max(item.recommend, 0) }}</div> -->
-<!--            <div class="table-td td-country_l">{{ item.country}}</div>-->
-            <!-- <div class="table-td td-content_l">{{ item.content_l | ellipsisname}}</div> -->
             <div class="table-td td-source" v-if="!isevent">
               <a :href="item.url">
                 {{item.newsinfo.source}}
               </a>
             </div>
-            <!-- <div class="table-td td-source" v-if="!isevent">
-              <span v-if="item.datatag === 'event'">
-                <a class="event-link" :href="'#/event/detail/' + item.esIndex + '/' + item.id" target="_blank">演化分析</a>
-              </span>
-              <span v-else @click="moreSource(item)">
-                {{ item.user }}
-                <i v-if="item.simids && item.simids.length > 0" class="fa fa-chevron-down"></i>
-              </span>
-            </div> -->
-            <!-- <div class="table-td td-feedback" v-if="!isevent">
-              <div class="switch">
-                <span class="fa fa-rotate-180"
-                  :class="{
-                    'fa-toggle-on': item.related,
-                    'fa-toggle-off': !item.related
-                  }"
-                  @click="toggleItem(idx)"></span>
-                <label class="toggle-label">不相关</label>
-              </div>
-            </div> -->
           </div>
           <!-- 更多列表 -->
           <div class="from-source" v-if="toggleSource == item.id" v-for="(subitem, idx) in sourceMore">
@@ -193,28 +160,6 @@ export default {
           }
         }
 
-        // if (item.eventLoc) {
-        //   item.location = item.eventLoc;
-        // }
-        // if (item.eventId) {
-        //   item.id = item.eventId;
-        // }
-        // if (item.risk > 0 && item.risk < 1) {
-        //   item.risk = Math.round(item.risk * 100);
-        // }
-
-        // // fix the trend
-        // item.trend = item.type0 - 5; // TODO
-        // // fix the event's link and source
-        // if (item.datatag === 'event') {
-        //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-        // }
-        // // Location去掉”中国“前缀
-        // if (_.startsWith(item.location, '中国')) {
-        //   item.location = item.location.substring(2);
-        // }
-        // // 相关/不相关标注
-        // item.related = true;
         return item;
       });
       if (this.sorting) {
@@ -241,18 +186,6 @@ export default {
     }
   },
   methods: {
-    handleScroll () {
-      // 当页面滚动超过当前元素距视口顶部的距离时，表格头置顶
-      var topHeight = this.$refs.TableHeadWrapper.offsetTop;
-      this.scrolled = window.scrollY > topHeight;
-      if (this.scrolled) {
-        if (window.innerWidth < 1200) {
-          this.width = window.innerWidth - 30 + 'px'
-        } else {
-          this.width = 1200 - 30 + 'px'
-        }
-      }
-    },
     moreSource (item) {
       this.sourceMore = [];
       if (this.toggleSource !== item.id) {
@@ -281,21 +214,6 @@ export default {
       this.viewtitle = title;
       this.loading.trend = true;
       this.viewtext = text;
-
-      // axios.get('/api/cache3/source/fetchTrendById', {params: {
-      //   id: id,
-      //   text: text,
-      //   kind: 'daily',
-      //   time: new Date(time).format('yyyy-MM-ddThh:mm:ss.000+0800'),
-      // }}).then(response => {
-      //   this.loading.trend = false;
-      //   let dates = _.map(_.keys(response.data), date => {
-      //     return new Date(date).format('dd日hh时');
-      //   });
-      //   let values = _.values(response.data);
-      //   this.trend_option.xAxis.data = dates;
-      //   this.trend_option.series[0].data = values;
-      // });
     },
     toggleItem (idx) {
       let item = this.dispValues[idx];
@@ -344,7 +262,6 @@ export default {
     },
   },
   created () {
-    window.addEventListener('scroll', this.handleScroll);
     let xs = _.map(_.uniqBy(this.dispDatas, 'viewid'), item => {
       // console.log(this.dispDatas)
       // fix the time.
@@ -358,29 +275,6 @@ export default {
           item.timestr = new Date(item.time.replace('+0000', 'Z')).format('yyyy-MM-dd');
         }
       }
-
-      // if (item.eventLoc) {
-      //   item.location = item.eventLoc;
-      // }
-      // if (item.eventId) {
-      //   item.id = item.eventId;
-      // }
-      // if (item.risk > 0 && item.risk < 1) {
-      //   item.risk = Math.round(item.risk * 100);
-      // }
-
-      // // fix the trend
-      // item.trend = item.type0 - 5; // TODO
-      // // fix the event's link and source
-      // if (item.datatag === 'event') {
-      //   item.url = '#/event/detail/' + item.esIndex + '/' + item.id;
-      // }
-      // // Location去掉”中国“前缀
-      // if (_.startsWith(item.location, '中国')) {
-      //   item.location = item.location.substring(2);
-      // }
-      // // 相关/不相关标注
-      // item.related = true;
       return item;
     });
     if (this.sorting) {
@@ -388,11 +282,6 @@ export default {
     } else {
       this.dispValues = xs;
     }
-    console.log(xs);
-    console.log(this.dispValues)
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.handleScroll);
   },
   components: {
     'Echarts': Echarts,
