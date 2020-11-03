@@ -4,48 +4,50 @@
     <div class="con-box title">
       <img @click="resetCache" src="~assets/image/title.jpg">
     </div>
-    <div :href="'/' + jumpto" class="con-box l-t-box">
-    <div class="box light-corner view-core toogle-tab-element">
-      <router-link :to="{ name: 'xuanti', params: {id: topic}, query: {queryId: topic}}">
-        <div class="view-table start_box box_align pack_center">
+    <div class="con-box l-t-box">
+      <div class="box light-corner view-core toogle-tab-element">
+        <router-link :to="{ name: 'xuanti', params: {id: topic}, query: {queryId: topic}}">
+          <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
-              <div class="table-item table-item-active  start_box box_align pack_center box-flex"><span class="iconfont icon-yuqing"></span>
-              综合选题<span class="unqie-guang"></span></div>
-              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>朝核<span class="unqie-guang"></span></div> -->
-              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>综合选题<span class="unqie-guang"></span></div> -->
-          </div>
-        </div>
-      </router-link>
-        <div class="view-list-wrapper">
-            <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
-                <ul class="list-item inner-view-list" id="inner-view-list" >
-                    <!-- <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div> -->
-                    <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views)'>
-                      <div class="item-content">
-                        <div class="content-top ">
-                          <span class="view-type attr-block">{{topic}}</span>
-                          <p class="title" :title="e.title">{{e.title}}</p>
-                        </div>
-                        <div class="content-bt clearfix">
-                          <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                          <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
-                        </div>
-                      </div>
-                    </li>
-                </ul>
+                <div class="table-item table-item-active  start_box box_align pack_center box-flex">
+                  <svg viewBox="0 0 896 896" focusable="false" class="" data-icon="select" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 00-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z"></path></svg>
+                    综合选题
+                </div>
             </div>
-        </div>
-    </div>
+          </div>
+        </router-link>
+          <div class="view-list-wrapper">
+              <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
+                  <ul class="list-item inner-view-list" id="inner-view-list" >
+                      <!-- <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div> -->
+                      <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views)'>
+                        <div class="item-content">
+                          <div class="content-top ">
+                            <span class="view-type attr-block">{{topic}}</span>
+                            <p class="title" :title="e.title">{{e.title}}</p>
+                          </div>
+                          <div class="content-bt clearfix">
+                            <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
+                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
+                          </div>
+                        </div>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </div>
     </div>
       <div class="con-box world-map">
-          <table style="width:100%">
-            <tr>
-              <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(6561)</td>
-              <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(6440)</td>
-              <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(14384)</td>
-            </tr>
-          </table>
-          <Echarts theme="ring" :option="options.worldmap.option" className="chart" style="top:0;bottom:3%"></Echarts>
+        <table style="width:100%; margin-bottom: -40px">
+          <tr>
+            <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(6561)</td>
+            <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(6440)</td>
+            <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(14384)</td>
+          </tr>
+        </table>
+        <div style="top:0;bottom:3%;height: 105%;width: 120%;margin-left: -10%;margin-top: 5%">
+          <Echarts theme="ring" :option="options.worldmap.option" className="chart"></Echarts>
+        </div>
       </div>
     <div class="con-box r-t-box">
       <!-- <Echarts theme="ring" :option="options.right_up.option" className="chart" ></Echarts> -->
@@ -53,9 +55,10 @@
         <router-link :to="{name: 'view' ,params: {id: topic}, query: {queryId: topic}}">
         <div class="view-table start_box box_align pack_center">
               <div class="view-table start_box box_align pack_center">
-              <div class="table-item table-item-active  start_box box_align pack_center box-flex"><span class="iconfont icon-yuqing"></span>
-              专家观点<span class="unqie-guang"></span></div>
-              <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
+              <div class="table-item table-item-active  start_box box_align pack_center box-flex">
+                <svg viewBox="0 0 896 896" focusable="false" class="" data-icon="select" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 00-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z"></path></svg>
+                专家观点
+              </div>
           </div>
         </div>
         </router-link>
@@ -92,9 +95,10 @@
         <router-link :to="{name: 'eventa', params: {id: topic}, query: {queryId: topic}}">
           <div class="view-table start_box box_align pack_center">
                 <div class="view-table start_box box_align pack_center">
-                <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab"><span class="iconfont icon-yuqing"></span>
-                危机事件<span class="unqie-guang"></span></div>
-                <!-- <div class="table-item  start_box box_align pack_center box-flex" id="outer-view-tab"><span class="iconfont icon-yuqing"></span>津外视角<span class="unqie-guang"></span></div> -->
+                <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab">
+                  <svg viewBox="0 0 896 896" focusable="false" class="" data-icon="select" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 00-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z"></path></svg>
+                  危机事件
+                </div>
             </div>
           </div>
         </router-link>

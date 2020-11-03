@@ -397,17 +397,12 @@ const ChartLib = {
   },
   '世界地图': {
     option: {
-      title: {
-        sublink: 'http://esa.un.org/wpp/Excel-Data/population.htm',
-        left: 'center',
-        top: 'top'
-      },
       tooltip: {
         trigger: 'item',
-        'confine': true,
-        'formatter': (p) => {
+        confine: true,
+        formatter: (p) => {
           let dataCon = p.data;
-          let txtCon = dataCon.name + ':' + dataCon.value;
+          let txtCon = '专家发言数量<br/>' + dataCon.name + ':' + dataCon.value;
           return txtCon;
         }
       },
@@ -415,10 +410,16 @@ const ChartLib = {
         min: 0,
         max: 1000000,
         bottom: 10,
-        text: ['High','Low'],
+        text: ['最高','最低\n\n             专家发言数量'],
         realtime: false,
         calculable: true,
-        color: ['orangered','yellow','lightskyblue']
+        color: ['orangered','yellow','lightskyblue'],
+        textStyle: {
+          color: 'rgba(255, 255, 255, 1)',
+          fontSize: 12
+        },
+        left: 40,
+        top: 180,
       },
       series: [
         {

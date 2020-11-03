@@ -481,7 +481,7 @@ body {
   height: 100%;
   /*margin-bottom: 20px;*/
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 @media (max-width: 767px) {
   .view-core {
@@ -523,6 +523,9 @@ body {
 }
 .view-list-wrapper {
   padding: 20px;
+  position: relative;
+  overflow: scroll;
+  height: 90%;
 }
 .view-core .view-list {
   margin: 0 auto 0;

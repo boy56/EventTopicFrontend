@@ -18,7 +18,7 @@ export default {
   name: 'app',
   data () {
     return {
-      path: 'ws://localhost:8010',
+      path: 'WS_API_PATH',
       websock: null,
       interval: null,
     }
@@ -54,14 +54,30 @@ export default {
     websocketonmessage (e) { // 数据接收
       console.log(e.data);
       let question = e.data;
-      let theme = '南海';
-      let content = '专题';
+      let theme = '';
+      let content = '';
       let lang = '中文';
       let nextPath = '';
       // let year = new Date().format('yyyy');
       // let month = new Date().format('MM');
-      // let startTime = '';
-      // let endTime = '';
+      let startTime = '';
+      let endTime = '';
+      axios.get('VOICE_API_PATH', {params: {
+        command: question
+      }}.then(response => {
+        try {
+          startTime = response.data().data.Time[0]
+        } catch (e) {
+          console.log(e);
+        }
+        try {
+          endTime = response.data().data.Time[1]
+        } catch (e) {
+          console.log(e);
+        }
+      }).error(e => {
+        console.log(e);
+      }))
       if (question.indexOf('南') !== -1) {
         theme = '南海';
       } else if (question.indexOf('朝') !== -1) {
@@ -79,6 +95,8 @@ export default {
       } else if (question.indexOf('预测') !== -1) {
         content = '预测';
         nextPath = '/eventa';
+      } else if (question.indexOf('返回主页') !== -1) {
+        nextPath = '/';
       } else {
         content = '分析';
         nextPath = '/'
@@ -95,19 +113,28 @@ export default {
       }
 
       let data = JSON.stringify({'question': e.data, 'answer': '以下是' + theme + '专题的相关' + (lang !== '中文' ? lang : '') + content + '内容'});
-      // this.websock.send(data);
-      this.$router.push({
-        path: nextPath,
-        query: {
-          queryId: theme,
-          lang: lang
-        }
-      })
+      this.websock.send(data);
+      if (theme !== '') {
+        this.$router.push({
+          path: nextPath,
+          query: {
+            queryId: theme,
+            lang: lang,
+            startDate: startTime,
+            endDate: endTime,
+          }
+        })
+      }
     },
     websocketclose (e) {  // 关闭
       console.log('断开连接',e);
     },
   },
+  watch: {
+    '$route': function (to, from) {
+      this.$route.back(0)
+    },
+  }
 }
 </script>
 
