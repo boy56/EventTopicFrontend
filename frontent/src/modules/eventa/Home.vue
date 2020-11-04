@@ -29,11 +29,11 @@
           <td style="width:12%; font-size: 18px; text-align: center; font-family: 'SimHei'">发布时间</td>
         </tr>
         <tr v-bind:key='item.viewpoint' v-for='item in left_down_data' style="height: 4rem">
-          <td style="width:20%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.eventname">{{item.eventname}}</td>
-          <td style="width:20%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.org">{{item.org}}</td>
+          <td style="width:20%;overflow: hidden;text-align: center; -webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.eventname">{{item.eventname}}</td>
+          <td style="width:20%;overflow: hidden;text-align: center;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.org">{{item.org}}</td>
           <td style="width:48%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.viewpoint">{{item.viewpoint}}</td>
           <!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
-          <td style="width:12%;overflow: hidden;line-height: 1.5;">{{new Date(item.time).format('yyyy-MM-dd')}}</td>
+          <td style="width:12%;overflow: hidden;text-align: center;line-height: 1.5;">{{new Date(item.time).format('yyyy-MM-dd')}}</td>
         </tr>
       </table>
 <!--      <v-footer></v-footer>-->
@@ -302,7 +302,7 @@ export default {
             trigger: 'item',
             formatter: function (params) {
               let news = _.join(params.data.news.slice(0, params.percent / 10 + 1), ' <br/>')
-              return '后续事件：<br/>' + params.data.name + '(' + params.percent + '%) <br/>事件描述：<br/>（' + params.data.name_content + '）<br/>相关新闻：<br/>' + news
+              return '后续事件：<br/>' + params.data.name + '(' + params.percent + '%) <br/>事件描述：<br/>' + params.data.name_content + '<br/>相关新闻：<br/>' + news
             }
           },
           legend: {

@@ -9,7 +9,7 @@
         <div class="table-th td-pos">职位</div>
         <div class="table-th td-location">专家姓名</div>
         <div class="table-th td-title">观点</div>
-        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间</div>
+        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间 {{this.sortingMap.time === 'desc'? '↓': '↑'}}</div>
         <div class="table-th td-source" v-if='!isevent'>来源</div>
       </div>
     </div>
@@ -23,11 +23,6 @@
             <div class="table-td td-pos">{{ item.pos}}</div>
             <div class="table-td td-location">{{ item.personname }}</div>
             <!-- <div class="table-td td-type">{{ item.type1 | toMinorType }}</div> -->
-            <div class="table-td td-title" v-if='isevent'>
-              <router-link class="title-link" :to="{name:'Event/Detail/Overall', params: {index: item.esIndex, eventId: item.id}}" target="_blank">
-                {{ item.verb }}{{ item.viewpoint }}
-              </router-link>
-            </div>
             <div class="table-td td-title"
                  v-b-model.modaltrend
                  @click="viewTrendGraph(item.personname + item.verb + item.viewpoint, item.newsinfo.content)"
@@ -329,6 +324,7 @@ export default {
       position: relative
       padding: .75rem
       &.sorting
+        cursor: pointer
         /*text-align: left*/
       // &.td-index
         // width: 5%
@@ -400,18 +396,7 @@ export default {
           display: flex
           text-align: left
           align-items: center
-          .trend
-            flex: none
-            width: 18px
-            height: 16px
-            line-height: 24px
-            margin-right: .5rem
-            cursor: pointer
-            background: url('../../assets/image/trend_icon.png') no-repeat center
-            &.trend_asc
-              background-position: 0 0
-            &.trend_desc
-              background-position: 0 -16px
+          cursor: pointer
           .title-link
             overflow: hidden
             text-overflow: ellipsis
@@ -435,7 +420,6 @@ export default {
           width: 15%
           vertical-align: middle
           position: relative
-          cursor: pointer
           display: flex
           align-items: center
           justify-content: center

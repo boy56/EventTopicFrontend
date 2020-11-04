@@ -73,8 +73,12 @@
       <div class="chart">
         {{persons}}
       </div>
-      <hr>
-      <a :href="url" class="label">查看原文</a>
+      <div class="label">
+        原文链接
+      </div>
+      <div class="chart">
+        {{url}}
+      </div>
       <footer slot="modal-footer"></footer>
     </b-modal>
   </div>
