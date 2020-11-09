@@ -19,12 +19,13 @@
           <div class="table-tr-row">
             <!-- <div class="table-td td-index">{{ idx + 1 }}</div> -->
             <div class="table-td td-type">{{ item.newsinfo.theme }}</div>
-            <div class="table-td td-emotion">{{ item.orgname}}</div>
-            <div class="table-td td-pos">{{ item.pos}}</div>
-            <div class="table-td td-location">{{ item.personname }}</div>
+            <div class="table-td td-emotion" :title="item.orgname">{{ item.orgname}}</div>
+            <div class="table-td td-pos" :title="item.pos">{{ item.pos}}</div>
+            <div class="table-td td-location" :title="item.personname">{{ item.personname }}</div>
             <!-- <div class="table-td td-type">{{ item.type1 | toMinorType }}</div> -->
             <div class="table-td td-title"
                  v-b-model.modaltrend
+                 :title="item.verb + item.viewpoint"
                  @click="viewTrendGraph(item.personname + item.verb + item.viewpoint, item.newsinfo.content)"
             >
               <li class="title-link" target="_blank"

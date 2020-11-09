@@ -362,6 +362,8 @@ export default {
           left: 7%
         &:after
           right: 10%
+      &.sorting
+        cursor: pointer
       &.td-crisis
         width: 8%
       &.td-believe

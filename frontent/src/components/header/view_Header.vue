@@ -90,7 +90,7 @@ export default {
   // flex-grow: 0
   // flex-shrink: 0
   // @include r_navbar
-  background-color: #158bdc;
+  background-color: #158bdc
 .r-navbar
   width: 100%
   padding: 0 1rem
