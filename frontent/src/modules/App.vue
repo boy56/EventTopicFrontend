@@ -18,7 +18,7 @@ export default {
   name: 'app',
   data () {
     return {
-      path: 'ws://127.0.0.1:8010',
+      path: 'WS_API_PATH',
       websock: null,
       interval: null,
     }

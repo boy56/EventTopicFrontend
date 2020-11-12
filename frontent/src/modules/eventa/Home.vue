@@ -28,6 +28,7 @@
             <div class="news-card" v-for="news in nextevent_news" :key="news.title">
               <div class="news-card_title" v-html="news.title"></div>
               <div class="news-card_crisis">{{ news.crisis }}</div>
+              <div class="news-card_source">{{ news.source }}</div>
               <div class="news-card_time">{{ news.time }}</div>
             </div>
           </div>
@@ -290,11 +291,13 @@ export default {
           tooltip: {
             trigger: 'axis',
             formatter: function (param) {
-              return '<div>' + param[0].data.name + '</div> <div>实际：' + param[0].data.value + '</div><div>风险：' + param[1].data.value + '</div>';
+              return '<div>' + param[0].data.name + '</div> <div>热度：' + param[0].data.value + '</div><div>风险：' + param[1].data.value + '</div>';
             }
           },
           legend: {
-            // data: ['朝鲜','南海','台湾']
+            data: ['热度','风险'],
+            left: 40,
+            top: 30
           },
           grid: {
             left: '5%',
@@ -312,7 +315,7 @@ export default {
           },
           series: [
             {
-              name: '南海',
+              name: '热度',
               smooth: true,
               type: 'line',
               stack: '总量',
@@ -320,7 +323,7 @@ export default {
               data: exact_list
             },
             {
-              name: '南海预测',
+              name: '风险',
               smooth: true,
               type: 'line',
               stack: '总量',
@@ -342,7 +345,11 @@ export default {
         this.selected_result = this.legendData[0]
         _.forEach(this.Demo.eventpre_data.data_pro, (item) => {
           if (item.name !== '无风险事件') {
-            seriesData3.push((item.value * 100).toFixed(0))
+            seriesData3.push({
+              value: (item.value * 100).toFixed(0),
+              content: item.name_content,
+              name: item.name
+            })
           }
         })
         this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result]
@@ -358,6 +365,12 @@ export default {
             top: 40,
             bottom: 40,
             right: 60
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+              return '后续事件：<br/>' + params.name + '(' + params.data.value + '%) <br/>事件描述：<br/>' + params.data.content + '<br/>'
+            }
           },
           yAxis: [{
             type: 'category',
@@ -377,7 +390,7 @@ export default {
             axisLabel: {
               margin: 10,
               formatter: function (value, index) {
-                let res = '{grey|' + value + '}{blue|' + seriesData3[index] + '%}';
+                let res = '{grey|' + value + '}{blue|' + seriesData3[index].value + '%}';
                 return res;
               },
               rich: {
@@ -444,7 +457,7 @@ export default {
                 distance: 10,
                 color: '#6bb6fd',
                 formatter: function (params) {
-                  let res = '{blue|' + seriesData3[params.dataIndex] + '/}{orange|' + seriesData4[params.dataIndex] + '}';
+                  let res = '{blue|' + seriesData3[params.dataIndex].value + '/}{orange|' + seriesData4[params.dataIndex] + '}';
                   return res;
                 },
                 rich: {
@@ -866,6 +879,8 @@ th.active .arrow {
       font-weight: 700
       font-size: 20px
 
+    .news-card_source
+      display: inline-block
     .news-card_time
       float: right
       color: #333333

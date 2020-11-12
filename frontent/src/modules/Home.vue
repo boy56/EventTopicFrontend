@@ -77,7 +77,7 @@
                           <div class="content-top ">
                             <span class="view-type attr-block">{{e.country}}</span>
                             <span><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}</span>
-                            <span class="method">{{ e.nextevent }}</span>
+<!--                            <span class="method">{{ e.nextevent }}</span>-->
                           </div>
                           <div class="view-content-bt clearfix">
                             <div class="title" style="-webkit-box-orient: vertical" :title="e.orgname+e.pos+e.personname+e.viewpoint">{{e.verb}}{{e.viewpoint}}</div>
@@ -114,7 +114,7 @@
     </div>
      <div class="con-box r-b1-box">
         <div style="text-align: center;margin-bottom: .5rem">
-           <span style="font-size: 20px;color: white;">情绪分析</span>
+           <span style="font-size: 20px;color: white;">立场分析</span>
         </div>
         <Echarts theme="ring" :option="options.right1_down.option" className="chart" ></Echarts>
      </div>

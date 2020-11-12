@@ -26,7 +26,7 @@
             <div class="table-td td-title"
                  v-b-model.modaltrend
                  :title="item.verb + item.viewpoint"
-                 @click="viewTrendGraph(item.personname + item.verb + item.viewpoint, item.newsinfo.content)"
+                 @click="viewTrendGraph(item)"
             >
               <li class="title-link" target="_blank"
                     @mouseenter="enter(item)"
@@ -51,8 +51,35 @@
           </div>
         </div>
     </div>
-    <b-modal id="modaltrend" size="lg" :title="viewtitle">
-      <div class="chart" style="overflow: scroll">
+    <b-modal id="modaltrend" size="lg">
+      <div class="label">
+        观点内容
+      </div>
+      <div class="chart">
+        {{viewcontent}}
+      </div>
+      <div class="label">
+        专家名称
+      </div>
+      <div class="chart">
+        {{viewname}}
+      </div>
+      <div class="label">
+        专家机构/国家
+      </div>
+      <div class="chart">
+        {{vieworg}}
+      </div>
+      <div class="label">
+        专家职位
+      </div>
+      <div class="chart">
+        {{viewpos}}
+      </div>
+      <div class="label">
+        新闻原文
+      </div>
+      <div class="chart" style="overflow-y: scroll">
         <!-- <Echarts theme="ring" :resizable="true" :option="trend_option"></Echarts> -->
         {{viewtext}}
       </div>
@@ -104,7 +131,10 @@ export default {
       width: '1200px',
       positionStyle: {top: '100px',left: '100px'},
       sourceMore: [],
-      viewtitle: '',
+      viewcontent: '',
+      viewname: '',
+      vieworg: '',
+      viewpos: '',
       viewtext: '',
       loading: { trend: true },
       trend_option: {
@@ -206,10 +236,14 @@ export default {
         this.toggleSource = false;
       }
     },
-    viewTrendGraph (title,text) {
-      this.viewtitle = title;
+    viewTrendGraph (item) {
+      this.viewcontent = item.viewpoint;
+      this.viewname = item.personname;
+      this.vieworg = item.orgname;
+      this.viewpos = item.pos;
+      this.viewtitle = item.orgname + item.pos + item.personname
       this.loading.trend = true;
-      this.viewtext = text;
+      this.viewtext = item.original_text;
     },
     toggleItem (idx) {
       let item = this.dispValues[idx];
@@ -359,9 +393,18 @@ export default {
       // &.td-feedback
         // width: 8%
 
+.label
+  width: 750px
+  margin-bottom: 10px
+  font-size: 2rem
+  font-family: "Microsoft Yahei"
+  font-weight: 700
+  border-color: #ddd
 .chart
   width: 750px
-  height: 400px
+  max-height: 400px
+  min-height: 25px
+  margin-bottom: 10px
 
 @media (max-width: 768px)
   .list-table-head

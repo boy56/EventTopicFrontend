@@ -375,6 +375,7 @@ export default {
   margin-bottom: 10px
   font-size: 2rem
   font-family: "Microsoft Yahei"
+  font-weight: 700
   border-color: #ddd
 .chart
   width: 750px
