@@ -6,37 +6,67 @@
       <v-search-box :search-input.sync="searchInput" :search-time="loadingTime"></v-search-box>
       <div class="row" :style="chartStyle">
         <div class="col-6">
-          <div id="left_up" ref="myCharts" style="width:100%; height: 100%"></div>
+          <div id="left_up" ref="myCharts" style="width:100%; height: 100%; padding: 20px"></div>
         </div>
         <div class="col-6">
-          <div id="right_up" ref="myCharts" style="width:100%; height: 100%"></div>
+          <div id="right_up" ref="myCharts" style="width:100%; height: 100%; padding: 20px"></div>
         </div>
       </div>
+      <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 5px">支撑材料</div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 form result-group">
+              <span v-for="result in legendData" :key="result">
+                <input type="radio" name="content_result" :value="result" class="result" v-model="selected_result"/>{{ result }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="news-card-list" :style="supportStyle">
+            <div class="news-card" v-for="news in nextevent_news" :key="news.title">
+              <div class="news-card_title" v-html="news.title"></div>
+              <div class="news-card_crisis">{{ news.crisis }}</div>
+              <div class="news-card_time">{{ news.time }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="views-card-list" :style="supportStyle">
+            <div class="views-card" v-for="view in nextevent_views" :key="view.title">
+              <div class="views-card_fire"><img src="~assets/image/fire.png" :style="'height:20px; opacity: '+ parseFloat(view.weight)/10 "></div>
+              <div class="views-card_org" v-html="view.org"></div>
+              <div class="views-card_viewpoint" :title="view.viewpoint">{{ view.viewpoint }}</div>
+              <div class="views-card_time">{{ view.time }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <table style="width:100%; height: 80%; table-layout: fixed">-->
+<!--        <tr>-->
+<!--          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">事件类型</td>-->
+<!--          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点来源</td>-->
+<!--          <td style="width:48%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点内容</td>-->
+<!--          <td style="width:12%; font-size: 18px; text-align: center; font-family: 'SimHei'">发布时间</td>-->
+<!--        </tr>-->
+<!--        <tr v-bind:key='item.viewpoint' v-for='item in left_down_data' style="height: 4rem">-->
+<!--          <td style="width:20%;overflow: hidden;text-align: center; -webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.eventname">{{item.eventname}}</td>-->
+<!--          <td style="width:20%;overflow: hidden;text-align: center;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.org">{{item.org}}</td>-->
+<!--          <td style="width:48%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.viewpoint">{{item.viewpoint}}</td>-->
+<!--          &lt;!&ndash;                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>&ndash;&gt;-->
+<!--          <td style="width:12%;overflow: hidden;text-align: center;line-height: 1.5;">{{new Date(item.time).format('yyyy-MM-dd')}}</td>-->
+<!--        </tr>-->
+<!--      </table>-->
       <div class="r-panel">
         <div class="events-wrapper">
-          <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700">事件追溯</div>
+          <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 20px">事件追溯</div>
           <div class="event-panel event-panel-source">
             <div id="source-timeline" class="event-chart" :style="timelineStyle"></div>
           </div>
         </div>
       </div>
-      <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700">专家观点</div>
-      <table style="width:100%; height: 80%; table-layout: fixed">
-        <tr>
-          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">事件类型</td>
-          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点来源</td>
-          <td style="width:48%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点内容</td>
-          <td style="width:12%; font-size: 18px; text-align: center; font-family: 'SimHei'">发布时间</td>
-        </tr>
-        <tr v-bind:key='item.viewpoint' v-for='item in left_down_data' style="height: 4rem">
-          <td style="width:20%;overflow: hidden;text-align: center; -webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.eventname">{{item.eventname}}</td>
-          <td style="width:20%;overflow: hidden;text-align: center;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.org">{{item.org}}</td>
-          <td style="width:48%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.viewpoint">{{item.viewpoint}}</td>
-          <!--                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>-->
-          <td style="width:12%;overflow: hidden;text-align: center;line-height: 1.5;">{{new Date(item.time).format('yyyy-MM-dd')}}</td>
-        </tr>
-      </table>
-<!--      <v-footer></v-footer>-->
+      <!--      <v-footer></v-footer>-->
       <!-- </iframe> -->
       <!-- <b-pagination align="center" size="md" :limit="8"
                    :per-page="64"
@@ -81,6 +111,9 @@ export default {
         height: '300px',
         paddingTop: '1rem'
       },
+      supportStyle: {
+        height: '300px',
+      },
       event: [],
       // events: [],
       loading: {
@@ -110,11 +143,15 @@ export default {
       },
       searchInput: {
         kws: '',
-        dateStart: new Date(), // TODO truncate date to day unit.
-        dateEnd: new Date(),
+        dateStart: new Date('2019-11-12'), // TODO truncate date to day unit.
+        dateEnd: new Date('2020-11-12'),
         includeText: false,
       },
+      selected_result: '',
       filter: {},
+      legendData: [],
+      nextevent_news: [],
+      nextevent_views: [],
     };
   },
   watch: {
@@ -153,9 +190,10 @@ export default {
         }
       }
     },
-    unique_id: id => {
-      console.log(id);
-    },
+    selected_result: function () {
+      this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result]
+      this.nextevent_views = this.Demo.nextevent_views_pro[this.selected_result]
+    }
   },
   created () {
     this.topic = this.$route.query.queryId;
@@ -178,6 +216,7 @@ export default {
       this.tableStyle.height = (window.innerHeight - 159.5) + 'px'
       this.chartStyle.height = (window.innerHeight - 173.5) * 0.38 + 'px'
       this.timelineStyle.height = (window.innerHeight - 173.5) * 0.6 + 'px'
+      this.supportStyle.height = (window.innerHeight - 173.5) * 0.63 - 64 + 'px'
     },
     genData (count) {
       var nameList = [
@@ -245,7 +284,7 @@ export default {
         var myChart = echarts.init(document.getElementById('left_up'));
         var left_up_option = {
           title: {
-            text: '事件热度',
+            text: '专题热度',
             x: 'center'
           },
           tooltip: {
@@ -292,37 +331,168 @@ export default {
         }
         myChart.setOption(left_up_option);
         myChart = echarts.init(document.getElementById('right_up'));
+        let seriesData3 = []
+        let seriesData4 = [100, 100]
+        this.legendData = []
+        _.forEach(this.Demo.eventpre_data.legend_data, (item) => {
+          if (item !== '无风险事件') {
+            this.legendData.push(item)
+          }
+        })
+        this.selected_result = this.legendData[0]
+        _.forEach(this.Demo.eventpre_data.data_pro, (item) => {
+          if (item.name !== '无风险事件') {
+            seriesData3.push((item.value * 100).toFixed(0))
+          }
+        })
+        this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result]
+        this.nextevent_views = this.Demo.nextevent_views_pro[this.selected_result]
         var right_up_option = {
           title: {
             text: '事件预测',
             subtext: '',
             x: 'center'
           },
-          tooltip: {
-            trigger: 'item',
-            formatter: function (params) {
-              let news = _.join(params.data.news.slice(0, params.percent / 10 + 1), ' <br/>')
-              return '后续事件：<br/>' + params.data.name + '(' + params.percent + '%) <br/>事件描述：<br/>' + params.data.name_content + '<br/>相关新闻：<br/>' + news
+          grid: {
+            left: 280,
+            top: 40,
+            bottom: 40,
+            right: 60
+          },
+          yAxis: [{
+            type: 'category',
+            data: this.legendData,
+            axisPointer: {
+              type: 'line'
+            },
+            axisLine: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            },
+            axisLabel: {
+              margin: 10,
+              formatter: function (value, index) {
+                let res = '{grey|' + value + '}{blue|' + seriesData3[index] + '%}';
+                return res;
+              },
+              rich: {
+                blue: {
+                  color: '#6bb6fd',
+                  width: 60,
+                  align: 'right',
+                  fontSize: 14
+                },
+                grey: {
+                  color: '#adb1b3',
+                  fontSize: 16
+                }
+              }
+            },
+          }],
+          xAxis: [{
+            min: 0,
+            max: 100,
+            axisLabel: {
+              show: false
+            },
+            axisLine: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            },
+            axisTick: {
+              show: false
+            }
+          }],
+          series: [{
+            type: 'bar',
+            data: seriesData3,
+            barWidth: 18,
+            z: 100,
+            itemStyle: {
+              normal: {
+                color: '#2c96f8',
+                barBorderRadius: [10, 10, 10, 10],
+              }
             }
           },
-          legend: {
-            orient: 'vertical',
-            left: '70%',
-            y: 'center',
-            data: this.Demo.eventpre_data.legend_data
-          },
-          color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
-            'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
-          series: [
-            {
-              name: '事件预测',
-              type: 'pie',
-              radius: '60%',
-              center: ['40%', '50%'],
-              data: this.Demo.eventpre_data.data
+          {
+            name: '进度条背景',
+            type: 'bar',
+            barGap: '-100%',
+            data: seriesData4,
+            barWidth: 18,
+            itemStyle: {
+              normal: {
+                barBorderRadius: [10, 10, 10, 10],
+                color: '#f7b534'
+              }
+            },
+            z: 90,
+            yAxisIndex: 0,
+            xAxisIndex: 0,
+            label: {
+              normal: {
+                show: true,
+                position: 'right',
+                distance: 10,
+                color: '#6bb6fd',
+                formatter: function (params) {
+                  let res = '{blue|' + seriesData3[params.dataIndex] + '/}{orange|' + seriesData4[params.dataIndex] + '}';
+                  return res;
+                },
+                rich: {
+                  blue: {
+                    color: '#6bb6fd',
+                    fontSize: 14
+                  },
+                  orange: {
+                    color: '#f7b534',
+                    fontSize: 14
+                  }
+                }
+              }
             }
+          }
           ]
-        };
+        }
+        // var right_up_option = {
+        //   title: {
+        //     text: '事件预测',
+        //     subtext: '',
+        //     x: 'center'
+        //   },
+        //   tooltip: {
+        //     trigger: 'item',
+        //     formatter: function (params) {
+        //       let news = _.join(params.data.news.slice(0, params.percent / 10 + 1), ' <br/>')
+        //       return '后续事件：<br/>' + params.data.name + '(' + params.percent + '%) <br/>事件描述：<br/>' + params.data.name_content + '<br/>相关新闻：<br/>' + news
+        //     }
+        //   },
+        //   legend: {
+        //     orient: 'vertical',
+        //     left: '70%',
+        //     y: 'center',
+        //     data: this.Demo.eventpre_data.legend_data
+        //   },
+        //   color: ['rgb(203,155,255)', 'rgb(149,162,255)', 'rgb(58,186,255)',
+        //     'rgb(119,168,249)', 'rgb(235,161,159)', 'rgb(200,101,159)'],
+        //   series: [
+        //     {
+        //       name: '事件预测',
+        //       type: 'pie',
+        //       radius: '60%',
+        //       center: ['40%', '50%'],
+        //       data: this.Demo.eventpre_data.data
+        //     }
+        //   ]
+        // };
         myChart.setOption(right_up_option);
         // this.left_down_data = this.Demo.view_cluster_data.slice(0, Math.floor(((window.innerHeight - 159.5) * 0.5 - 60) / 40));
         this.left_down_data = this.Demo.nextevent_views;
@@ -661,5 +831,71 @@ th.active .arrow {
     width: 1px
     border-left: 2px solid
     display: inline-block
+
+.result-group
+  text-align: center
+  margin: 10px
+  font-size: 16px
+  font-weight: 700
+
+  .result
+    margin: 0 10px
+
+.news-card-list
+  overflow-y: scroll
+  padding: 12px
+
+  .news-card
+    padding: 5px
+    margin-bottom: 5px
+    border: 2px solid #0a7ac9
+    border-radius: 4px
+    height: 98px
+
+    .news-card_title
+      display: inline-block
+      width: 90%
+      height: 60px
+      font-weight: 700
+      font-size: 20px
+
+    .news-card_crisis
+      color: red
+      display: inline-block
+      float: right
+      font-weight: 700
+      font-size: 20px
+
+    .news-card_time
+      float: right
+      color: #333333
+
+.views-card-list
+  overflow-y: scroll
+  padding: 12px
+
+  .views-card
+    padding: 0 8px
+    border: 2px solid #0a7ac9
+    border-radius: 4px
+    margin-bottom: 4px
+    height: 110px
+
+  .views-card_fire
+    height: 24px
+    display: inline-block
+
+  .views-card_org
+    display: inline-block
+    font-size: 20px
+    vertical-align: center
+
+  .views-card_viewpoint
+    height: 48px
+    overflow: hidden
+
+  .views-card_time
+    float: right
+
 </style>
 

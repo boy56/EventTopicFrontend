@@ -6,12 +6,12 @@
       <!-- <button class="search-submit"><i class="fa fa-search"></i></button> -->
     <!-- </div> -->
     <!-- 时间选取功能只在PC端显示 -->
-    <div class="col-md-3 date-wrapper">
-      <label for="date-start" class="control-label date-label">起始时间：</label>
-      <v-datepicker placeholder="选择日期" :value="searchInput.dateStart" :disabled="dateStartEnd" @selected="v => searchInput.dateStart = v"></v-datepicker>
-    </div>
-    <div class="col-md-3 date-wrapper">
-      <label for="date-end" class="control-label date-label">结束时间：</label>
+<!--    <div class="col-md-3 date-wrapper">-->
+<!--      <label for="date-start" class="control-label date-label">起始时间：</label>-->
+<!--      <v-datepicker placeholder="选择日期" :value="searchInput.dateStart" :disabled="dateStartEnd" @selected="v => searchInput.dateStart = v"></v-datepicker>-->
+<!--    </div>-->
+    <div class="col-md-3 date-wrapper" style="margin-left: 280px;">
+      <label for="date-end" class="control-label date-label">预测时间：</label>
       <v-datepicker placeholder="选择日期" :value="searchInput.dateEnd" :disabled="dateEndStart"  @selected="v => searchInput.dateEnd = v"></v-datepicker>
     </div>
     <div class="col-md-2 search-btns">

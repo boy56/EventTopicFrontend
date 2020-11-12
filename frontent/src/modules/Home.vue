@@ -20,11 +20,17 @@
               <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
                   <ul class="list-item inner-view-list" id="inner-view-list" >
                       <!-- <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div> -->
-                      <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views)'>
+                      <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views, e.nextevent)'>
                         <div class="item-content">
                           <div class="content-top ">
                             <span class="view-type attr-block">{{topic}}</span>
-                            <p class="title" :title="e.title">{{e.title}}</p>
+                            <p class="title" :title="e.title">
+                              {{ e.title }}
+                              <div class="danger-image">
+                                <img src="~assets/image/warning.png" class="danger-icon" />
+                                {{ e.crisis }}
+                              </div>
+                            </p>
                           </div>
                           <div class="content-bt clearfix">
                             <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
@@ -70,10 +76,11 @@
                         <div class="item-content">
                           <div class="content-top ">
                             <span class="view-type attr-block">{{e.country}}</span>
-                            <p class="title" style="left: 10%;max-width: 80%;" :title="e.orgname+e.pos+e.personname+e.viewpoint">{{e.verb}}{{e.viewpoint}}</p>
+                            <span><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}</span>
+                            <span class="method">{{ e.nextevent }}</span>
                           </div>
-                          <div class="content-bt clearfix">
-                            <span style="float:left"><i class="iconfont icon-resource"></i>{{e.orgname}}{{e.pos}}{{e.personname}}</span>
+                          <div class="view-content-bt clearfix">
+                            <div class="title" style="-webkit-box-orient: vertical" :title="e.orgname+e.pos+e.personname+e.viewpoint">{{e.verb}}{{e.viewpoint}}</div>
                             <span style="float:right"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
                           </div>
                         </div>
@@ -205,6 +212,7 @@
           }
           this.right_up_list = this.left_up_list[0].views;
           for (i = 0; i < this.right_up_list.length; i++) {
+            this.right_up_list[i].nextevent = this.left_up_list[0].nextevent
             this.right_up_list[i].timestr = new Date(this.right_up_list[i].time).format('yyyy-MM-dd');
           }
         // 热度趋势图
@@ -269,12 +277,12 @@
         }
         this.findDatas();
       },
-      clicking_news: function (term) {
+      clicking_news: function (term, nextevent) {
         this.right_up_list = term;
         for (var j = 0; j < this.right_up_list.length; j++) {
+          this.right_up_list[j].nextevent = nextevent
           this.right_up_list[j].timestr = new Date(this.right_up_list[j].time).format('yyyy-MM-dd');
         }
-        this.around(41);
       }
     },
     beforeDestroy () {
@@ -355,4 +363,26 @@
       width: 100%
       height: 100%
       cursor: pointer
+  .danger-image
+    float: right
+
+    .danger-icon
+      height: 16px
+
+  .method
+    border: 1px solid #00abff
+    background-color: #00abff
+    border-radius: 4px
+    float: right
+
+  .view-content-bt
+
+    .title
+      overflow: hidden
+      text-overflow: ellipsis
+      display: -webkit-box
+      -webkit-line-clamp: 3
+      margin-left: 32px
+      max-width: 90%
+      padding: 1px 2px!important
 </style>

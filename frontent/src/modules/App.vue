@@ -18,7 +18,7 @@ export default {
   name: 'app',
   data () {
     return {
-      path: 'WS_API_PATH',
+      path: 'ws://127.0.0.1:8010',
       websock: null,
       interval: null,
     }
@@ -62,22 +62,22 @@ export default {
       // let month = new Date().format('MM');
       let startTime = '';
       let endTime = '';
-      axios.get('VOICE_API_PATH', {params: {
-        command: question
-      }}.then(response => {
-        try {
-          startTime = response.data().data.Time[0]
-        } catch (e) {
-          console.log(e);
-        }
-        try {
-          endTime = response.data().data.Time[1]
-        } catch (e) {
-          console.log(e);
-        }
-      }).error(e => {
-        console.log(e);
-      }))
+      // axios.get('VOICE_API_PATH', {params: {
+      //   command: question
+      // }}).then(response => {
+      //   try {
+      //     startTime = response.data().data.Time[0]
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      //   try {
+      //     endTime = response.data().data.Time[1]
+      //   } catch (e) {
+      //     console.log(e);
+      //   }
+      // }).error(e => {
+      //   console.log(e);
+      // })
       if (question.indexOf('南') !== -1) {
         theme = '南海';
       } else if (question.indexOf('朝') !== -1) {
@@ -106,14 +106,15 @@ export default {
         lang = '英文';
       } else if (question.indexOf('日文') !== -1 || question.indexOf('日语') !== -1) {
         lang = '日文';
-      } else if (question.indexOf('韩文') !== -1 || question.indexOf('韩文') !== -1) {
+      } else if (question.indexOf('韩文') !== -1 || question.indexOf('韩语') !== -1) {
         lang = '韩文';
       } else {
         lang = '中文';
       }
 
       let data = JSON.stringify({'question': e.data, 'answer': '以下是' + theme + '专题的相关' + (lang !== '中文' ? lang : '') + content + '内容'});
-      this.websock.send(data);
+      // this.websock.send(data);
+      console.log(data)
       if (theme !== '') {
         this.$router.push({
           path: nextPath,
@@ -124,15 +125,11 @@ export default {
             endDate: endTime,
           }
         })
+        this.$router.go(0);
       }
     },
     websocketclose (e) {  // 关闭
       console.log('断开连接',e);
-    },
-  },
-  watch: {
-    '$route': function (to, from) {
-      this.$route.back(0)
     },
   }
 }
