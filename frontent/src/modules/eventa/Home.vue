@@ -296,7 +296,7 @@ export default {
           },
           legend: {
             data: ['热度','风险'],
-            left: 40,
+            left: 25,
             top: 30
           },
           grid: {
@@ -369,6 +369,9 @@ export default {
           tooltip: {
             trigger: 'item',
             formatter: function (params) {
+              if (params.seriesName === '进度条背景') {
+                return ''
+              }
               return '后续事件：<br/>' + params.name + '(' + params.data.value + '%) <br/>事件描述：<br/>' + params.data.content + '<br/>'
             }
           },

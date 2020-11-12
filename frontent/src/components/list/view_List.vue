@@ -53,16 +53,16 @@
     </div>
     <b-modal id="modaltrend" size="lg">
       <div class="label">
-        观点内容
-      </div>
-      <div class="chart">
-        {{viewcontent}}
-      </div>
-      <div class="label">
         专家名称
       </div>
       <div class="chart">
         {{viewname}}
+      </div>
+      <div class="label">
+        观点内容
+      </div>
+      <div class="chart">
+        {{viewcontent}}
       </div>
       <div class="label">
         专家机构/国家
@@ -237,13 +237,13 @@ export default {
       }
     },
     viewTrendGraph (item) {
-      this.viewcontent = item.viewpoint;
+      this.viewcontent = item.verb + item.viewpoint;
       this.viewname = item.personname;
       this.vieworg = item.orgname;
       this.viewpos = item.pos;
       this.viewtitle = item.orgname + item.pos + item.personname
       this.loading.trend = true;
-      this.viewtext = item.original_text;
+      this.viewtext = item.newsinfo.content;
     },
     toggleItem (idx) {
       let item = this.dispValues[idx];

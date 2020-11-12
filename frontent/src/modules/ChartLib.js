@@ -246,7 +246,7 @@ const ChartLib = {
         itemWidth: 13,
         itemHeight: 13,
           // padding: [10, 20, 10, 10],
-        left: '30%',
+        left: '40%',
         top: '5%',
         textStyle: {
           color: '#fff',
