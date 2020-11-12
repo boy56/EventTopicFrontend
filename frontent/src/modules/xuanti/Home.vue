@@ -35,8 +35,8 @@ export default {
       pageno: 1,
       searchInput: {
         kws: '',
-        dateStart: new Date(), // TODO truncate date to day unit.
-        dateEnd: new Date(),
+        dateStart: new Date('2020-10-12'),
+        dateEnd: new Date('2020-11-12'),
         includeText: false,
       },
       filter: {
