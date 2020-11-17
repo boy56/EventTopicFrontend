@@ -11,36 +11,38 @@
               <div class="view-table start_box box_align pack_center">
                 <div class="table-item table-item-active  start_box box_align pack_center box-flex">
                   <svg viewBox="0 0 896 896" focusable="false" class="" data-icon="select" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 00-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z"></path></svg>
-                    综合选题
+                    开源情报
                 </div>
             </div>
           </div>
         </router-link>
-          <div class="view-list-wrapper">
-              <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
-                  <ul class="list-item inner-view-list" id="inner-view-list" >
-                      <!-- <div class='list-text'>{{v.time.slice(0,10)}}&nbsp;&nbsp;{{v.title}}</div> -->
-                      <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views, e.nextevent)'>
-                        <div class="item-content">
-                          <div class="content-top ">
-                            <span class="view-type attr-block">{{topic}}</span>
-                            <p class="title" :title="e.title">
-                              {{ e.title }}
-                              <div class="danger-image">
-                                <img src="~assets/image/warning.png" class="danger-icon" />
-                                {{ e.crisis }}
-                              </div>
-                            </p>
-                          </div>
-                          <div class="content-bt clearfix">
-                            <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
-                            <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
-                          </div>
-                        </div>
-                      </li>
-                  </ul>
-              </div>
+        <div class="choice-list">
+          <input type="radio" name="content_result" value="crisis" class="choice" v-model="selected_result"/>最相关
+          <input type="radio" name="content_result" value="time" class="choice" v-model="selected_result"/>最新
+        </div>
+        <div class="view-list-wrapper">
+          <div class="view-list tianjin-view-div" id="inner-view-div" style="color: white">
+            <ul class="list-item inner-view-list" id="inner-view-list" >
+              <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views, e.nextevent, e.title)' :style="e.title === selected_news ? 'background-color: rgba(30,152,255,0.5);': ''">
+                <div class="item-content">
+                  <div class="content-top ">
+                    <span class="view-type attr-block">{{topic}}</span>
+                    <p class="title" :title="e.title">
+                      {{ e.title }}
+                      <div class="danger-image">
+                        <img src="~assets/image/warning.png" class="danger-icon" />
+                        {{ e.crisis }}
+                      </div>
+                  </div>
+                  <div class="content-bt clearfix">
+                    <span class="time left"><i class="iconfont icon-clock-o"></i>{{e.timestr}}</span>
+                    <span class="from"><i class="iconfont icon-resource"></i>{{e.source}}</span>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
+        </div>
       </div>
     </div>
       <div class="con-box world-map">
@@ -104,7 +106,7 @@
                 <div class="view-table start_box box_align pack_center">
                 <div class="table-item table-item-active  start_box box_align pack_center box-flex" id="inner-view-tab">
                   <svg viewBox="0 0 896 896" focusable="false" class="" data-icon="select" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h360c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H184V184h656v320c0 4.4 3.6 8 8 8h56c4.4 0 8-3.6 8-8V144c0-17.7-14.3-32-32-32zM653.3 599.4l52.2-52.2a8.01 8.01 0 00-4.7-13.6l-179.4-21c-5.1-.6-9.5 3.7-8.9 8.9l21 179.4c.8 6.6 8.9 9.4 13.6 4.7l52.4-52.4 256.2 256.2c3.1 3.1 8.2 3.1 11.3 0l42.4-42.4c3.1-3.1 3.1-8.2 0-11.3L653.3 599.4z"></path></svg>
-                  危机事件
+                  事件预测
                 </div>
             </div>
           </div>
@@ -133,7 +135,6 @@
   export default {
     data () {
       return {
-        jumpto: '',
         Demo: {},
         topic: null,
         topic_color1: 'red',
@@ -157,6 +158,8 @@
           right_down: { option: {}, update: () => { } },
           right1_down: { option: {}, update: () => { } },
         },
+        selected_result: 'crisis',
+        selected_news: null
       }
     },
     mounted () {
@@ -187,6 +190,18 @@
         return value
       }
     },
+    watch: {
+      selected_result: function () {
+        this.left_up_list = this.Demo.news_views_data[this.selected_result];
+        for (var i = 0; i < this.left_up_list.length; i++) {
+          this.left_up_list[i].timestr = new Date(this.left_up_list[i].time).format('yyyy-MM-dd');
+        }
+        this.right_up_list = this.left_up_list[0].views;
+        for (i = 0; i < this.right_up_list.length; i++) {
+          this.right_up_list[i].timestr = new Date(this.right_up_list[i].time).format('yyyy-MM-dd');
+        }
+      }
+    },
     methods: {
       resetCache: function () {
         axios.get('/api/clear_cathe')
@@ -200,19 +215,22 @@
         axios.get('api/search_main', {params: {
           theme: this.topic,
         }}).then(response => {
-          this.Demo.news_views_data = response.data.news_views_data;
+          this.Demo.news_views_data = {}
+          this.Demo.news_views_data['time'] = response.data.news_views_time_data;
+          this.Demo.news_views_data['crisis'] = response.data.news_views_crisis_data;
           this.Demo.hot_data = response.data.hot_data;
           this.Demo.sentiment_data = response.data.sentiment_data;
           this.Demo.event_data = response.data.event_data;
           this.Demo.map_data = response.data.map_data;
+          this.Demo.eventpre_data = response.data.eventpre_data;
         // 事件观点表格
-          this.left_up_list = this.Demo.news_views_data;
+          this.left_up_list = this.Demo.news_views_data[this.selected_result];
           for (var i = 0; i < this.left_up_list.length; i++) {
             this.left_up_list[i].timestr = new Date(this.left_up_list[i].time).format('yyyy-MM-dd');
           }
           this.right_up_list = this.left_up_list[0].views;
+          this.selected_news = this.left_up_list[0].title;
           for (i = 0; i < this.right_up_list.length; i++) {
-            this.right_up_list[i].nextevent = this.left_up_list[0].nextevent
             this.right_up_list[i].timestr = new Date(this.right_up_list[i].time).format('yyyy-MM-dd');
           }
         // 热度趋势图
@@ -229,26 +247,60 @@
           this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
 
         //  热点事件图
-          this.options.right_down.option = ChartLib['南海气泡图'].option;
-        // console.log(Demo.event_data)
-          this.options.right_down.option.legend.data = this.Demo.event_data.legend;
-          this.options.right_down.option.series = this.Demo.event_data.series;
-          let dataList = [];
-          _.each(this.options.right_down.option.series, (value1, index1) => {
-            _.each(value1['data'], (value2, index2) => {
-              dataList.push([index1, index2])
-            });
+        //   this.options.right_down.option = ChartLib['南海气泡图'].option;
+        // // console.log(Demo.event_data)
+        //   this.options.right_down.option.legend.data = this.Demo.event_data.legend;
+        //   this.options.right_down.option.series = this.Demo.event_data.series;
+        //   let dataList = [];
+        //   _.each(this.options.right_down.option.series, (value1, index1) => {
+        //     _.each(value1['data'], (value2, index2) => {
+        //       dataList.push([index1, index2])
+        //     });
+        //   });
+        //   clearInterval(this.intervalPop);
+        //   this.intervalPop = setInterval(() => {
+        //     var index = Math.floor((Math.random() * dataList.length));
+        //     this.$refs.hotevent.dispatchAction({
+        //       type: 'showTip',
+        //       seriesIndex: dataList[index][0],
+        //       dataIndex: dataList[index][1],
+        //       position: 'top'
+        //     })
+        //   }, 2000);
+          let seriesData3 = [];
+          let seriesData4 = [];
+          this.legendData = [];
+          _.forEach(this.Demo.eventpre_data.legend_data, (item) => {
+            if (item !== '无风险事件') {
+              this.legendData.push(item)
+            }
           });
-          clearInterval(this.intervalPop);
-          this.intervalPop = setInterval(() => {
-            var index = Math.floor((Math.random() * dataList.length));
-            this.$refs.hotevent.dispatchAction({
-              type: 'showTip',
-              seriesIndex: dataList[index][0],
-              dataIndex: dataList[index][1],
-              position: 'top'
-            })
-          }, 2000);
+          _.forEach(this.Demo.eventpre_data.data, (item) => {
+            if (item.name !== '无风险事件') {
+              seriesData3.push({
+                value: (item.value * 100).toFixed(0),
+                content: item.name_content,
+                name: item.name
+              });
+              seriesData4.push(100)
+            }
+          });
+          this.options.right_down.option = ChartLib['事件预测图'];
+          this.options.right_down.option.grid.top = '10%'
+          this.options.right_down.option.grid.bottom = '20%'
+          this.options.right_down.option.grid.left = '50%'
+          this.options.right_down.option.grid.right = '15%'
+          this.options.right_down.option.yAxis[0].data = this.legendData;
+          this.options.right_down.option.yAxis[0].axisLabel.formatter = (value, index) => {
+            let res = '{grey|' + value + '}{blue|' + seriesData3[index].value + '%}';
+            return res;
+          };
+          this.options.right_down.option.series[0].data = seriesData3;
+          this.options.right_down.option.series[1].data = seriesData4;
+          this.options.right_down.option.series[1].label.normal.formatter = (params) => {
+            let res = '{blue|' + seriesData3[params.dataIndex].value + '/}{orange|' + [seriesData4[params.dataIndex]] + '}';
+            return res;
+          };
 
           //  世界地图
           this.options.worldmap.option = ChartLib['世界地图'].option;
@@ -277,10 +329,12 @@
         }
         this.findDatas();
       },
-      clicking_news: function (term, nextevent) {
+      clicking_news: function (term, nextevent, title) {
         this.right_up_list = term;
+        this.selected_news = title;
+        console.log(this.selected_news)
         for (var j = 0; j < this.right_up_list.length; j++) {
-          this.right_up_list[j].nextevent = nextevent
+          this.right_up_list[j].nextevent = nextevent;
           this.right_up_list[j].timestr = new Date(this.right_up_list[j].time).format('yyyy-MM-dd');
         }
       }
@@ -385,4 +439,15 @@
       margin-left: 32px
       max-width: 90%
       padding: 1px 2px!important
+
+  .choice-list
+    text-align: right
+    margin: 0 10px
+    font-size: 16px
+    color: white
+
+    .choice
+      color: white
+      margin-left: 10px
+
 </style>

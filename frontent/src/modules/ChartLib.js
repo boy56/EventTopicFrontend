@@ -43,7 +43,11 @@ const ChartLib = {
         }
       },
       legend: {
-        data: ['朝核','南海','台选']
+        data: ['朝核','南海','台选'],
+        textStyle: {
+          color: '#fff'
+        },
+        top: '5%'
       },
       grid: {
         left: '6%',
@@ -402,7 +406,7 @@ const ChartLib = {
         confine: true,
         formatter: (p) => {
           let dataCon = p.data;
-          let txtCon = '专家发言数量<br/>' + dataCon.name + ':' + dataCon.value;
+          let txtCon = '专家观点数量<br/>' + dataCon.name + ':' + dataCon.value;
           return txtCon;
         }
       },
@@ -410,7 +414,7 @@ const ChartLib = {
         min: 0,
         max: 1000000,
         bottom: 10,
-        text: ['最高','最低\n\n             专家发言数量'],
+        text: ['最高','最低\n\n             专家观点数量'],
         realtime: false,
         calculable: true,
         color: ['orangered','yellow','lightskyblue'],
@@ -617,5 +621,153 @@ const ChartLib = {
       ]
     }
   },
+  '事件预测图': {
+    title: {
+      text: '事件预测',
+      subtext: '',
+      x: 'center'
+    },
+    grid: {
+      left: '55%',
+      top: '20%',
+      bottom: '10%',
+      right: '15%'
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: function (params) {
+        if (params.seriesName === '进度条背景') {
+          return ''
+        }
+        return '后续事件：<br/>' + params.name + '(' + params.data.value + '%) <br/>事件描述：<br/>' + params.data.content + '<br/>'
+      }
+    },
+    yAxis: [{
+      type: 'category',
+      data: ['美国在南海挑起争端', '中方采取反制措施'],
+      axisPointer: {
+        type: 'line'
+      },
+      axisLine: {
+        show: false
+      },
+      splitLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        margin: 10,
+        formatter: function (value, index) {
+          let res = '{grey|' + value + '}{blue|' + [{
+            value: 30,
+            content: '美国在南海挑起争端',
+            name: '美国在南海挑起争端'
+          }, {
+            value: 70,
+            content: '中方采取反制措施',
+            name: '中方采取反制措施'
+          }][index].value + '%}';
+          return res;
+        },
+        rich: {
+          blue: {
+            color: '#6bb6fd',
+            width: 60,
+            align: 'right',
+            fontSize: 14
+          },
+          grey: {
+            color: '#adb1b3',
+            fontSize: 16
+          }
+        }
+      },
+    }],
+    xAxis: [{
+      min: 0,
+      max: 100,
+      axisLabel: {
+        show: false
+      },
+      axisLine: {
+        show: false
+      },
+      splitLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      }
+    }],
+    series: [{
+      type: 'bar',
+      data: [{
+        value: 30,
+        content: '美国在南海挑起争端',
+        name: '美国在南海挑起争端'
+      }, {
+        value: 70,
+        content: '中方采取反制措施',
+        name: '中方采取反制措施'
+      }],
+      barWidth: 18,
+      z: 100,
+      itemStyle: {
+        normal: {
+          color: '#2c96f8',
+          barBorderRadius: [10, 10, 10, 10],
+        }
+      }
+    },
+    {
+      name: '进度条背景',
+      type: 'bar',
+      barGap: '-100%',
+      data: [100, 100],
+      barWidth: 18,
+      itemStyle: {
+        normal: {
+          barBorderRadius: [10, 10, 10, 10],
+          color: '#f7b534'
+        }
+      },
+      z: 90,
+      yAxisIndex: 0,
+      xAxisIndex: 0,
+      label: {
+        normal: {
+          show: true,
+          position: 'right',
+          distance: 10,
+          color: '#6bb6fd',
+          formatter: function (params) {
+            let res = '{blue|' + [{
+              value: 30,
+              content: '美国在南海挑起争端',
+              name: '美国在南海挑起争端'
+            }, {
+              value: 70,
+              content: '中方采取反制措施',
+              name: '中方采取反制措施'
+            }][params.dataIndex].value + '/}{orange|' + [[100, 100][params.dataIndex]] + '}';
+            return res;
+          },
+          rich: {
+            blue: {
+              color: '#6bb6fd',
+              fontSize: 14
+            },
+            orange: {
+              color: '#f7b534',
+              fontSize: 14
+            }
+          }
+        }
+      }
+    }
+    ]
+  }
 };
 export {ChartLib};

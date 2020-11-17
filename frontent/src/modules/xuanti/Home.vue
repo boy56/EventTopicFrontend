@@ -27,7 +27,7 @@ import Header from 'components/header/view_Header.vue'
 export default {
   data () {
     return {
-      headdata: '综合选题',
+      headdata: '开源情报',
       topic: null,
       dispDatas: [],
       totalRows: 64,
