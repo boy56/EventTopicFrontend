@@ -7,10 +7,10 @@
         <!-- <div class="table-th td-index">序号</div> -->
         <div class="table-th td-type">内容分类</div>
         <div class="table-th td-title">标题</div>
-        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间 {{this.sortingMap.time === 'desc'? '↓': '↑'}}</div>
-        <div class="table-th td-crisis sorting" @click="sortValues('crisis')">危机指数 {{this.sortingMap.crisis === 'desc'? '↓': '↑'}}</div>
-        <div class="table-th td-believe sorting" @click="sortValues('reliability')">可靠性 {{this.sortingMap.reliability === 'desc'? '↓': '↑'}}</div>
-        <div class="table-th td-source sorting" @click="sortValues('customer')">来源 {{this.sortingMap.customer === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')" :style="sorting === 'time' ? 'color: yellow' : 'color: white'">时间 {{this.sortingMap.time === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-crisis sorting" @click="sortValues('crisis')" :style="sorting === 'crisis' ? 'color: yellow' : 'color: white'">危机指数 {{this.sortingMap.crisis === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-believe sorting" @click="sortValues('reliability')" :style="sorting === 'reliability' ? 'color: yellow' : 'color: white'">可靠性 {{this.sortingMap.reliability === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-source sorting" @click="sortValues('customer')" :style="sorting === 'customer' ? 'color: yellow' : 'color: white'">来源 {{this.sortingMap.customer === 'desc'? '↓': '↑'}}</div>
       </div>
     </div>
     <div class="table table-striped list-table-body" >
@@ -172,7 +172,7 @@ export default {
       },
       dispValues: [],
       selectedLanguage: '',
-      sorting: 'time',
+      sorting: 'crisis',
       sortingMap: {'time': 'desc', 'crisis': 'desc', 'customer': 'desc', 'reliability': 'desc'},
     };
   },

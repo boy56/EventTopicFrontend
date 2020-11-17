@@ -9,7 +9,7 @@
         <div class="table-th td-pos">职位</div>
         <div class="table-th td-location">专家姓名</div>
         <div class="table-th td-title">观点</div>
-        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')">时间 {{this.sortingMap.time === 'desc'? '↓': '↑'}}</div>
+        <div class="table-th td-date sorting" :class="sortingMap.time" @click="sortValues('time')" :style="sorting === 'time' ? 'color: yellow' : 'color: white'">时间 {{this.sortingMap.time === 'desc'? '↓': '↑'}}</div>
         <div class="table-th td-source" v-if='!isevent'>来源</div>
       </div>
     </div>

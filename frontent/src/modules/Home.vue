@@ -332,7 +332,6 @@
       clicking_news: function (term, nextevent, title) {
         this.right_up_list = term;
         this.selected_news = title;
-        console.log(this.selected_news)
         for (var j = 0; j < this.right_up_list.length; j++) {
           this.right_up_list[j].nextevent = nextevent;
           this.right_up_list[j].timestr = new Date(this.right_up_list[j].time).format('yyyy-MM-dd');

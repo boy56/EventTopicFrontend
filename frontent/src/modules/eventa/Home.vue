@@ -44,21 +44,6 @@
           </div>
         </div>
       </div>
-<!--      <table style="width:100%; height: 80%; table-layout: fixed">-->
-<!--        <tr>-->
-<!--          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">事件类型</td>-->
-<!--          <td style="width:20%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点来源</td>-->
-<!--          <td style="width:48%; font-size: 18px; text-align: center; font-family: 'SimHei'">观点内容</td>-->
-<!--          <td style="width:12%; font-size: 18px; text-align: center; font-family: 'SimHei'">发布时间</td>-->
-<!--        </tr>-->
-<!--        <tr v-bind:key='item.viewpoint' v-for='item in left_down_data' style="height: 4rem">-->
-<!--          <td style="width:20%;overflow: hidden;text-align: center; -webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.eventname">{{item.eventname}}</td>-->
-<!--          <td style="width:20%;overflow: hidden;text-align: center;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.org">{{item.org}}</td>-->
-<!--          <td style="width:48%;overflow: hidden;-webkit-line-clamp: 2;-webkit-box-orient: vertical;font-size: 14px;" :title="item.viewpoint">{{item.viewpoint}}</td>-->
-<!--          &lt;!&ndash;                <td style="width:80%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;line-height: 1.5;font-size: 14px;-webkit-line-clamp: 3;" :title="item.center">{{item.center}}</td>&ndash;&gt;-->
-<!--          <td style="width:12%;overflow: hidden;text-align: center;line-height: 1.5;">{{new Date(item.time).format('yyyy-MM-dd')}}</td>-->
-<!--        </tr>-->
-<!--      </table>-->
       <div class="r-panel">
         <div class="events-wrapper">
           <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 20px">事件追溯</div>
@@ -67,13 +52,6 @@
           </div>
         </div>
       </div>
-      <!--      <v-footer></v-footer>-->
-      <!-- </iframe> -->
-      <!-- <b-pagination align="center" size="md" :limit="8"
-                   :per-page="64"
-                   :total-rows="totalRows"
-                   v-model="pageno"> -->
-      <!-- </b-pagination> -->
     </div>
   </div>
 </template>
@@ -82,6 +60,8 @@
 import SearchBox from 'components/search/Eventa_SearchBox'
 import echarts from 'echarts'
 import Header from 'components/header/view_Header.vue'
+import {ChartLib} from '../ChartLib'
+
 require('components/common/TimelineJS/timeline.css')
 export default {
   // props: {
@@ -91,7 +71,7 @@ export default {
   // },
   data () {
     return {
-      headdata: '事件分析',
+      headdata: '事件预测',
       unique_id: -1,
       sourceMap: {},
       left_down_data: [],
@@ -334,15 +314,15 @@ export default {
         }
         myChart.setOption(left_up_option);
         myChart = echarts.init(document.getElementById('right_up'));
-        let seriesData3 = []
-        let seriesData4 = [100, 100]
-        this.legendData = []
+        let seriesData3 = [];
+        let seriesData4 = [];
+        this.legendData = [];
         _.forEach(this.Demo.eventpre_data.legend_data, (item) => {
           if (item !== '无风险事件') {
             this.legendData.push(item)
           }
-        })
-        this.selected_result = this.legendData[0]
+        });
+        this.selected_result = this.legendData[0];
         _.forEach(this.Demo.eventpre_data.data_pro, (item) => {
           if (item.name !== '无风险事件') {
             seriesData3.push({
@@ -350,134 +330,23 @@ export default {
               content: item.name_content,
               name: item.name
             })
+            seriesData4.push(100)
           }
         })
-        this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result]
-        this.nextevent_views = this.Demo.nextevent_views_pro[this.selected_result]
-        var right_up_option = {
-          title: {
-            text: '事件预测',
-            subtext: '',
-            x: 'center'
-          },
-          grid: {
-            left: 280,
-            top: 40,
-            bottom: 40,
-            right: 60
-          },
-          tooltip: {
-            trigger: 'item',
-            formatter: function (params) {
-              if (params.seriesName === '进度条背景') {
-                return ''
-              }
-              return '后续事件：<br/>' + params.name + '(' + params.data.value + '%) <br/>事件描述：<br/>' + params.data.content + '<br/>'
-            }
-          },
-          yAxis: [{
-            type: 'category',
-            data: this.legendData,
-            axisPointer: {
-              type: 'line'
-            },
-            axisLine: {
-              show: false
-            },
-            splitLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            },
-            axisLabel: {
-              margin: 10,
-              formatter: function (value, index) {
-                let res = '{grey|' + value + '}{blue|' + seriesData3[index].value + '%}';
-                return res;
-              },
-              rich: {
-                blue: {
-                  color: '#6bb6fd',
-                  width: 60,
-                  align: 'right',
-                  fontSize: 14
-                },
-                grey: {
-                  color: '#adb1b3',
-                  fontSize: 16
-                }
-              }
-            },
-          }],
-          xAxis: [{
-            min: 0,
-            max: 100,
-            axisLabel: {
-              show: false
-            },
-            axisLine: {
-              show: false
-            },
-            splitLine: {
-              show: false
-            },
-            axisTick: {
-              show: false
-            }
-          }],
-          series: [{
-            type: 'bar',
-            data: seriesData3,
-            barWidth: 18,
-            z: 100,
-            itemStyle: {
-              normal: {
-                color: '#2c96f8',
-                barBorderRadius: [10, 10, 10, 10],
-              }
-            }
-          },
-          {
-            name: '进度条背景',
-            type: 'bar',
-            barGap: '-100%',
-            data: seriesData4,
-            barWidth: 18,
-            itemStyle: {
-              normal: {
-                barBorderRadius: [10, 10, 10, 10],
-                color: '#f7b534'
-              }
-            },
-            z: 90,
-            yAxisIndex: 0,
-            xAxisIndex: 0,
-            label: {
-              normal: {
-                show: true,
-                position: 'right',
-                distance: 10,
-                color: '#6bb6fd',
-                formatter: function (params) {
-                  let res = '{blue|' + seriesData3[params.dataIndex].value + '/}{orange|' + seriesData4[params.dataIndex] + '}';
-                  return res;
-                },
-                rich: {
-                  blue: {
-                    color: '#6bb6fd',
-                    fontSize: 14
-                  },
-                  orange: {
-                    color: '#f7b534',
-                    fontSize: 14
-                  }
-                }
-              }
-            }
-          }
-          ]
-        }
+        this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result];
+        this.nextevent_views = this.Demo.nextevent_views_pro[this.selected_result];
+        var right_up_option = ChartLib['事件预测图'];
+        right_up_option.yAxis[0].data = this.legendData;
+        right_up_option.yAxis[0].axisLabel.formatter = (value, index) => {
+          let res = '{grey|' + value + '}{blue|' + seriesData3[index].value + '%}';
+          return res;
+        };
+        right_up_option.series[0].data = seriesData3;
+        right_up_option.series[1].data = seriesData4;
+        right_up_option.series[1].label.normal.formatter = (params) => {
+          let res = '{blue|' + seriesData3[params.dataIndex].value + '/}{orange|' + [seriesData4[params.dataIndex]] + '}';
+          return res;
+        };
         // var right_up_option = {
         //   title: {
         //     text: '事件预测',
