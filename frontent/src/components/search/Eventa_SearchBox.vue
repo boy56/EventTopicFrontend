@@ -1,16 +1,11 @@
 <template>
   <div class="search-row row form-horizontal">
-    <!-- <div class="col-md-3 search-wrapper"> -->
-      <!-- <input class="search-ipt form-control" type="text" v-model="searchInput.kws" placeholder="请输入关键字"> -->
-      <!-- 此提交按钮只在移动端显示 -->
-      <!-- <button class="search-submit"><i class="fa fa-search"></i></button> -->
-    <!-- </div> -->
-    <!-- 时间选取功能只在PC端显示 -->
-<!--    <div class="col-md-3 date-wrapper">-->
-<!--      <label for="date-start" class="control-label date-label">起始时间：</label>-->
-<!--      <v-datepicker placeholder="选择日期" :value="searchInput.dateStart" :disabled="dateStartEnd" @selected="v => searchInput.dateStart = v"></v-datepicker>-->
-<!--    </div>-->
-    <div class="col-md-3 date-wrapper" style="margin-left: 280px;">
+    <div class="col-md-3 date-wrapper">
+      <select v-model="searchInput.predictEvent" style="font-size: 16px">
+        <option v-for="event in predictEvents" :value="event" style="font-size: 16px">{{ event }}</option>
+      </select>
+    </div>
+    <div class="col-md-3 date-wrapper">
       <label for="date-end" class="control-label date-label">预测时间：</label>
       <v-datepicker placeholder="选择日期" :value="searchInput.dateEnd" :disabled="dateEndStart"  @selected="v => searchInput.dateEnd = v"></v-datepicker>
     </div>
@@ -19,7 +14,9 @@
       <button class="search-title btn" @click="searchTitle">搜索</button>
       <!-- <button class="search-title-cont btn" @click="searchTitleText">搜标题+正文</button> -->
     </div>
-    <div>搜索用时：{{searchTime}}秒</div>
+    <div class="col-md-2" style="padding: 6px">
+      <div>搜索用时：{{searchTime}}秒</div>
+    </div>
   </div>
 </template>
 
@@ -32,7 +29,7 @@
         type: Object,
         default () {
           return {
-            kws: '',
+            predictEvent: '',
             dateStart: new Date().format('yyyy-MM-dd'),
             dateEnd: new Date().format('yyyy-MM-dd'),
             includeText: false,
@@ -42,6 +39,12 @@
       searchTime: {
         type: Number,
         default: 0.754
+      },
+      predictEvents: {
+        type: Array,
+        default () {
+          return ['美国进行南海航行自由行动', '美国发布挑衅南海主权和权益言论'];
+        }
       }
     },
     data () {

@@ -3,26 +3,18 @@
     <v-header :headdata='headdata' :topic="topic"></v-header>
     <div class="page-wrapper" v-title data-title="事件分析">
       <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
-      <v-search-box :search-input.sync="searchInput" :search-time="loadingTime"></v-search-box>
+      <v-search-box :search-input.sync="searchInput" :search-time="loadingTime" :predict-events.sync="predict_events"></v-search-box>
       <div class="row" :style="chartStyle">
-        <div class="col-6">
-          <div id="left_up" ref="myCharts" style="width:100%; height: 100%; padding: 20px"></div>
+        <div class="col-8">
+          <div id="left_up" ref="myCharts" style="width:100%; height: 100%; padding: 10px"></div>
         </div>
-        <div class="col-6">
-          <div id="right_up" ref="myCharts" style="width:100%; height: 100%; padding: 20px"></div>
+        <div class="col-4">
+          <div id="right_up" ref="myCharts" style="width:100%; height: 80%; top: 10%; padding: 10px 0"></div>
+          <div style="text-align: center">{{ nextevent_content }}</div>
         </div>
       </div>
-      <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 5px">支撑材料</div>
+      <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 5px; margin-bottom: 15px">支撑材料</div>
       <div class="row">
-        <div class="col-12">
-          <div class="row">
-            <div class="col-12 form result-group">
-              <span v-for="result in legendData" :key="result">
-                <input type="radio" name="content_result" :value="result" class="result" v-model="selected_result"/>{{ result }}
-              </span>
-            </div>
-          </div>
-        </div>
         <div class="col-6">
           <div class="news-card-list" :style="supportStyle">
             <div class="news-card" v-for="news in nextevent_news" :key="news.title">
@@ -60,7 +52,7 @@
 import SearchBox from 'components/search/Eventa_SearchBox'
 import echarts from 'echarts'
 import Header from 'components/header/view_Header.vue'
-import {ChartLib} from '../ChartLib'
+import {ChartLib} from '../ChartLib.js'
 
 require('components/common/TimelineJS/timeline.css')
 export default {
@@ -75,6 +67,7 @@ export default {
       unique_id: -1,
       sourceMap: {},
       left_down_data: [],
+      nextevent_content: '',
       topic: null,
       Demo: null,
       loadingTime: 0.795,
@@ -89,13 +82,14 @@ export default {
         height: '300px',
       },
       chartStyle: {
-        height: '300px',
+        height: '500px',
         paddingTop: '1rem'
       },
       supportStyle: {
         height: '300px',
       },
       event: [],
+      predict_events: [],
       // events: [],
       loading: {
         timeline: true,
@@ -123,7 +117,7 @@ export default {
         right_down: { option: {}, update: () => { return; } },
       },
       searchInput: {
-        kws: '',
+        predictEvent: '美国进行南海航行自由行动',
         dateStart: new Date('2019-11-12'), // TODO truncate date to day unit.
         dateEnd: new Date('2020-11-12'),
         includeText: false,
@@ -172,12 +166,19 @@ export default {
       }
     },
     selected_result: function () {
-      this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result]
-      this.nextevent_views = this.Demo.nextevent_views_pro[this.selected_result]
+      this.nextevent_news = this.Demo.nextevent_news_pro
+      this.nextevent_views = this.Demo.nextevent_views_pro
     }
   },
   created () {
     this.topic = this.$route.query.queryId;
+    if (this.topic === '南海') {
+      this.predict_events = ['美国进行南海航行自由行动', '美国发布挑衅南海主权和权益言论'];
+    } else if (this.topic === '朝核') {
+      this.predict_events = ['朝鲜采取军事行动等过激行为', '西方国家针对朝鲜进行制裁'];
+    } else {
+      this.predict_events = ['台湾政局核心人物鼓吹台独', '台湾政局发生大规模人事变化'];
+    }
     if (this.$route.query.startDate) {
       this.searchInput.dateStart = new Date(this.$route.query.startDate);
     }
@@ -195,42 +196,9 @@ export default {
   methods: {
     getHeight () {
       this.tableStyle.height = (window.innerHeight - 159.5) + 'px'
-      this.chartStyle.height = (window.innerHeight - 173.5) * 0.38 + 'px'
+      this.chartStyle.height = (window.innerHeight - 173.5) * 0.6 + 'px'
       this.timelineStyle.height = (window.innerHeight - 173.5) * 0.6 + 'px'
-      this.supportStyle.height = (window.innerHeight - 173.5) * 0.63 - 64 + 'px'
-    },
-    genData (count) {
-      var nameList = [
-        '赵', '钱', '孙', '李', '周', '吴', '郑', '王', '冯', '陈', '褚', '卫', '蒋', '沈', '韩', '杨', '朱', '秦', '尤', '许', '何', '吕', '施', '张', '孔', '曹', '严', '华', '金', '魏', '陶', '姜', '戚', '谢', '邹', '喻', '柏', '水', '窦', '章', '云', '苏', '潘', '葛', '奚', '范', '彭', '郎', '鲁', '韦', '昌', '马', '苗', '凤', '花', '方', '俞', '任', '袁', '柳', '酆', '鲍', '史', '唐', '费', '廉', '岑', '薛', '雷', '贺', '倪', '汤', '滕', '殷', '罗', '毕', '郝', '邬', '安', '常', '乐', '于', '时', '傅', '皮', '卞', '齐', '康', '伍', '余', '元', '卜', '顾', '孟', '平', '黄', '和', '穆', '萧', '尹', '姚', '邵', '湛', '汪', '祁', '毛', '禹', '狄', '米', '贝', '明', '臧', '计', '伏', '成', '戴', '谈', '宋', '茅', '庞', '熊', '纪', '舒', '屈', '项', '祝', '董', '梁', '杜', '阮', '蓝', '闵', '席', '季', '麻', '强', '贾', '路', '娄', '危'
-      ];
-      var legendData = [];
-      var seriesData = [];
-      var selected = {};
-      var tmpname = null;
-      for (var i = 0; i < count; i++) {
-        tmpname = Math.random() > 0.65
-                ? makeWord(4, 1) + '·' + makeWord(3, 0)
-                : makeWord(2, 1);
-        legendData.push(tmpname);
-        seriesData.push({
-          name: tmpname,
-          value: Math.round(Math.random() * 100000)
-        });
-        selected[tmpname] = i < 6;
-      }
-      return {
-        legendData: legendData,
-        seriesData: seriesData,
-        selected: selected
-      };
-      function makeWord (max, min) {
-        var nameLen = Math.ceil(Math.random() * max + min);
-        var name = [];
-        for (var i = 0; i < nameLen; i++) {
-          name.push(nameList[Math.round(Math.random() * nameList.length - 1)]);
-        }
-        return name.join('');
-      }
+      this.supportStyle.height = (window.innerHeight - 173.5) * 0.45 - 74 + 'px'
     },
     findDatas: function (filter = {
       selectedTypes: [],
@@ -243,109 +211,60 @@ export default {
       axios.get('api/search_eventa', {params: {
         date_from: this.searchInput.dateStart.format('yyyy-MM-dd'),
         date_to: this.searchInput.dateEnd.format('yyyy-MM-dd'),
-        kws: this.searchInput.kws,
-        kws_kinds: _.join(filter.selectedWords, ' '),
-        include_text: this.searchInput.includeText,
-        size: 64,
-        pageno: this.pageno,
-        language: filter.selectedLanguge,
-        location: filter.selectedLocation,
+        predict_event: this.searchInput.predictEvent,
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
         this.Demo = response.data;
-        var exact_list = [];
-        _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
-          exact_list.push({'name': item.name, 'value': item.value})
-        });
-        var predict_list = [];
-        _.forEach(this.Demo.tendency_data.tendency_news, function (item) {
-          predict_list.push({'name': item.name, 'value': item.crisis_value})
-        });
         require(['../../components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
         var myChart = echarts.init(document.getElementById('left_up'));
-        var left_up_option = {
+        var left_up_option = ChartLib['事件图谱'].option;
+        var nodelist = [];
+        _.forEach(this.Demo.graph_data.nodelist, (item) => {
+          if (item.category !== 0 && item.category !== 4) {
+            item.itemStyle = {
+              normal: {
+                label: {
+                  show: true
+                }
+              }
+            };
+            nodelist.push(item)
+          } else {
+            nodelist.push(item)
+          }
+        });
+        left_up_option.series[0].data = nodelist;
+        left_up_option.series[0].links = this.Demo.graph_data.linklist;
+        myChart.setOption(left_up_option);
+        myChart = echarts.init(document.getElementById('right_up'));
+        this.nextevent_news = this.Demo.nextevent_news_pro;
+        this.nextevent_views = this.Demo.nextevent_views_pro;
+        this.nextevent_content = this.Demo.nextevent_content;
+        var right_up_option = {
           title: {
-            text: '专题热度',
+            text: '事件预测',
+            subtext: '',
             x: 'center'
           },
           tooltip: {
-            trigger: 'axis',
-            formatter: function (param) {
-              return '<div>' + param[0].data.name + '</div> <div>热度：' + param[0].data.value + '</div><div>风险：' + param[1].data.value + '</div>';
-            }
+            formatter: '{a} <br/>{b} : {c}%'
           },
-          legend: {
-            data: ['热度','风险'],
-            left: 25,
-            top: 30
-          },
-          grid: {
-            left: '5%',
-            right: '5%',
-            bottom: '1%',
-            containLabel: true
-          },
-          xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: this.Demo.tendency_data.tendency_time
-          },
-          yAxis: {
-            type: 'value'
-          },
-          series: [
-            {
-              name: '热度',
-              smooth: true,
-              type: 'line',
-              stack: '总量',
-              areaStyle: {normal: {}},
-              data: exact_list
+          series: [{
+            name: this.searchInput.predictEvent,
+            type: 'gauge',
+            detail: {
+              formatter: '{value}%',
+              fontSize: 28
             },
-            {
-              name: '风险',
-              smooth: true,
-              type: 'line',
-              stack: '总量',
-              areaStyle: {normal: {}},
-              data: predict_list
-            }
-          ]
-        }
-        myChart.setOption(left_up_option);
-        myChart = echarts.init(document.getElementById('right_up'));
-        let seriesData3 = [];
-        let seriesData4 = [];
-        this.legendData = [];
-        _.forEach(this.Demo.eventpre_data.legend_data, (item) => {
-          if (item !== '无风险事件') {
-            this.legendData.push(item)
-          }
-        });
-        this.selected_result = this.legendData[0];
-        _.forEach(this.Demo.eventpre_data.data_pro, (item) => {
-          if (item.name !== '无风险事件') {
-            seriesData3.push({
-              value: (item.value * 100).toFixed(0),
-              content: item.name_content,
-              name: item.name
-            })
-            seriesData4.push(100)
-          }
-        })
-        this.nextevent_news = this.Demo.nextevent_news_pro[this.selected_result];
-        this.nextevent_views = this.Demo.nextevent_views_pro[this.selected_result];
-        var right_up_option = ChartLib['事件预测图'];
-        right_up_option.yAxis[0].data = this.legendData;
-        right_up_option.yAxis[0].axisLabel.formatter = (value, index) => {
-          let res = '{grey|' + value + '}{blue|' + seriesData3[index].value + '%}';
-          return res;
-        };
-        right_up_option.series[0].data = seriesData3;
-        right_up_option.series[1].data = seriesData4;
-        right_up_option.series[1].label.normal.formatter = (params) => {
-          let res = '{blue|' + seriesData3[params.dataIndex].value + '/}{orange|' + [seriesData4[params.dataIndex]] + '}';
-          return res;
+            title: {
+              fontSize: 14
+            },
+            center: ['50%', '50%'],
+            data: [{
+              value: (this.Demo.nextevent_weight * 100).toFixed(0),
+              name: '发生概率'
+            }]
+          }]
         };
         // var right_up_option = {
         //   title: {
@@ -397,13 +316,21 @@ export default {
     },
     newmakeTimeLine (TL) {
       var sources = {events: []};
-      var response = this.Demo.timeline_data;
+      var response = this.Demo.nextevent_timeline_data;
       this.TL = TL;
-      response.data = _.orderBy(response.data, 'releaseDate');
+      response = _.orderBy(response, 'releaseDate');
       let maxSimIndex = -1;
-      if (_.isEmpty(response.data)) { // 如果返回的源数据为空，显示事件本身。
-        let date = new Date(this.event.dateDay);
-        sources.events = [{
+      sources.events = _.map(response, item => {
+        let date = new Date(item.dateDay);
+        let text = item.content;
+        if (item.foreign && item.content) {
+          text = '<div class="text-content-wrapper">' +
+                  '<div class="text-content-inner text-content-left">' + item.content + '</div>' +
+                  '<div class="text-content-sep"></div>' +
+                  '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
+                  '</div>';
+        }
+        let source = {
           start_date: {
             year: date.getFullYear(),
             month: date.getMonth() + 1,
@@ -414,42 +341,14 @@ export default {
             display_date: date.format('yyyy-MM-dd hh:mm:ss'),
           },
           text: {
-            headline: '<a href="/event/#/detail/' + this.event.eventId + '" target="_blank">' + this.event.description + '</a>',
-            text: '',
+            headline: '<a href="' + item.url + '" target="_blank">' + (item.title) + '</a>',
+            text: text,
           },
-          unique_id: this.event.eventId,
-        }];
-      } else {
-        sources.events = _.map(response.data, item => {
-          let date = new Date(item.dateDay);
-          let text = item.content;
-          if (item.foreign && item.content) {
-            text = '<div class="text-content-wrapper">' +
-                    '<div class="text-content-inner text-content-left">' + item.content + '</div>' +
-                    '<div class="text-content-sep"></div>' +
-                    '<div class="text-content-inner text-content-right">' + item.content + '</div>' +
-                    '</div>';
-          }
-          let source = {
-            start_date: {
-              year: date.getFullYear(),
-              month: date.getMonth() + 1,
-              day: date.getDate(),
-              hour: date.getHours(),
-              minute: date.getMinutes(),
-              second: date.getSeconds(),
-              display_date: date.format('yyyy-MM-dd hh:mm:ss'),
-            },
-            text: {
-              headline: '<a href="' + item.url + '" target="_blank">' + (item.title) + '</a>',
-              text: text,
-            },
-            unique_id: item.id,
-          };
-          return source;
-        });
-        this.unique_id = _.last(response.data).id;
-      }
+          unique_id: item.id,
+        };
+        return source;
+      });
+      this.unique_id = _.last(response).id;
       let options = { language: 'zh_CN', start_at_end: true };
       this.timeline = new this.TL.Timeline('source-timeline', sources, options);
       // event binding
