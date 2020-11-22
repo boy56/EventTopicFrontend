@@ -768,6 +768,873 @@ const ChartLib = {
       }
     }
     ]
+  },
+  '事件图谱': {
+    option: {
+      animationDuration: 1500,
+      animationEasingUpdate: 'quinticInOut',
+      series: [
+        {
+          name: '群体关系',
+          type: 'graph',
+          layout: 'force',
+          categories: [
+            {
+              name: '关键参与者'
+            },
+            {
+              name: '一般用户'
+            }
+          ],
+          roam: true,
+          focusNodeAdjacency: true,
+          itemStyle: {
+            borderColor: '#fff',
+            borderWidth: 1,
+            shadowBlur: 5,
+            shadowColor: 'rgba(0, 0, 0, 0.3)'
+          },
+          lineStyle: {
+            color: 'source',
+            curveness: 0.3
+          },
+          emphasis: {
+            lineStyle: {
+              width: 10
+            }
+          },
+          zoom: 3
+        }
+      ]
+    }
+  },
+  '南海图谱': {
+    nodelist: [
+      {
+        ID: '南海专题',
+        name: '南海专题',
+        symbolSize: 16,
+        category: 0
+      },
+      {
+        ID: '事件',
+        name: '事件',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '专家',
+        name: '专家',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '组织',
+        name: '组织',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '美国进行南海“航行自由行动”',
+        name: '美国进行南海“航行自由行动”',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '美国发布挑衅南海主权和权益言论',
+        name: '美国发布挑衅南海主权和权益言论',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '美国国务卿蓬佩奥',
+        name: '美国国务卿蓬佩奥',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '南部战区新闻发言人李华敏',
+        name: '南部战区新闻发言人李华敏',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '国防部新闻局副局长任国强',
+        name: '国防部新闻局副局长任国强',
+        symbolSize: 10,
+        category: 3
+      },
+      {
+        ID: '外交部发言人华春莹',
+        name: '外交部发言人华春莹',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '五角大楼发言人霍夫曼',
+        name: '五角大楼发言人霍夫曼',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '外交部发言人汪文斌',
+        name: '外交部发言人汪文斌',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国第七舰队发言人安东尼.洪科',
+        name: '美国第七舰队发言人安东尼.洪科',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国海军作战部长麦克·吉尔迪',
+        name: '美国海军作战部长麦克·吉尔迪',
+        symbolSize: 12,
+        category: 3
+      },
+      {
+        ID: '美国印太司令部总司令戴维森',
+        name: '美国印太司令部总司令戴维森',
+        symbolSize: 12,
+        category: 3
+      },
+      {
+        ID: '美国国家安全顾问奥布莱恩',
+        name: '美国国家安全顾问奥布莱恩',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国国务院发言人摩根·奥塔格斯',
+        name: '美国国务院发言人摩根·奥塔格斯',
+        symbolSize: 12,
+        category: 3
+      },
+      {
+        ID: '美国第七舰队',
+        name: '美国第七舰队',
+        symbolSize: 14,
+        category: '组织'
+      },
+      {
+        ID: '美国国防部',
+        name: '美国国防部',
+        symbolSize: 10,
+        category: '组织'
+      },
+      {
+        ID: '美国国务院',
+        name: '美国国务院',
+        symbolSize: 14,
+        category: '组织'
+      },
+      {
+        ID: '美国印太司令部',
+        name: '美国印太司令部',
+        symbolSize: 13,
+        category: '组织'
+      },
+      {
+        ID: '美国外交部',
+        name: '美国外交部',
+        symbolSize: 11,
+        category: '组织'
+      },
+      {
+        ID: '美国海军作战部',
+        name: '美国海军作战部',
+        symbolSize: 10,
+        category: '组织'
+      },
+      {
+        ID: '五角大楼',
+        name: '五角大楼',
+        symbolSize: 13,
+        category: 4
+      },
+      {
+        ID: '越南外交部',
+        name: '越南外交部',
+        symbolSize: 9,
+        category: 4
+      },
+      {
+        ID: '中国外交部',
+        name: '中国外交部',
+        symbolSize: 12,
+        category: 4
+      },
+      {
+        ID: '中国国防部',
+        name: '中国国防部',
+        symbolSize: 14,
+        category: 4
+      }
+    ],
+    linklist: [
+      {
+        source: '南海专题',
+        target: '事件',
+        symbolSize: 1
+      },
+      {
+        source: '南海专题',
+        target: '专家',
+        symbolSize: 1
+      },
+      {
+        source: '南海专题',
+        target: '组织',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '美国进行南海“航行自由行动”',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '美国发布挑衅南海主权和权益言论',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国务卿蓬佩奥',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '南部战区新闻发言人李华敏',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '国防部新闻局副局长任国强',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '外交部发言人华春莹',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '五角大楼发言人霍夫曼',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '外交部发言人汪文斌',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国第七舰队发言人安东尼.洪科',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国海军作战部长麦克·吉尔迪',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国印太司令部总司令戴维森',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国家安全顾问奥布莱恩',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国务院发言人摩根·奥塔格斯',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国第七舰队',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国防部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国务院',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国印太司令部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国海军作战部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '五角大楼',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '越南外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国国防部',
+        symbolSize: 1
+      }
+    ]
+  },
+  '朝核图谱': {
+    nodelist: [
+      {
+        ID: '朝核专题',
+        name: '朝核专题',
+        symbolSize: 16,
+        category: 0
+      },
+      {
+        ID: '事件',
+        name: '事件',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '专家',
+        name: '专家',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '组织',
+        name: '组织',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '西方国家针对朝鲜进行制裁',
+        name: '西方国家针对朝鲜进行制裁',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '朝鲜采取军事行动等过激行为',
+        name: '朝鲜采取军事行动等过激行为',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '中国外交部发言人赵立坚',
+        name: '中国外交部发言人赵立坚',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '美国陆军参谋长米莱',
+        name: '美国陆军参谋长米莱',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '朝鲜劳动党委员长金正恩',
+        name: '朝鲜劳动党委员长金正恩',
+        symbolSize: 10,
+        category: 3
+      },
+      {
+        ID: '韩国总统文在寅',
+        name: '韩国总统文在寅',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '美国对朝特别代表比根',
+        name: '美国对朝特别代表比根',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '朝鲜外务省负责美国事务局长权正根',
+        name: '朝鲜外务省负责美国事务局长权正根',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '朝鲜外务相李善权',
+        name: '朝鲜外务相李善权',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '中国社科院美国所副研究员李枏',
+        name: '中国社科院美国所副研究员李枏',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '五角大楼发言人霍夫曼',
+        name: '五角大楼发言人霍夫曼',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国国家安全顾问奥布莱恩',
+        name: '美国国家安全顾问奥布莱恩',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '韩国联合参谋本部',
+        name: '韩国联合参谋本部',
+        symbolSize: 10,
+        category: 4
+      },
+      {
+        ID: '美国国防部',
+        name: '美国国防部',
+        symbolSize: 10,
+        category: 4
+      },
+      {
+        ID: '朝鲜军方',
+        name: '朝鲜军方',
+        symbolSize: 14,
+        category: 4
+      },
+      {
+        ID: '朝鲜外务省',
+        name: '朝鲜外务省',
+        symbolSize: 12,
+        category: 4
+      },
+      {
+        ID: '朝鲜国务委员会',
+        name: '朝鲜国务委员会',
+        symbolSize: 13,
+        category: 4
+      },
+      {
+        ID: '中国社科院美国所',
+        name: '中国社科院美国所',
+        symbolSize: 9,
+        category: 4
+      },
+      {
+        ID: '美国白宫',
+        name: '美国白宫',
+        symbolSize: 12,
+        category: 4
+      },
+      {
+        ID: '美国国务院',
+        name: '美国国务院',
+        symbolSize: 13,
+        category: 4
+      }
+    ],
+    linklist: [
+      {
+        source: '朝核专题',
+        target: '事件',
+        symbolSize: 1
+      },
+      {
+        source: '朝核专题',
+        target: '专家',
+        symbolSize: 1
+      },
+      {
+        source: '朝核专题',
+        target: '组织',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '西方国家针对朝鲜进行制裁',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '朝鲜采取军事行动等过激行为',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '中国外交部发言人赵立坚',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国陆军参谋长米莱',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '朝鲜劳动党委员长金正恩',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '韩国总统文在寅',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国对朝特别代表比根',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '朝鲜外务省负责美国事务局长权正根',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '朝鲜外务相李善权',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '中国社科院美国所副研究员李枏',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '五角大楼发言人霍夫曼',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国家安全顾问奥布莱恩',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '韩国联合参谋本部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国防部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '朝鲜军方',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '朝鲜外务省',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '朝鲜国务委员会',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国社科院美国所',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国白宫',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国务院',
+        symbolSize: 1
+      }
+    ]
+  },
+  '台选图谱': {
+    nodelist: [
+      {
+        ID: '台选专题',
+        name: '台选专题',
+        symbolSize: 16,
+        category: 0
+      },
+      {
+        ID: '事件',
+        name: '事件',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '专家',
+        name: '专家',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '组织',
+        name: '组织',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '西方国家针对朝鲜进行制裁',
+        name: '西方国家针对朝鲜进行制裁',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '朝鲜采取军事行动等过激行为',
+        name: '朝鲜采取军事行动等过激行为',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '国防部新闻发言人任国强',
+        name: '国防部新闻发言人任国强',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '中国外交部发言人赵立坚',
+        name: '中国外交部发言人赵立坚',
+        symbolSize: 10,
+        category: 3
+      },
+      {
+        ID: '国台办发言人朱凤莲',
+        name: '国台办发言人朱凤莲',
+        symbolSize: 10,
+        category: 3
+      },
+      {
+        ID: '美国国务卿蓬佩奥',
+        name: '美国国务卿蓬佩奥',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '台湾中国文化大学社会科学学院邵宗海',
+        name: '台湾中国文化大学社会科学学院邵宗海',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '台湾陆委会主委陈明通',
+        name: '台湾陆委会主委陈明通',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '台湾地区领导人蔡英文',
+        name: '台湾地区领导人蔡英文',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '美国参议员贾德纳',
+        name: '美国参议员贾德纳',
+        symbolSize: 11,
+        category: 3
+      },
+      {
+        ID: '台湾“外交部”发言人欧江安',
+        name: '台湾“外交部”发言人欧江安',
+        symbolSize: 10,
+        category: 3
+      },
+      {
+        ID: '台湾当局防务部门负责人严德发',
+        name: '台湾当局防务部门负责人严德发',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国国务院',
+        name: '美国国务院',
+        symbolSize: 14,
+        category: 4
+      },
+      {
+        ID: '国台办',
+        name: '国台办',
+        symbolSize: 13,
+        category: 4
+      },
+      {
+        ID: '美国参议院',
+        name: '美国参议院',
+        symbolSize: 10,
+        category: 4
+      },
+      {
+        ID: '中国外交部',
+        name: '中国外交部',
+        symbolSize: 10,
+        category: 4
+      },
+      {
+        ID: '中国国防部',
+        name: '中国国防部',
+        symbolSize: 14,
+        category: 4
+      },
+      {
+        ID: '美国众议院院',
+        name: '美国众议院院',
+        symbolSize: 13,
+        category: 4
+      },
+      {
+        ID: '台湾当局防务部门',
+        name: '台湾当局防务部门',
+        symbolSize: 9,
+        category: 4
+      },
+      {
+        ID: '台湾陆委会',
+        name: '台湾陆委会',
+        symbolSize: 9,
+        category: 4
+      }
+    ],
+    linklist: [
+      {
+        source: '台湾专题',
+        target: '事件',
+        symbolSize: 1
+      },
+      {
+        source: '台湾专题',
+        target: '专家',
+        symbolSize: 1
+      },
+      {
+        source: '台湾专题',
+        target: '组织',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '西方国家针对朝鲜进行制裁',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '朝鲜采取军事行动等过激行为',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '国防部新闻发言人任国强',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '中国外交部发言人赵立坚',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '国台办发言人朱凤莲',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国务卿蓬佩奥',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '台湾中国文化大学社会科学学院邵宗海',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '台湾陆委会主委陈明通',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '台湾地区领导人蔡英文',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国参议员贾德纳',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '台湾“外交部”发言人欧江安',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '台湾当局防务部门负责人严德发',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国务院',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '国台办',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国参议院',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国国防部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国众议院院',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '台湾当局防务部门',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '台湾陆委会',
+        symbolSize: 1
+      }
+    ]
   }
 };
 export {ChartLib};

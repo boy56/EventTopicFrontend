@@ -116,7 +116,7 @@
     </div>
      <div class="con-box r-b1-box">
         <div style="text-align: center;margin-bottom: .5rem">
-           <span style="font-size: 20px;color: white;">立场分析</span>
+           <span style="font-size: 20px;color: white;">专题图谱</span>
         </div>
         <Echarts theme="ring" :option="options.right1_down.option" className="chart" ></Echarts>
      </div>
@@ -146,6 +146,7 @@
         intervalRotate: null,
         intervalPop: null,
         result: null,
+        graph_data: null,
         nowCityIndex: 0,
         rotateCities: [],
         left_up_list: [],
@@ -200,6 +201,7 @@
         for (i = 0; i < this.right_up_list.length; i++) {
           this.right_up_list[i].timestr = new Date(this.right_up_list[i].time).format('yyyy-MM-dd');
         }
+        this.selected_news = this.left_up_list[0].title;
       }
     },
     methods: {
@@ -215,7 +217,14 @@
         axios.get('api/search_main', {params: {
           theme: this.topic,
         }}).then(response => {
-          this.Demo.news_views_data = {}
+          if (this.topic === '南海') {
+            this.graph_data = ChartLib['南海图谱']
+          } else if (this.topic === '朝核') {
+            this.graph_data = ChartLib['朝核图谱']
+          } else {
+            this.graph_data = ChartLib['台选图谱']
+          }
+          this.Demo.news_views_data = {};
           this.Demo.news_views_data['time'] = response.data.news_views_time_data;
           this.Demo.news_views_data['crisis'] = response.data.news_views_crisis_data;
           this.Demo.hot_data = response.data.hot_data;
@@ -240,11 +249,24 @@
           this.options.left_down.option.series[0].data = this.Demo.hot_data.data;
 
         // 情绪分布图
-          this.options.right1_down.option = ChartLib['情绪分布图'].option;
-          this.options.right1_down.option.xAxis[0].data = this.Demo.sentiment_data.sentiment_date;
+        //   this.options.right1_down.option = ChartLib['情绪分布图'].option;
+        //   this.options.right1_down.option.xAxis[0].data = this.Demo.sentiment_data.sentiment_date;
         // console.log(this.options.right1_down.option.xAxis.data);
-          this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
-          this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
+        //   this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
+        //   this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
+
+          this.options.right1_down.option = ChartLib['事件图谱'].option;
+          this.options.right1_down.option.series[0].data = this.graph_data['nodelist'];
+          this.options.right1_down.option.series[0].links = this.graph_data['linklist'];
+          this.options.right1_down.option.series[0].itemStyle.normal = {
+            label: {
+              show: true
+            }
+          };
+        //   this.options.right1_down.option.xAxis[0].data = this.Demo.sentiment_data.sentiment_date;
+        // console.log(this.options.right1_down.option.xAxis.data);
+        //   this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
+        //   this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
 
         //  热点事件图
         //   this.options.right_down.option = ChartLib['南海气泡图'].option;
@@ -286,10 +308,11 @@
             }
           });
           this.options.right_down.option = ChartLib['事件预测图'];
-          this.options.right_down.option.grid.top = '10%'
-          this.options.right_down.option.grid.bottom = '20%'
-          this.options.right_down.option.grid.left = '50%'
-          this.options.right_down.option.grid.right = '15%'
+          this.options.right_down.option.title = null;
+          this.options.right_down.option.grid.top = '5%';
+          this.options.right_down.option.grid.bottom = '20%';
+          this.options.right_down.option.grid.left = '55%';
+          this.options.right_down.option.grid.right = '15%';
           this.options.right_down.option.yAxis[0].data = this.legendData;
           this.options.right_down.option.yAxis[0].axisLabel.formatter = (value, index) => {
             let res = '{grey|' + value + '}{blue|' + seriesData3[index].value + '%}';
