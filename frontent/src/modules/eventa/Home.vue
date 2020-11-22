@@ -3,14 +3,14 @@
     <v-header :headdata='headdata' :topic="topic"></v-header>
     <div class="page-wrapper" v-title data-title="事件分析">
       <!-- <v-filter-tab @update:filter="updateFilter"></v-filter-tab> -->
-      <v-search-box :search-input.sync="searchInput" :search-time="loadingTime" :predict-events.sync="predict_events"></v-search-box>
+      <v-search-box :search-input.sync="searchInput" :search-time="loadingTime" :predict-events="predict_events"></v-search-box>
       <div class="row" :style="chartStyle">
         <div class="col-8">
           <div id="left_up" ref="myCharts" style="width:100%; height: 100%; padding: 10px"></div>
         </div>
         <div class="col-4">
           <div id="right_up" ref="myCharts" style="width:100%; height: 80%; top: 10%; padding: 10px 0"></div>
-          <div style="text-align: center">{{ nextevent_content }}</div>
+          <div style="text-align: center">{{ searchInput.predictEvent }}</div>
         </div>
       </div>
       <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 5px; margin-bottom: 15px">支撑材料</div>
@@ -174,10 +174,13 @@ export default {
     this.topic = this.$route.query.queryId;
     if (this.topic === '南海') {
       this.predict_events = ['美国进行南海航行自由行动', '美国发布挑衅南海主权和权益言论'];
+      this.searchInput.predictEvent = this.predict_events[0]
     } else if (this.topic === '朝核') {
       this.predict_events = ['朝鲜采取军事行动等过激行为', '西方国家针对朝鲜进行制裁'];
+      this.searchInput.predictEvent = this.predict_events[0]
     } else {
       this.predict_events = ['台湾政局核心人物鼓吹台独', '台湾政局发生大规模人事变化'];
+      this.searchInput.predictEvent = this.predict_events[0]
     }
     if (this.$route.query.startDate) {
       this.searchInput.dateStart = new Date(this.$route.query.startDate);
@@ -200,6 +203,15 @@ export default {
       this.timelineStyle.height = (window.innerHeight - 173.5) * 0.6 + 'px'
       this.supportStyle.height = (window.innerHeight - 173.5) * 0.45 - 74 + 'px'
     },
+    sendReport () {
+      axios.post('REPORT_API_PATH', {
+        data: this.Demo.report_data
+      }).then(response => {
+        console.log(response)
+      }).error(e => {
+        console.log(e)
+      })
+    },
     findDatas: function (filter = {
       selectedTypes: [],
       selectedLanguge: '全部',
@@ -217,7 +229,7 @@ export default {
         this.Demo = response.data;
         require(['../../components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
         var myChart = echarts.init(document.getElementById('left_up'));
-        var left_up_option = ChartLib['事件图谱'].option;
+        var left_up_option = JSON.parse(JSON.stringify(ChartLib['事件图谱'].option));
         var nodelist = [];
         _.forEach(this.Demo.graph_data.nodelist, (item) => {
           if (item.category !== 0 && item.category !== 4) {
@@ -233,8 +245,13 @@ export default {
             nodelist.push(item)
           }
         });
+        left_up_option.legend = {
+          data: this.Demo.graph_data.categories
+        };
         left_up_option.series[0].data = nodelist;
         left_up_option.series[0].links = this.Demo.graph_data.linklist;
+        left_up_option.series[0].categories = this.Demo.graph_data.categories;
+        left_up_option.series[0].zoom = 2;
         myChart.setOption(left_up_option);
         myChart = echarts.init(document.getElementById('right_up'));
         this.nextevent_news = this.Demo.nextevent_news_pro;

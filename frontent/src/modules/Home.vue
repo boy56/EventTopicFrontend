@@ -255,7 +255,7 @@
         //   this.options.right1_down.option.series[0].data = this.Demo.sentiment_data.sentiment_neg;
         //   this.options.right1_down.option.series[1].data = this.Demo.sentiment_data.sentiment_pos;
 
-          this.options.right1_down.option = ChartLib['事件图谱'].option;
+          this.options.right1_down.option = JSON.parse(JSON.stringify(ChartLib['事件图谱'].option));
           this.options.right1_down.option.series[0].data = this.graph_data['nodelist'];
           this.options.right1_down.option.series[0].links = this.graph_data['linklist'];
           this.options.right1_down.option.series[0].itemStyle.normal = {

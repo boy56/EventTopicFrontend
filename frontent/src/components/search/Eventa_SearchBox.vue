@@ -12,6 +12,7 @@
     <div class="col-md-2 search-btns">
       <!-- 以下提交按钮在PC端显示 -->
       <button class="search-title btn" @click="searchTitle">搜索</button>
+      <button class="search-title btn" @click="sendReport">素材推送</button>
       <!-- <button class="search-title-cont btn" @click="searchTitleText">搜标题+正文</button> -->
     </div>
     <div class="col-md-2" style="padding: 6px">
@@ -68,6 +69,9 @@
         this.searchInput.includeText = true;
         this.$emit('update:searchInput', _.cloneDeep(this.searchInput));
       },
+      sendReport: function () {
+        this.$parent.sendReport();
+      }
     },
     components: {
       'v-datepicker': Datepicker,
