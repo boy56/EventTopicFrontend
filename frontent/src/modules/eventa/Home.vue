@@ -28,8 +28,8 @@
         <div class="col-6">
           <div class="views-card-list" :style="supportStyle">
             <div class="views-card" v-for="view in nextevent_views" :key="view.title">
-              <div class="views-card_fire"><img src="~assets/image/fire.png" :style="'height:20px; opacity: '+ parseFloat(view.weight)/10 "></div>
-              <div class="views-card_org" v-html="view.org"></div>
+              <div class="views-card_fire"><img src="~assets/image/fire.png" :style="'height:20px; margin-top: -20px;opacity: '+ parseFloat(view.weight)/10 "></div>
+              <div class="views-card_org" v-html="view.org" :title="view.org"></div>
               <div class="views-card_viewpoint" :title="view.viewpoint">{{ view.viewpoint }}</div>
               <div class="views-card_time">{{ view.time }}</div>
             </div>
@@ -692,6 +692,10 @@ th.active .arrow {
     display: inline-block
     font-size: 20px
     vertical-align: center
+    overflow: hidden
+    text-overflow: ellipsis
+    width: 480px
+    white-space: nowrap
 
   .views-card_viewpoint
     height: 48px

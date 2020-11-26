@@ -19,7 +19,7 @@
             当前专题：<span style="color: white; font-weight: 700; font-family: 'Microsoft Yahei'">{{topic}}专题</span>
           </div>
           <li class="nav-item" style='color: white'>
-            <a :href='"#/?event="+topic' class="nav-link active" target="_self" style='color: white'>
+            <a :href='"#/?queryId="+topic' class="nav-link active" target="_self" style='color: white'>
               <img src="~assets/image/home.png" alt="">
             </a>
           </li>

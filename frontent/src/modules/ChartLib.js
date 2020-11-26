@@ -1374,8 +1374,8 @@ const ChartLib = {
   '台选图谱': {
     nodelist: [
       {
-        ID: '台选专题',
-        name: '台选专题',
+        ID: '台湾专题',
+        name: '台湾专题',
         symbolSize: 16,
         category: 0
       },
