@@ -178,8 +178,11 @@ export default {
     } else if (this.topic === '朝核') {
       this.predict_events = ['朝鲜采取军事行动等过激行为', '西方国家针对朝鲜进行制裁'];
       this.searchInput.predictEvent = this.predict_events[0]
-    } else {
+    } else if (this.topic === '台选') {
       this.predict_events = ['台湾政局核心人物鼓吹台独', '台湾政局发生大规模人事变化'];
+      this.searchInput.predictEvent = this.predict_events[0]
+    } else if (this.topic === '预演') {
+      this.predict_events = ['美国对南海岛礁进行军事打击', '台湾对美军南海战略进行响应', '美国军舰在南海进行游弋', '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动'];
       this.searchInput.predictEvent = this.predict_events[0]
     }
     if (this.$route.query.startDate) {

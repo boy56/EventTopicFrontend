@@ -167,7 +167,7 @@
     },
     mounted () {
       if (this.$route.query.queryId) {
-        if (this.$route.query.queryId === '南海' || this.$route.query.queryId === '朝核' || this.$route.query.queryId === '台选' || this.$route.query.queryId === '危机') {
+        if (this.$route.query.queryId === '南海' || this.$route.query.queryId === '朝核' || this.$route.query.queryId === '台选' || this.$route.query.queryId === '预演') {
           this.clicking(this.$route.query.queryId);
         } else {
           this.topic = '南海';

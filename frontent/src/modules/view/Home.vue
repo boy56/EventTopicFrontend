@@ -55,6 +55,10 @@ export default {
     if (this.$route.query.endDate) {
       this.searchInput.dateEnd = new Date(this.$route.query.endDate);
     }
+    if (this.topic === '预演') {
+      this.searchInput.dateStart = new Date('2022-8-20');
+      this.searchInput.dateEnd = new Date('2022-8-20');
+    }
     this.findDatas();
   },
   mounted () {
