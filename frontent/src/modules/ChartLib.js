@@ -43,7 +43,7 @@ const ChartLib = {
         }
       },
       legend: {
-        data: ['朝核','南海','台选'],
+        data: ['朝核','南海','台选', '预演'],
         textStyle: {
           color: '#fff'
         },
@@ -1635,6 +1635,348 @@ const ChartLib = {
         symbolSize: 1
       }
     ]
-  }
+  },
+  '预演图谱': {
+    nodelist: [
+      {
+        ID: '预演专题',
+        name: '预演专题',
+        symbolSize: 16,
+        category: 0
+      },
+      {
+        ID: '事件',
+        name: '事件',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '专家',
+        name: '专家',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '组织',
+        name: '组织',
+        symbolSize: 15,
+        category: 1
+      },
+      {
+        ID: '美国对南海岛礁进行军事打击',
+        name: '美国对南海岛礁进行军事打击',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '台湾对美军南海战略进行响应',
+        name: '台湾对美军南海战略进行响应',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '美国军舰在南海进行游弋',
+        name: '美国军舰在南海进行游弋',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动',
+        name: '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '美国国务卿布林肯',
+        name: '美国国务卿布林肯',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '美国总统拜登',
+        name: '美国总统拜登',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '台湾领导人蔡英文',
+        name: '台湾领导人蔡英文',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '南部战区新闻发言人李华敏',
+        name: '南部战区新闻发言人李华敏',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '国防部新闻局副局长任国强',
+        name: '国防部新闻局副局长任国强',
+        symbolSize: 10,
+        category: 3
+      },
+      {
+        ID: '外交部发言人华春莹',
+        name: '外交部发言人华春莹',
+        symbolSize: 14,
+        category: 3
+      },
+      {
+        ID: '五角大楼发言人霍夫曼',
+        name: '五角大楼发言人霍夫曼',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '外交部发言人汪文斌',
+        name: '外交部发言人汪文斌',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国第七舰队发言人安东尼.洪科',
+        name: '美国第七舰队发言人安东尼.洪科',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国海军作战部长麦克·吉尔迪',
+        name: '美国海军作战部长麦克·吉尔迪',
+        symbolSize: 12,
+        category: 3
+      },
+      {
+        ID: '美国印太司令部总司令戴维森',
+        name: '美国印太司令部总司令戴维森',
+        symbolSize: 12,
+        category: 3
+      },
+      {
+        ID: '美国国家安全顾问奥布莱恩',
+        name: '美国国家安全顾问奥布莱恩',
+        symbolSize: 9,
+        category: 3
+      },
+      {
+        ID: '美国国务院发言人摩根·奥塔格斯',
+        name: '美国国务院发言人摩根·奥塔格斯',
+        symbolSize: 12,
+        category: 3
+      },
+      {
+        ID: '美国第七舰队',
+        name: '美国第七舰队',
+        symbolSize: 14,
+        category: '组织'
+      },
+      {
+        ID: '美国国防部',
+        name: '美国国防部',
+        symbolSize: 10,
+        category: '组织'
+      },
+      {
+        ID: '美国国务院',
+        name: '美国国务院',
+        symbolSize: 14,
+        category: '组织'
+      },
+      {
+        ID: '美国印太司令部',
+        name: '美国印太司令部',
+        symbolSize: 13,
+        category: '组织'
+      },
+      {
+        ID: '美国外交部',
+        name: '美国外交部',
+        symbolSize: 11,
+        category: '组织'
+      },
+      {
+        ID: '美国海军作战部',
+        name: '美国海军作战部',
+        symbolSize: 10,
+        category: '组织'
+      },
+      {
+        ID: '五角大楼',
+        name: '五角大楼',
+        symbolSize: 13,
+        category: 4
+      },
+      {
+        ID: '越南外交部',
+        name: '越南外交部',
+        symbolSize: 9,
+        category: 4
+      },
+      {
+        ID: '中国外交部',
+        name: '中国外交部',
+        symbolSize: 12,
+        category: 4
+      },
+      {
+        ID: '中国国防部',
+        name: '中国国防部',
+        symbolSize: 14,
+        category: 4
+      }
+    ],
+    linklist: [
+      {
+        source: '预演专题',
+        target: '事件',
+        symbolSize: 1
+      },
+      {
+        source: '预演专题',
+        target: '专家',
+        symbolSize: 1
+      },
+      {
+        source: '预演专题',
+        target: '组织',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '美国对南海岛礁进行军事打击',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '台湾对美军南海战略进行响应',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '美国军舰在南海进行游弋',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国务卿布林肯',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国总统拜登',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '台湾领导人蔡英文',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '南部战区新闻发言人李华敏',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '国防部新闻局副局长任国强',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '外交部发言人华春莹',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '五角大楼发言人霍夫曼',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '外交部发言人汪文斌',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国第七舰队发言人安东尼.洪科',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国海军作战部长麦克·吉尔迪',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国印太司令部总司令戴维森',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国家安全顾问奥布莱恩',
+        symbolSize: 1
+      },
+      {
+        source: '专家',
+        target: '美国国务院发言人摩根·奥塔格斯',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国第七舰队',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国防部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国国务院',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国印太司令部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '美国海军作战部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '五角大楼',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '越南外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国外交部',
+        symbolSize: 1
+      },
+      {
+        source: '组织',
+        target: '中国国防部',
+        symbolSize: 1
+      }
+    ]
+  },
 };
 export {ChartLib};

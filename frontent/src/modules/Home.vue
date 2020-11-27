@@ -51,6 +51,7 @@
             <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(6561)</td>
             <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(6440)</td>
             <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(14384)</td>
+            <td :style="{color: topic_color4}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('预演')">预演专题(5322)</td>
           </tr>
         </table>
         <div style="top:0;bottom:3%;height: 105%;width: 120%;margin-left: -10%;margin-top: 5%">
@@ -140,6 +141,7 @@
         topic_color1: 'red',
         topic_color2: '#00abff',
         topic_color3: '#00abff',
+        topic_color4: '#00abff',
         topics: [1,2,3],
         topic_index: 0,
         intervalID: null,
@@ -165,7 +167,7 @@
     },
     mounted () {
       if (this.$route.query.queryId) {
-        if (this.$route.query.queryId === '南海' || this.$route.query.queryId === '朝核' || this.$route.query.queryId === '台选') {
+        if (this.$route.query.queryId === '南海' || this.$route.query.queryId === '朝核' || this.$route.query.queryId === '台选' || this.$route.query.queryId === '危机') {
           this.clicking(this.$route.query.queryId);
         } else {
           this.topic = '南海';
@@ -221,8 +223,10 @@
             this.graph_data = ChartLib['南海图谱']
           } else if (this.topic === '朝核') {
             this.graph_data = ChartLib['朝核图谱']
-          } else {
+          } else if (this.topic === '台选') {
             this.graph_data = ChartLib['台选图谱']
+          } else {
+            this.graph_data = ChartLib['预演图谱']
           }
           this.Demo.news_views_data = {};
           this.Demo.news_views_data['time'] = response.data.news_views_time_data;
@@ -341,14 +345,22 @@
           this.topic_color1 = 'red';
           this.topic_color2 = '#00abff';
           this.topic_color3 = '#00abff';
+          this.topic_color4 = '#00abff';
         } else if (term === '朝核') {
           this.topic_color1 = '#00abff';
           this.topic_color2 = 'red';
           this.topic_color3 = '#00abff';
-        } else {
+          this.topic_color4 = '#00abff';
+        } else if (term === '台选') {
           this.topic_color1 = '#00abff';
           this.topic_color2 = '#00abff';
           this.topic_color3 = 'red';
+          this.topic_color4 = '#00abff';
+        } else if (term === '预演') {
+          this.topic_color1 = '#00abff';
+          this.topic_color2 = '#00abff';
+          this.topic_color3 = '#00abff';
+          this.topic_color4 = 'red';
         }
         this.findDatas();
       },

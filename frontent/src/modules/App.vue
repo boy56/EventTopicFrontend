@@ -84,6 +84,8 @@ export default {
         theme = '朝核';
       } else if (question.indexOf('台') !== -1) {
         theme = '台选';
+      } else if (question.indexOf('预演') !== -1) {
+        theme = '预演';
       }
 
       if (question.indexOf('新闻') !== -1) {
