@@ -1699,8 +1699,8 @@ const ChartLib = {
         category: 3
       },
       {
-        ID: '台湾领导人蔡英文',
-        name: '台湾领导人蔡英文',
+        ID: '台湾地区领导人蔡英文',
+        name: '台湾地区领导人蔡英文',
         symbolSize: 14,
         category: 3
       },

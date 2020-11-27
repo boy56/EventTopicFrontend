@@ -10,7 +10,7 @@
         </div>
         <div class="col-4">
           <div id="right_up" ref="myCharts" style="width:100%; height: 80%; top: 10%; padding: 10px 0"></div>
-          <div style="text-align: center">{{ searchInput.predictEvent }}</div>
+          <div style="text-align: center">{{ page_predict_event }}</div>
         </div>
       </div>
       <div style="text-align: center;font-size: 20px; background: #03c9a9;font-family: 'SimHei'; font-weight: 700; margin-top: 5px; margin-bottom: 15px">支撑材料</div>
@@ -68,6 +68,7 @@ export default {
       sourceMap: {},
       left_down_data: [],
       nextevent_content: '',
+      page_predict_event: '',
       topic: null,
       Demo: null,
       loadingTime: 0.795,
@@ -233,13 +234,13 @@ export default {
         predict_event: this.searchInput.predictEvent,
         theme: this.topic,  // 需要根据一级页面的专题选项进入二级页面的时候更改
       }}).then(response => {
+        this.page_predict_event = this.searchInput.predictEvent
         this.Demo = response.data;
         require(['../../components/common/TimelineJS/timeline.js'], TL => this.newmakeTimeLine(TL.default));
         var myChart = echarts.init(document.getElementById('left_up'));
         var left_up_option = JSON.parse(JSON.stringify(ChartLib['事件图谱'].option));
         var nodelist = [];
         _.forEach(this.Demo.graph_data.nodelist, (item) => {
-          console.log(item.name)
           if (item.category !== 0 && item.category !== 4) {
             item.itemStyle = {
               normal: {
