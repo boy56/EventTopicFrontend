@@ -1681,8 +1681,8 @@ const ChartLib = {
         category: 2
       },
       {
-        ID: '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动',
-        name: '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动',
+        ID: '其他国家对南海进行军事入侵活动',
+        name: '其他国家对南海进行军事入侵活动',
         symbolSize: 14,
         category: 2
       },
@@ -1858,7 +1858,7 @@ const ChartLib = {
       },
       {
         source: '事件',
-        target: '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动',
+        target: '其他国家对南海进行军事入侵活动',
         symbolSize: 1
       },
       {
@@ -1873,7 +1873,7 @@ const ChartLib = {
       },
       {
         source: '专家',
-        target: '台湾领导人蔡英文',
+        target: '台湾地区领导人蔡英文',
         symbolSize: 1
       },
       {

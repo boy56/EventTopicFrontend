@@ -182,7 +182,7 @@ export default {
       this.predict_events = ['台湾政局核心人物鼓吹台独', '台湾政局发生大规模人事变化'];
       this.searchInput.predictEvent = this.predict_events[0]
     } else if (this.topic === '预演') {
-      this.predict_events = ['美国对南海岛礁进行军事打击', '台湾对美军南海战略进行响应', '美国军舰在南海进行游弋', '东南亚周边国家、英国、澳大利亚等国家对南海进行军事入侵活动'];
+      this.predict_events = ['美国对南海岛礁进行军事打击', '台湾对美军南海战略进行响应', '美国军舰在南海进行游弋', '其他国家对南海进行军事入侵活动'];
       this.searchInput.predictEvent = this.predict_events[0]
     }
     if (this.$route.query.startDate) {
@@ -190,6 +190,10 @@ export default {
     }
     if (this.$route.query.endDate) {
       this.searchInput.dateEnd = new Date(this.$route.query.endDate);
+    }
+    if (this.topic === '预演') {
+      this.searchInput.dateStart = new Date('2022-08-22')
+      this.searchInput.dateEnd = new Date('2022-08-22')
     }
     window.addEventListener('resize', this.getHeight);
     this.getHeight();
@@ -235,6 +239,7 @@ export default {
         var left_up_option = JSON.parse(JSON.stringify(ChartLib['事件图谱'].option));
         var nodelist = [];
         _.forEach(this.Demo.graph_data.nodelist, (item) => {
+          console.log(item.name)
           if (item.category !== 0 && item.category !== 4) {
             item.itemStyle = {
               normal: {
