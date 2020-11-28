@@ -51,7 +51,7 @@
             <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">南海专题(6561)</td>
             <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(6440)</td>
             <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(14384)</td>
-            <td :style="{color: topic_color4}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('预演')">预演专题(5322)</td>
+            <td :style="{color: topic_color4}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('预演')">美台南海行动专题(5322)</td>
           </tr>
         </table>
         <div style="top:0;bottom:3%;height: 105%;width: 120%;margin-left: -10%;margin-top: 5%">
@@ -138,10 +138,10 @@
       return {
         Demo: {},
         topic: null,
-        topic_color1: 'red',
+        topic_color1: '#00abff',
         topic_color2: '#00abff',
         topic_color3: '#00abff',
-        topic_color4: '#00abff',
+        topic_color4: 'red',
         topics: [1,2,3],
         topic_index: 0,
         intervalID: null,
@@ -170,10 +170,10 @@
         if (this.$route.query.queryId === '南海' || this.$route.query.queryId === '朝核' || this.$route.query.queryId === '台选' || this.$route.query.queryId === '预演') {
           this.clicking(this.$route.query.queryId);
         } else {
-          this.topic = '南海';
+          this.topic = '预演';
         }
       } else {
-        this.topic = '南海';
+        this.topic = '预演';
       }
       this.findDatas();
     },

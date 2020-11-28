@@ -78,13 +78,15 @@ export default {
       // }).error(e => {
       //   console.log(e);
       // })
-      if (question.indexOf('南') !== -1) {
+      if ((question.indexOf('美') !== -1 && question.indexOf('台') !== -1) || (question.indexOf('美') !== -1 && question.indexOf('南') !== -1)) {
+        theme = '预演';
+      } else if (question.indexOf('南') !== -1) {
         theme = '南海';
       } else if (question.indexOf('朝') !== -1) {
         theme = '朝核';
       } else if (question.indexOf('台') !== -1) {
         theme = '台选';
-      } else if (question.indexOf('预演') !== -1) {
+      } else if (question.indexOf('返回主页') !== -1) {
         theme = '预演';
       }
 
@@ -114,7 +116,7 @@ export default {
         lang = '中文';
       }
 
-      let data = JSON.stringify({'question': e.data, 'answer': '以下是' + theme + '专题的相关' + (lang !== '中文' ? lang : '') + content + '内容'});
+      let data = JSON.stringify({'question': e.data, 'answer': '以下是' + (theme === '预演' ? '美台南海行动' : theme) + '专题的相关' + (lang !== '中文' ? lang : '') + content + '内容'});
       // this.websock.send(data);
       console.log(data)
       if (theme !== '') {

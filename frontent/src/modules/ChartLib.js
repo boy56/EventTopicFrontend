@@ -1669,20 +1669,20 @@ const ChartLib = {
         category: 2
       },
       {
-        ID: '台湾对美军南海战略进行响应',
-        name: '台湾对美军南海战略进行响应',
+        ID: '台湾提高太平岛守军战备等级',
+        name: '台湾提高太平岛守军战备等级',
         symbolSize: 14,
         category: 2
       },
       {
-        ID: '美国军舰在南海进行游弋',
-        name: '美国军舰在南海进行游弋',
+        ID: '美方派遣更多功能和数量的军船赴台',
+        name: '美方派遣更多功能和数量的军船赴台',
         symbolSize: 14,
         category: 2
       },
       {
-        ID: '其他国家对南海进行军事入侵活动',
-        name: '其他国家对南海进行军事入侵活动',
+        ID: '五眼联盟国家对南海进行军事入侵',
+        name: '五眼联盟国家对南海进行军事入侵',
         symbolSize: 14,
         category: 2
       },
@@ -1848,17 +1848,17 @@ const ChartLib = {
       },
       {
         source: '事件',
-        target: '台湾对美军南海战略进行响应',
+        target: '台湾提高太平岛守军战备等级',
         symbolSize: 1
       },
       {
         source: '事件',
-        target: '美国军舰在南海进行游弋',
+        target: '美方派遣更多功能和数量的军船赴台',
         symbolSize: 1
       },
       {
         source: '事件',
-        target: '其他国家对南海进行军事入侵活动',
+        target: '五眼联盟国家对南海进行军事入侵',
         symbolSize: 1
       },
       {

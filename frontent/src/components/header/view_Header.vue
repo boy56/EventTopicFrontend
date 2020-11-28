@@ -16,7 +16,7 @@
 
         <b-navbar-nav class="ml-auto pc-nav" style='color: white'>
           <div style="padding: 1.5rem">
-            当前专题：<span style="color: white; font-weight: 700; font-family: 'Microsoft Yahei'">{{topic}}专题</span>
+            当前专题：<span style="color: white; font-weight: 700; font-family: 'Microsoft Yahei'">{{ topic === '预演' ? '美台南海行动': topic }}专题</span>
           </div>
           <li class="nav-item" style='color: white'>
             <a :href='"#/?queryId="+topic' class="nav-link active" target="_self" style='color: white'>
