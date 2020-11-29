@@ -315,7 +315,7 @@
           this.options.right_down.option.title = null;
           this.options.right_down.option.grid.top = '5%';
           this.options.right_down.option.grid.bottom = '20%';
-          this.options.right_down.option.grid.left = '55%';
+          this.options.right_down.option.grid.left = '60%';
           this.options.right_down.option.grid.right = '15%';
           this.options.right_down.option.yAxis[0].data = this.legendData;
           this.options.right_down.option.yAxis[0].axisLabel.formatter = (value, index) => {

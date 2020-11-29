@@ -666,6 +666,7 @@ th.active .arrow {
       display: inline-block
       width: 90%
       height: 60px
+      overflow: hidden
       font-weight: 700
       font-size: 20px
 
