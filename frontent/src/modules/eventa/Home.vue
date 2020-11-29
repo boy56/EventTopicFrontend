@@ -183,7 +183,7 @@ export default {
       this.predict_events = ['台湾政局核心人物鼓吹台独', '台湾政局发生大规模人事变化'];
       this.searchInput.predictEvent = this.predict_events[0]
     } else if (this.topic === '预演') {
-      this.predict_events = ['美国对南海岛礁进行军事打击', '台湾提高太平岛守军战备等级', '美方派遣更多功能和数量的军船赴台', '五眼联盟国家对南海进行军事入侵'];
+      this.predict_events = ['美国对南海岛礁进行军事打击', '台湾提高太平岛守军战备等级', '美方派遣更多功能和数量的军船赴台', '越菲加大对我南海岛礁侵权活动力度', '美方加大南海航行自由行动力度和频率'];
       this.searchInput.predictEvent = this.predict_events[0]
     }
     if (this.$route.query.startDate) {

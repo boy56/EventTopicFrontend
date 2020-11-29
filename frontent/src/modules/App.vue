@@ -80,7 +80,7 @@ export default {
       // })
       if ((question.indexOf('美') !== -1 && question.indexOf('台') !== -1) || (question.indexOf('美') !== -1 && question.indexOf('南') !== -1)) {
         theme = '预演';
-      } else if (question.indexOf('南') !== -1) {
+      } else if (question.indexOf('航') !== -1 && question.indexOf('自') !== -1) {
         theme = '南海';
       } else if (question.indexOf('朝') !== -1) {
         theme = '朝核';
@@ -90,8 +90,8 @@ export default {
         theme = '预演';
       }
 
-      if (question.indexOf('新闻') !== -1) {
-        content = '新闻';
+      if (question.indexOf('情报') !== -1) {
+        content = '开源情报';
         nextPath = '/xuanti';
       } else if (question.indexOf('观点') !== -1) {
         content = '观点';
@@ -116,7 +116,7 @@ export default {
         lang = '中文';
       }
 
-      let data = JSON.stringify({'question': e.data, 'answer': '以下是' + (theme === '预演' ? '美台南海行动' : theme) + '专题的相关' + (lang !== '中文' ? lang : '') + content + '内容'});
+      let data = JSON.stringify({'question': e.data, 'answer': '以下是' + (theme === '南海' ? '航行自由' : (theme === '预演' ? '美台南海行动' : theme)) + '专题的相关' + (lang !== '中文' ? lang : '') + content + '内容'});
       // this.websock.send(data);
       console.log(data)
       if (theme !== '') {

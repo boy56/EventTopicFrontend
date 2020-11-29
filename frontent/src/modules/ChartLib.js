@@ -811,8 +811,8 @@ const ChartLib = {
   '南海图谱': {
     nodelist: [
       {
-        ID: '南海专题',
-        name: '南海专题',
+        ID: '航行自由专题',
+        name: '航行自由专题',
         symbolSize: 16,
         category: 0
       },
@@ -975,17 +975,17 @@ const ChartLib = {
     ],
     linklist: [
       {
-        source: '南海专题',
+        source: '航行自由专题',
         target: '事件',
         symbolSize: 1
       },
       {
-        source: '南海专题',
+        source: '航行自由专题',
         target: '专家',
         symbolSize: 1
       },
       {
-        source: '南海专题',
+        source: '航行自由专题',
         target: '组织',
         symbolSize: 1
       },
@@ -1681,8 +1681,14 @@ const ChartLib = {
         category: 2
       },
       {
-        ID: '五眼联盟国家对南海进行军事入侵',
-        name: '五眼联盟国家对南海进行军事入侵',
+        ID: '越菲加大对我南海岛礁侵权活动力度',
+        name: '越菲加大对我南海岛礁侵权活动力度',
+        symbolSize: 14,
+        category: 2
+      },
+      {
+        ID: '美方加大南海航行自由行动力度和频率',
+        name: '美方加大南海航行自由行动力度和频率',
         symbolSize: 14,
         category: 2
       },
@@ -1858,7 +1864,12 @@ const ChartLib = {
       },
       {
         source: '事件',
-        target: '五眼联盟国家对南海进行军事入侵',
+        target: '越菲加大对我南海岛礁侵权活动力度',
+        symbolSize: 1
+      },
+      {
+        source: '事件',
+        target: '美方加大南海航行自由行动力度和频率',
         symbolSize: 1
       },
       {
