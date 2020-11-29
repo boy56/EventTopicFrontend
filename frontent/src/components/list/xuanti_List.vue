@@ -17,7 +17,7 @@
         <div class="table-tr" v-for="(item) in dispValues" :key="item.newsid">
           <!-- 正常列表 -->
           <div class="table-tr-row">
-            <div class="table-td td-type">{{ item.theme_label }}</div>
+            <div class="table-td td-type">{{ item.theme_label !== '南海' ? item.theme_label : '航行自由'}}</div>
             <div class="table-td td-title"
                  @click="viewTrendGraph(item.title, item.content, item.orgs, item.persons, item.title_zh, item.content_zh, item.url)">
               <div class="title-link"

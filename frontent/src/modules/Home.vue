@@ -95,7 +95,7 @@
     </div>
     <div class="con-box l-b-box">
       <div style="text-align: center; margin-bottom: .5rem">
-        <span style="font-size: 20px;color:white">热度趋势</span>
+        <span style="font-size: 20px;color:white">专题热度趋势</span>
       </div>
       <!-- <font size="3" color="white">{{Data.}}</font> -->
       <Echarts theme="ring" :option="options.left_down.option" className="chart" ></Echarts>
@@ -249,7 +249,7 @@
         // 热度趋势图
           this.options.left_down.option = ChartLib['折线图南海'].option;
           // this.options.left_down.option.xAxis.data = this.Demo.hot_data.hot_date;
-          this.options.left_down.option.series[0].name = this.topic
+          this.options.left_down.option.series[0].name = this.topic === '南海' ? '航行自由' : (this.topic === '预演' ? '美台南海行动' : this.topic);
           this.options.left_down.option.series[0].data = this.Demo.hot_data.data;
 
         // 情绪分布图

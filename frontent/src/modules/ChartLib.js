@@ -43,7 +43,7 @@ const ChartLib = {
         }
       },
       legend: {
-        data: ['朝核','南海','台选', '预演'],
+        data: ['朝核','航行自由','台选', '美台南海行动'],
         textStyle: {
           color: '#fff'
         },
