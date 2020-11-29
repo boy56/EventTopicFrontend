@@ -48,10 +48,10 @@
       <div class="con-box world-map">
         <table style="width:100%; margin-bottom: -40px">
           <tr>
-            <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">航行自由专题(6561)</td>
-            <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题(6440)</td>
-            <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题(14384)</td>
-            <td :style="{color: topic_color4}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('预演')">美台南海行动专题(5322)</td>
+            <td :style="{color: topic_color1}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('南海')">航行自由专题<br>(6561)</td>
+            <td :style="{color: topic_color2}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('朝核')">朝核专题<br>(6440)</td>
+            <td :style="{color: topic_color3}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('台选')">台湾专题<br>(14384)</td>
+            <td :style="{color: topic_color4}" style="background-color: rgb(0, 0, 0);text-align: center;" @click="clicking('预演')">美台南海行动专题<br>(5322)</td>
           </tr>
         </table>
         <div style="top:0;bottom:3%;height: 105%;width: 120%;margin-left: -10%;margin-top: 5%">
