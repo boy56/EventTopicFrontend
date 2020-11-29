@@ -18,7 +18,7 @@
         <div class="col-6">
           <div class="news-card-list" :style="supportStyle">
             <div class="news-card" v-for="news in nextevent_news" :key="news.title">
-              <div class="news-card_title" v-html="news.title"></div>
+              <div class="news-card_title" v-html="news.title" :title="news.title"></div>
               <div class="news-card_crisis">{{ news.crisis }}</div>
               <div class="news-card_source">{{ news.source }}</div>
               <div class="news-card_time">{{ news.time }}</div>
