@@ -26,7 +26,7 @@
               <li class="item box clearfix" v-bind:key=e.title v-for="e in left_up_list" @click='clicking_news(e.views, e.nextevent, e.title)' :style="e.title === selected_news ? 'background-color: rgba(30,152,255,0.5);': ''">
                 <div class="item-content">
                   <div class="content-top ">
-                    <span class="view-type attr-block">{{topic}}</span>
+                    <span class="view-type attr-block">{{ topic === '南海' ? '航行自由' : (topic === '预演' ? '美台南海行动': topic )}}</span>
                     <p class="title" :title="e.title">
                       {{ e.title }}
                       <div class="danger-image">

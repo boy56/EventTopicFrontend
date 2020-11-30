@@ -1639,8 +1639,8 @@ const ChartLib = {
   '预演图谱': {
     nodelist: [
       {
-        ID: '预演专题',
-        name: '预演专题',
+        ID: '美台南海行动专题',
+        name: '美台南海行动专题',
         symbolSize: 16,
         category: 0
       },
@@ -1833,17 +1833,17 @@ const ChartLib = {
     ],
     linklist: [
       {
-        source: '预演专题',
+        source: '美台南海行动专题',
         target: '事件',
         symbolSize: 1
       },
       {
-        source: '预演专题',
+        source: '美台南海行动专题',
         target: '专家',
         symbolSize: 1
       },
       {
-        source: '预演专题',
+        source: '美台南海行动专题',
         target: '组织',
         symbolSize: 1
       },
